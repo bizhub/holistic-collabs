@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'shopify' => [
+        'client_id' => env('SHOPIFY_CLIENT_ID'),
+        'client_secret' => env('SHOPIFY_SECRET'),
+        'callback' => env('SHOPIFY_CALLBACK'),
+    ],
+
 ];
