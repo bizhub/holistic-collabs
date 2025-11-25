@@ -17,7 +17,7 @@ class Coupon extends Model
         'code',
     ];
 
-    public function clinuc(): BelongsTo
+    public function clinic(): BelongsTo
     {
         return $this->belongsTo(Clinic::class);
     }
