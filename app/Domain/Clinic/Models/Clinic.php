@@ -3,6 +3,7 @@
 namespace Domain\Clinic\Models;
 
 use Domain\Client\Models\Client;
+use Domain\Coupon\Models\Coupon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,5 +21,10 @@ class Clinic extends Model
     public function clients(): HasMany
     {
         return $this->hasMany(Client::class);
+    }
+
+    public function coupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class);
     }
 }
