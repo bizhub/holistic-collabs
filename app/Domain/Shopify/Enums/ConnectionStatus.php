@@ -6,4 +6,5 @@ namespace Domain\Shopify\Enums;
 enum ConnectionStatus: string
 {
     case Active = 'active';
+    case Disconnected = 'disconnected';
 }
