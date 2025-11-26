@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49b66584ac8bee6a7e8eb8d895e11183",
+    "content-hash": "2dceff7c4500e6ec27e1c79453977234",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3366,6 +3366,57 @@
                 "source": "https://github.com/paragonie/sodium_compat/tree/v2.4.0"
             },
             "time": "2025-10-06T08:47:40+00:00"
+        },
+        {
+            "name": "phpclassic/php-shopify",
+            "version": "v1.2.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpclassic/php-shopify.git",
+                "reference": "e18f92ef58284be3788342283ff147798cc49f6e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpclassic/php-shopify/zipball/e18f92ef58284be3788342283ff147798cc49f6e",
+                "reference": "e18f92ef58284be3788342283ff147798cc49f6e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPShopify\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tareq Mahmood",
+                    "email": "tareqtms@yahoo.com"
+                }
+            ],
+            "description": "PHP SDK for Shopify API",
+            "homepage": "https://github.com/phpclassic/php-shopify",
+            "keywords": [
+                "php",
+                "sdk",
+                "shopify"
+            ],
+            "support": {
+                "issues": "https://github.com/phpclassic/php-shopify/issues",
+                "source": "https://github.com/phpclassic/php-shopify/tree/v1.2.15"
+            },
+            "time": "2025-07-20T17:33:37+00:00"
         },
         {
             "name": "phpdocumentor/reflection",
