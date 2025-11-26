@@ -20,7 +20,7 @@ test('password can be updated', function () {
         ->actingAs($user)
         ->from(route('user-password.edit'))
         ->put(route('user-password.update'), [
-            'current_password' => 'password',
+            'current_password' => 'secret',
             'password' => 'new-password',
             'password_confirmation' => 'new-password',
         ]);

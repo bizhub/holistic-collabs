@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shopify;
 
 use Domain\Shopify\Actions\HandleShopifyOAuthCallbackAction;
+use Domain\Shopify\Data\ShopifyOAuthData;
 use Illuminate\Http\Request;
 
 class ShopifyCallbackController
@@ -11,12 +12,15 @@ class ShopifyCallbackController
         Request $request,
         HandleShopifyOAuthCallbackAction $handleShopifyOAuthCallbackAction,
     ) {
-        $handleShopifyOAuthCallbackAction->execute($request);
+        $data = new ShopifyOAuthData(
+            shop: $request->query('shop'),
+            code: $request->query('code'),
+            state: $request->query('state'),
+            hmac: $request->query('hmac')
+        );
 
-        return redirect('integrations')->with('flash', [
-            'message' => 'Shopify connected successfully.',
-            'description' => 'Your store is now linked and ready to sync products and orders.',
-            'type' => 'success',
-        ]);
+        $handleShopifyOAuthCallbackAction->execute($data);
+
+        return redirect('integrations');
     }
 }

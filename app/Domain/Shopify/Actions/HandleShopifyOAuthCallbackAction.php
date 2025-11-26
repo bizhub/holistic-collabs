@@ -2,79 +2,74 @@
 
 namespace Domain\Shopify\Actions;
 
-use Domain\Integration\Enums\ConnectionStatus;
-use Domain\Integration\Enums\Provider;
-use Domain\Integration\Models\IntegrationConnection;
-use Illuminate\Http\Request;
+use Domain\Shopify\Data\ShopifyOAuthData;
+use Domain\Shopify\Enums\ConnectionStatus;
+use Domain\Shopify\Models\ShopifyConnection;
 use Illuminate\Support\Facades\Http;
 
 class HandleShopifyOAuthCallbackAction
 {
-    public function execute(Request $request): IntegrationConnection
+    public function execute(ShopifyOAuthData $data): ShopifyConnection
     {
-        $requestData = $request->all();
+        $this
+            ->verifyState($data)
+            ->verifyHmac($data);
 
-        $token = $this
-            ->verifyState($requestData)
-            ->verifyHmac($requestData)
-            ->exchangeCodeForAccessToken($requestData);
+        $tokenData = $this->exchangeCodeForAccessToken($data);
 
-        return $this->createConnection($requestData, $token);
+        return ShopifyConnection::updateOrCreate([
+            'url' => $data->shop,
+        ], [
+            'status'       => ConnectionStatus::Active,
+            'access_token' => $tokenData['access_token'],
+            'scope'        => $tokenData['scope'] ?? null,
+        ]);
     }
 
-    protected function verifyState(array $requestData): self
+    protected function verifyState(ShopifyOAuthData $data): self
     {
         $state = session('shopify_oauth_state');
-        if ($state !== $requestData['state']) {
+        if ($state !== $data->state) {
             abort(403, 'Invalid OAuth state');
         }
 
         return $this;
     }
 
-    protected function verifyHmac(array $requestData)
+    protected function verifyHmac(ShopifyOAuthData $data): self
     {
-        $params = $requestData;
+        $params = [
+            'code'  => $data->code,
+            'shop'  => $data->shop,
+            'state' => $data->state,
+        ];
 
-        $hmac = $params['hmac'];
-        unset($params['signature'], $params['hmac']);
         ksort($params);
-        $computed = hash_hmac('sha256', urldecode(http_build_query($params)), config('services.shopify.client_secret'));
-        if (!hash_equals($hmac, $computed)) {
+        $computed = hash_hmac(
+            'sha256',
+            http_build_query($params),
+            config('services.shopify.client_secret'),
+        );
+
+        if (!hash_equals($data->hmac, $computed)) {
             abort(403, 'Invalid HMAC signature');
         }
 
         return $this;
     }
 
-    protected function exchangeCodeForAccessToken(array $requestData): mixed
+    protected function exchangeCodeForAccessToken(ShopifyOAuthData $data): array
     {
-        $response = Http::asForm()->post("https://{$requestData['shop']}/admin/oauth/access_token", [
-            'client_id' => config('services.shopify.client_id'),
+        $response = Http::asForm()->post("https://{$data->shop}/admin/oauth/access_token", [
+            'client_id'     => config('services.shopify.client_id'),
             'client_secret' => config('services.shopify.client_secret'),
-            'code' => $requestData['code'],
+            'code'          => $data->code,
         ]);
 
-        return $response->json();
-    }
+        if (!$response->successful()) {
+            abort(500, 'Failed to exchange access token');
+        }
 
-    protected function createConnection(array $requestData, array $token): IntegrationConnection
-    {
-        return IntegrationConnection::updateOrCreate(
-            [
-                'account_id' => $this->accountContext->currentAccountId(),
-                'provider' => Provider::Shopify,
-                'credentials->shop' => $requestData['shop'],
-            ],
-            [
-                'credentials' => [
-                    'shop' => $requestData['shop'],
-                    'access_token' => $token['access_token'],
-                    'scope' => $token['scope'] ?? null,
-                ],
-                'status' => ConnectionStatus::Active,
-                'connected_at' => now(),
-            ]
-        );
+        return $response->json();
     }
 }
