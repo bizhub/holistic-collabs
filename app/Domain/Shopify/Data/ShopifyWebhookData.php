@@ -8,8 +8,7 @@ class ShopifyWebhookData extends Data
 {
     public function __construct(
         public array $payload,
-    ) {
-    }
+    ) {}
 
     public static function fromPayload(array $payload): self
     {

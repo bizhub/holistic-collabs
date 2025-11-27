@@ -20,14 +20,16 @@ defineProps<{
         <div
             class="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r"
         >
-            <div class="absolute inset-0 bg-zinc-900" />
-            <Link
+            <div class="absolute inset-0 bg-zinc-900">
+                <img src="/img/login_preview.png" class="bg-cover" />
+            </div>
+            <!-- <Link
                 :href="home()"
                 class="relative z-20 flex items-center text-lg font-medium"
             >
                 <AppLogoIcon class="mr-2 size-8 fill-current text-white" />
                 {{ name }}
-            </Link>
+            </Link> -->
             <div v-if="quote" class="relative z-20 mt-auto">
                 <blockquote class="space-y-2">
                     <p class="text-lg">&ldquo;{{ quote.message }}&rdquo;</p>
