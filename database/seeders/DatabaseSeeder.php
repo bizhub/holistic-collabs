@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Domain\Clinic\Models\Clinic;
 use Domain\User\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,5 +18,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Lex van der Woude',
             'email' => 'lex@bizhub.co.nz',
         ]);
+
+        Clinic::factory(10)->create();
     }
 }

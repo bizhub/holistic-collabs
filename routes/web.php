@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Clinic\ClinicIndexController;
+use App\Http\Controllers\Coupon\CouponIndexController;
+use App\Http\Controllers\Integration\IntegrationIndexController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Fortify\Features;
 
 Route::get('/', function () {
     return redirect('login');
@@ -11,5 +13,11 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function(){
+    Route::get('clinics', ClinicIndexController::class);
+    Route::get('coupons', CouponIndexController::class);
+    Route::get('integrations', IntegrationIndexController::class);
+});
 
 require __DIR__.'/settings.php';

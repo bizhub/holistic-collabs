@@ -2,6 +2,7 @@
 
 namespace Domain\Clinic\Models;
 
+use Database\Factories\ClinicFactory;
 use Domain\Client\Models\Client;
 use Domain\Coupon\Models\Coupon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,6 +18,11 @@ class Clinic extends Model
     protected $fillable = [
         'name',
     ];
+
+    protected static function newFactory(): ClinicFactory
+    {
+        return ClinicFactory::new();
+    }
 
     public function clients(): HasMany
     {

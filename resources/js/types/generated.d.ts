@@ -6,6 +6,7 @@ declare namespace Domain.Client.Data {
 declare namespace Domain.Clinic.Data {
     export type ClinicData = {
         id: string
+        name: string
     }
 }
 declare namespace Domain.Commission.Data {
