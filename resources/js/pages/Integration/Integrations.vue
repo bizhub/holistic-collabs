@@ -3,9 +3,9 @@ import IntegrationIndexController from '@/actions/App/Http/Controllers/Integrati
 import { Button } from '@/components/ui/button'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { Plug } from 'lucide-vue-next'
+import { Plug, ServerCrash } from 'lucide-vue-next'
 
-defineProps<{}>()
+// defineProps<{}>()
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -32,7 +32,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
             <div class="flex w-full items-center justify-center rounded border-t border-slate-100 p-6">
                 <div class="my-12 flex flex-col items-center">
-                    <img src="/img/clouds.svg" width="250" />
+                    <ServerCrash class="size-10 text-primary-700" />
                     <span class="mt-6 text-xl font-medium tracking-tight">Connect your first integration</span>
                     <p class="mb-6 text-slate-600">Get your integrations set up and start fulfilling orders faster</p>
                     <!-- <Link :href="CreateIntegrationController()"> -->

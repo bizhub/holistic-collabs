@@ -5,6 +5,12 @@ import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { Plug } from 'lucide-vue-next'
 
+interface Props {
+    commissions: Domain.Commission.Data.CommissionGroupData[]
+}
+
+defineProps<Props>()
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -20,7 +26,7 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
                 <div class="flex items-center space-x-6">
-                    <h1 class="text-3xl font-bold tracking-tight">Coupons</h1>
+                    <h1 class="text-3xl font-bold tracking-tight">Commissions</h1>
                     <Link :href="'/asd'">
                         <Button size="sm"><Plug />Connect</Button>
                     </Link>

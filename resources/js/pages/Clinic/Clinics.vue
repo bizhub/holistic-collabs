@@ -3,6 +3,7 @@ import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicI
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
+import { Plus } from 'lucide-vue-next'
 
 interface Props {
     clinics: Domain.Clinic.Data.ClinicData[]
@@ -23,14 +24,19 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="mb-6">
-                <div class="flex items-center space-x-6">
-                    <h1 class="text-3xl font-bold tracking-tight">Clinics</h1>
-                    <!-- <Link :href="CreateIntegrationController()">
-                            <Button size="sm"><Plug />Connect</Button>
-                        </Link> -->
+            <div class="mb-6 flex items-center">
+                <div class="flex-1">
+                    <div class="flex items-center space-x-6">
+                        <h1 class="text-3xl font-bold tracking-tight">Clinics</h1>
+                    </div>
+                    <p class="pt-1 text-slate-600">Manage and view all clinics in the system, including key details and linked coupons</p>
                 </div>
-                <p class="pt-1 text-slate-600">Manage and view all clinics in the system, including key details and linked coupons</p>
+                <div>
+                    <Button size="lg">
+                        <Plus />
+                        <span>Add Clinic</span>
+                    </Button>
+                </div>
             </div>
 
             <!-- component -->
@@ -53,30 +59,29 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <div class="items-center justify-between sm:flex">
                         <div class="flex items-center">
                             <a
-                                class="rounded-full focus:bg-indigo-50 focus:ring-2 focus:ring-indigo-800 focus:outline-none"
+                                class="rounded-full focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none"
                                 href=" javascript:void(0)">
-                                <div class="bg-indigo-100 px-8 py-2 text-indigo-700">
+                                <div class="bg-primary-100 px-6 py-1 text-sm text-primary-700">
                                     <p>All</p>
                                 </div>
                             </a>
                             <a
-                                class="ml-4 focus:bg-indigo-50 focus:ring-2 focus:ring-indigo-800 focus:outline-none sm:ml-8"
+                                class="ml-2 focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none sm:ml-2"
                                 href="javascript:void(0)">
-                                <div class="px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
+                                <div class="px-6 py-1 text-sm text-gray-600 hover:bg-primary-100 hover:text-primary-700">
                                     <p>Done</p>
                                 </div>
                             </a>
                             <a
-                                class="ml-4 focus:bg-indigo-50 focus:ring-2 focus:ring-indigo-800 focus:outline-none sm:ml-8"
+                                class="ml-2 focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none sm:ml-2"
                                 href="javascript:void(0)">
-                                <div class="px-8 py-2 text-gray-600 hover:bg-indigo-100 hover:text-indigo-700">
+                                <div class="px-6 py-1 text-sm text-gray-600 hover:bg-primary-100 hover:text-primary-700">
                                     <p>Pending</p>
                                 </div>
                             </a>
                         </div>
-                        <Button>Add Clinic</Button>
                     </div>
-                    <div class="mt-7 overflow-x-auto">
+                    <div class="mt-2 overflow-x-auto">
                         <table class="w-full whitespace-nowrap">
                             <tbody>
                                 <tr v-for="clinic in clinics" :key="clinic.id" class="h-16 rounded border border-gray-100 focus:outline-none">

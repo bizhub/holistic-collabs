@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
+import CommissionIndexController from '@/actions/App/Http/Controllers/Commission/CommissionIndexController'
 import CouponIndexController from '@/actions/App/Http/Controllers/Coupon/CouponIndexController'
 import IntegrationIndexController from '@/actions/App/Http/Controllers/Integration/IntegrationIndexController'
 import NavFooter from '@/components/NavFooter.vue'
@@ -9,7 +10,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { dashboard } from '@/routes'
 import { type NavItem } from '@/types'
 import { Link } from '@inertiajs/vue3'
-import { LayoutGrid, Settings, Tag, Users, Zap } from 'lucide-vue-next'
+import { Handshake, LayoutGrid, Settings, Tag, Users, Zap } from 'lucide-vue-next'
 import AppLogo from './AppLogo.vue'
 
 const mainNavItems: NavItem[] = [
@@ -17,6 +18,11 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'Commissions',
+        href: CommissionIndexController().url,
+        icon: Handshake,
     },
     {
         title: 'Clinics',

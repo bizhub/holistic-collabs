@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Clinic\ClinicIndexController;
+use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
 use App\Http\Controllers\Integration\IntegrationIndexController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function(){
+    Route::get('commissions', CommissionIndexController::class);
     Route::get('clinics', ClinicIndexController::class);
     Route::get('coupons', CouponIndexController::class);
     Route::get('integrations', IntegrationIndexController::class);

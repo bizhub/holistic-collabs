@@ -13,6 +13,10 @@ declare namespace Domain.Commission.Data {
     export type CommissionData = {
         id: string
     }
+    export type CommissionGroupData = {
+        clinic: Domain.Clinic.Data.ClinicData
+        commissions: Array<Domain.Commission.Data.CommissionData>
+    }
 }
 declare namespace Domain.Coupon.Data {
     export type CouponData = {
