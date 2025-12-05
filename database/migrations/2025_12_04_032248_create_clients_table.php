@@ -8,13 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('commissions', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('client_id')->constrained()->cascadeOnDelete();
-
-            $table->integer('amount');
+            $table->string('shopify_id');
 
             $table->timestamps();
         });
@@ -22,6 +19,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('commissions');
+        Schema::dropIfExists('clients');
     }
 };

@@ -9,6 +9,11 @@ declare namespace Domain.Clinic.Data {
         name: string
     }
 }
+declare namespace Domain.Clinic.Requests {
+    export type ClinicRequest = {
+        name: string
+    }
+}
 declare namespace Domain.Commission.Data {
     export type CommissionData = {
         id: string

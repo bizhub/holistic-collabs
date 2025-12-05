@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Client\ClientIndexController;
 use App\Http\Controllers\Clinic\ClinicIndexController;
+use App\Http\Controllers\Clinic\CreateClinicController;
+use App\Http\Controllers\Clinic\StoreClinicController;
 use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
 use App\Http\Controllers\Integration\IntegrationIndexController;
@@ -17,8 +20,13 @@ Route::get('dashboard', function () {
 
 Route::middleware('auth')->group(function(){
     Route::get('commissions', CommissionIndexController::class);
+
     Route::get('clinics', ClinicIndexController::class);
+    Route::get('clinics/create', CreateClinicController::class);
+    Route::post('clinics', StoreClinicController::class);
+
     Route::get('coupons', CouponIndexController::class);
+    Route::get('clients', ClientIndexController::class);
     Route::get('integrations', IntegrationIndexController::class);
 });
 

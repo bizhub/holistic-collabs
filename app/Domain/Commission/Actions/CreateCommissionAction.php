@@ -6,6 +6,6 @@ class CreateCommissionAction
 {
     public function execute()
     {
-        //
+        // Need coupon?
     }
 }

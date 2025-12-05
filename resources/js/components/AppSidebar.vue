@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ClientIndexController from '@/actions/App/Http/Controllers/Client/ClientIndexController'
 import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
 import CommissionIndexController from '@/actions/App/Http/Controllers/Commission/CommissionIndexController'
 import CouponIndexController from '@/actions/App/Http/Controllers/Coupon/CouponIndexController'
@@ -33,6 +34,11 @@ const mainNavItems: NavItem[] = [
         title: 'Coupons',
         href: CouponIndexController().url,
         icon: Tag,
+    },
+    {
+        title: 'Clients',
+        href: ClientIndexController().url,
+        icon: Users,
     },
     {
         title: 'Integrations',
