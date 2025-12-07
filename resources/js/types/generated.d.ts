@@ -1,6 +1,8 @@
 declare namespace Domain.Client.Data {
     export type ClientData = {
         id: string
+        name: string
+        email: string
     }
 }
 declare namespace Domain.Clinic.Data {
@@ -8,20 +10,23 @@ declare namespace Domain.Clinic.Data {
         id: string
         name: string
     }
-}
-declare namespace Domain.Clinic.Requests {
-    export type ClinicRequest = {
+    export type ClinicFormData = {
         name: string
     }
 }
 declare namespace Domain.Commission.Data {
     export type CommissionData = {
         id: string
+        status: Domain.Commission.Enums.CommissionStatus
+        amount: number
     }
     export type CommissionGroupData = {
         clinic: Domain.Clinic.Data.ClinicData
         commissions: Array<Domain.Commission.Data.CommissionData>
     }
+}
+declare namespace Domain.Commission.Enums {
+    export type CommissionStatus = 'paid' | 'pending'
 }
 declare namespace Domain.Coupon.Data {
     export type CouponData = {

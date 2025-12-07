@@ -11,7 +11,12 @@ return new class extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
+            $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
+
             $table->string('shopify_id');
+
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
 
             $table->timestamps();
         });

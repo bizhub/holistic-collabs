@@ -2,6 +2,7 @@
 
 namespace Domain\Client\Models;
 
+use Database\Factories\ClientFactory;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Models\Commission;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -20,6 +21,11 @@ class Client extends Model
         'name',
         'email',
     ];
+
+    protected static function newFactory(): ClientFactory
+    {
+        return ClientFactory::new();
+    }
 
     public function clinic(): BelongsTo
     {

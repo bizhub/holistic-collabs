@@ -42,22 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
             </div>
 
-            <!-- component -->
             <div class="w-full">
-                <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
-                <!-- <div class="px-4 py-4 md:px-10 md:py-7">
-                    <div class="flex items-center justify-between">
-                        <div
-                            class="flex cursor-pointer items-center rounded bg-slate-200 px-4 py-3 text-sm leading-none font-medium text-slate-600 hover:bg-slate-300">
-                            <p>Sort By:</p>
-                            <select aria-label="select" class="ml-1 bg-transparent focus:text-indigo-600 focus:outline-none">
-                                <option class="text-sm text-indigo-800">Latest</option>
-                                <option class="text-sm text-indigo-800">Oldest</option>
-                                <option class="text-sm text-indigo-800">Latest</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="bg-white">
                     <div class="items-center justify-between sm:flex">
                         <div class="flex items-center">

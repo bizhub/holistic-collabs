@@ -1,11 +1,11 @@
 <?php
 
-namespace Domain\Clinic\Requests;
+namespace Domain\Clinic\Data;
 
 use Spatie\LaravelData\Data;
 
 /** @typescript */
-class ClinicRequest extends Data
+class ClinicFormData extends Data
 {
     public function __construct(
         public string $name,

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Commission;
 
-use Domain\Commission\Data\CommissionData;
 use Domain\Commission\Data\CommissionGroupData;
 use Domain\Commission\Models\Commission;
 use Inertia\Inertia;
@@ -16,14 +15,11 @@ class CommissionIndexController
             ->orderBy('created_at', 'desc')
             ->get()
             ->groupBy('clinic_id')
-            ->map(function ($group) {
-                $clinic = $group->first()->clinic->toArray();
-                $commissionData = CommissionData::collect($group)->toArray();
-
-                return new CommissionGroupData(
-                    clinic: $clinic,
-                    commissions: $commissionData,
-                );
+            ->map(function ($commissions) {
+                return CommissionGroupData::from([
+                    'clinic' => $commissions->first()->clinic,
+                    'commissions' => $commissions,
+                ]);
             })
             ->values();
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Domain\Clinic\Models\Clinic;
+use Domain\Commission\Models\Commission;
 use Domain\User\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,6 +20,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'lex@bizhub.co.nz',
         ]);
 
-        Clinic::factory(10)->create();
+        Commission::factory(10)->create();
     }
 }

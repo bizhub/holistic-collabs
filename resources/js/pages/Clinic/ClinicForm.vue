@@ -13,9 +13,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const loading = ref(false)
 
-const form = useForm<Domain.Clinic.Requests.ClinicRequest>({
+const form = useForm<Domain.Clinic.Data.ClinicFormData>({
     name: '',
 })
+
+const temp = ref('')
 
 const connectIntegration = () => {
     loading.value = true
@@ -43,20 +45,19 @@ const connectIntegration = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mx-auto w-full max-w-4xl px-6 py-12">
             <div class="relative flex-1">
-                <div class="mb-10">
+                <div class="mb-10 border-b border-slate-200 pb-4">
                     <h1 class="text-3xl font-bold tracking-tight">Add Clinic</h1>
                     <p class="pt-1 text-slate-600">Integrate Fulfillr with your existing tools in just a few steps</p>
                 </div>
 
                 <form @submit.prevent="connectIntegration">
-                    <div class="space-y-10">
+                    <div class="space-y-12">
                         <div>
                             <div class="mb-5">
-                                <h2 class="text-xl font-medium tracking-tight">Connection Settings</h2>
+                                <h2 class="text-xl font-medium tracking-tight">Clinic details</h2>
                                 <p class="pt-1 text-sm text-slate-600">
-                                    Enter your API credentials from your Unleashed account.<br />
-                                    Don't know where to find these? Learn how to get your
-                                    <span class="underline">Unleashed API key →</span>
+                                    Add a new clinic and set up their referral code so new<br />
+                                    clients can be automatically linked and tracked for future commissions.
                                 </p>
                             </div>
 
@@ -64,6 +65,29 @@ const connectIntegration = () => {
                                 <div class="space-y-2">
                                     <Label for="name">Clinic Name</Label>
                                     <Input id="name" v-model="form.name" placeholder="Enter a clinics name" />
+                                </div>
+                                <div class="flex space-x-6">
+                                    <div class="flex-1 space-y-2">
+                                        <Label for="name">Contact Name</Label>
+                                        <Input id="name" v-model="temp" placeholder="Enter a clinics name" />
+                                    </div>
+                                    <div class="flex-1 space-y-2">
+                                        <Label for="name">Email</Label>
+                                        <Input id="name" v-model="temp" placeholder="Enter a clinics name" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mb-5">
+                                <h2 class="text-xl font-medium tracking-tight">Referral Code</h2>
+                                <p class="pt-1 text-sm text-slate-600">Coupon code from Shopify</p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="space-y-2">
+                                    <Label for="name">Coupon Code</Label>
+                                    <Input id="name" v-model="temp" placeholder="Enter a shopify coupon code" />
                                 </div>
                             </div>
                         </div>
