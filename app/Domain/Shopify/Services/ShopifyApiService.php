@@ -3,34 +3,39 @@
 namespace Domain\Shopify\Services;
 
 use PHPShopify\ShopifySDK;
-use Domain\Shopify\Models\ShopifyConnection;
+use Domain\Shopify\Settings\ShopifySettings;
+use Domain\Shopify\Enums\ConnectionStatus;
 
 class ShopifyApiService
 {
-    protected ShopifySDK $client;
+    protected ?ShopifySDK $client = null;
 
-    public function setConnection(ShopifyConnection $connection): self
+    public function __construct(protected ShopifySettings $settings)
     {
-        $this->client = new ShopifySDK([
-            'ShopUrl'     => $connection->url,
-            'AccessToken' => $connection->access_token,
-        ]);
-
-        return $this;
+        if ($settings->status === ConnectionStatus::Connected) {
+            $this->client = new ShopifySDK([
+                'ShopUrl'     => $settings->store_domain,
+                'AccessToken' => $settings->access_token,
+            ]);
+        }
     }
 
     public function getClient(): ShopifySDK
     {
+        if (!$this->client) {
+            throw new \RuntimeException('Shopify integration is not connected.');
+        }
+
         return $this->client;
     }
 
     public function post(string $endpoint, array $data)
     {
-        return $this->client->$endpoint->post($data);
+        return $this->getClient()->$endpoint->post($data);
     }
 
     public function get(string $endpoint, array $params = [])
     {
-        return $this->client->$endpoint->get($params);
+        return $this->getClient()->$endpoint->get($params);
     }
 }

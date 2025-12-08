@@ -16,7 +16,7 @@ class ShopifyCallbackController
             shop: $request->query('shop'),
             code: $request->query('code'),
             state: $request->query('state'),
-            hmac: $request->query('hmac')
+            hmac: $request->query('hmac'),
         );
 
         $handleShopifyOAuthCallbackAction->execute($data);

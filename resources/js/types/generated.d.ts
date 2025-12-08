@@ -38,8 +38,13 @@ declare namespace Domain.Order.Data {
         id: string
     }
 }
+declare namespace Domain.Shopify.Data {
+    export type ShopifyData = {
+        status: Domain.Shopify.Enums.ConnectionStatus
+    }
+}
 declare namespace Domain.Shopify.Enums {
-    export type ConnectionStatus = 'active' | 'disconnected'
+    export type ConnectionStatus = 'connected' | 'disconnected'
 }
 declare namespace Domain.User.Data {
     export type UserData = {

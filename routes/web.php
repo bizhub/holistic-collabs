@@ -6,7 +6,7 @@ use App\Http\Controllers\Clinic\CreateClinicController;
 use App\Http\Controllers\Clinic\StoreClinicController;
 use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
-use App\Http\Controllers\Integration\IntegrationIndexController;
+use App\Http\Controllers\Shopify\ShopifyIndexController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function(){
 
     Route::get('coupons', CouponIndexController::class);
     Route::get('clients', ClientIndexController::class);
-    Route::get('integrations', IntegrationIndexController::class);
+    Route::get('shopify', ShopifyIndexController::class);
 });
 
 require __DIR__.'/settings.php';

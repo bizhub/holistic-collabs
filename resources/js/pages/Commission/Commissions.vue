@@ -35,8 +35,7 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div class="w-full">
-                <div class="bg-white">
-                    <div class="items-center justify-between sm:flex">
+                <!-- <div class="items-center justify-between sm:flex">
                         <div class="flex items-center">
                             <a
                                 class="rounded-full focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none"
@@ -60,13 +59,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 </div>
                             </a>
                         </div>
-                    </div>
-                    <div class="mt-2 overflow-x-auto">
-                        <table class="w-full whitespace-nowrap">
-                            <tbody>
-                                <template v-for="group in commissions" :key="group.clinic.id">
-                                    <tr class="h-16 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 focus:outline-none">
-                                        <!-- <td>
+                    </div> -->
+                <div class="mt-2 overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <tbody>
+                            <template v-for="group in commissions" :key="group.clinic.id">
+                                <tr class="h-16 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 focus:outline-none">
+                                    <!-- <td>
                                         <div class="ml-5">
                                             <div class="relative flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-sm bg-slate-200">
                                                 <input
@@ -92,16 +91,16 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </div>
                                         </div>
                                     </td> -->
-                                        <td class="">
-                                            <div class="flex items-center pl-5">
-                                                <p class="mr-2 text-base leading-none text-slate-700">{{ group.clinic.name }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="pl-24">
-                                            <Badge variant="secondary">Pending</Badge>
-                                        </td>
-                                        <td class="pl-5">
-                                            <!-- <div class="flex items-center">
+                                    <td class="">
+                                        <div class="flex items-center pl-5">
+                                            <p class="mr-2 text-base leading-none text-slate-700">{{ group.clinic.name }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-24">
+                                        <Badge variant="secondary">Pending</Badge>
+                                    </td>
+                                    <td class="pl-5">
+                                        <!-- <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                 <path
                                                     d="M7.5 5H16.6667"
@@ -142,9 +141,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </svg>
                                             <p class="ml-2 text-sm leading-none text-slate-600">04/07</p>
                                         </div> -->
-                                        </td>
-                                        <td class="pl-5">
-                                            <!-- <div class="flex items-center">
+                                    </td>
+                                    <td class="pl-5">
+                                        <!-- <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                 <path
                                                     d="M3.33331 17.4998V6.6665C3.33331 6.00346 3.59671 5.36758 4.06555 4.89874C4.53439 4.4299 5.17027 4.1665 5.83331 4.1665H14.1666C14.8297 4.1665 15.4656 4.4299 15.9344 4.89874C16.4033 5.36758 16.6666 6.00346 16.6666 6.6665V11.6665C16.6666 12.3295 16.4033 12.9654 15.9344 13.4343C15.4656 13.9031 14.8297 14.1665 14.1666 14.1665H6.66665L3.33331 17.4998Z"
@@ -173,26 +172,24 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </svg>
                                             <p class="ml-2 text-sm leading-none text-slate-600">23</p>
                                         </div> -->
-                                        </td>
-                                        <td class="pl-5">
-                                            <div class="flex items-center">
-                                                <!-- <Users class="size-4 text-slate-400" /> -->
-                                                <p class="ml-2 text-sm leading-none text-slate-600">
-                                                    <span class="font-semibold">1</span> Commission
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="pl-5">
-                                            <!-- <button class="rounded bg-red-100 px-3 py-3 text-sm leading-none text-red-700 focus:outline-none">
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <!-- <Users class="size-4 text-slate-400" /> -->
+                                            <p class="ml-2 text-sm leading-none text-slate-600"><span class="font-semibold">1</span> Commission</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <!-- <button class="rounded bg-red-100 px-3 py-3 text-sm leading-none text-red-700 focus:outline-none">
                                             Due today at 18:00
                                         </button> -->
-                                        </td>
-                                        <td class="pl-4">
-                                            <div class="flex justify-end pr-4">
-                                                <Button variant="outline" size="sm">View</Button>
-                                            </div>
-                                        </td>
-                                        <!-- <td>
+                                    </td>
+                                    <td class="pl-4">
+                                        <div class="flex justify-end pr-4">
+                                            <Button variant="outline" size="sm">View</Button>
+                                        </div>
+                                    </td>
+                                    <!-- <td>
                                         <div class="relative px-5 pt-2">
                                             <button
                                                 class="rounded-md focus:ring-2 focus:outline-none"
@@ -241,39 +238,38 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </div>
                                         </div>
                                     </td> -->
-                                    </tr>
-                                    <tr
-                                        v-for="commission in group.commissions"
-                                        :key="commission.id"
-                                        class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
-                                        <td class="">
-                                            <div class="flex items-center pl-5">
-                                                <!-- <p class="mr-2 text-base leading-none text-slate-700">{{ commission.amount }}</p> -->
-                                            </div>
-                                        </td>
-                                        <td class="pl-24">
-                                            <!-- <Badge variant="secondary">Pending</Badge> -->
-                                        </td>
-                                        <td class="pl-5"></td>
-                                        <td class="pl-5"></td>
-                                        <td class="pl-5">
-                                            <div class="flex items-center">
-                                                <!-- <Users class="size-4 text-slate-400" /> -->
-                                                <p class="ml-2 text-sm leading-none text-slate-600">${{ commission.amount / 100 }}</p>
-                                            </div>
-                                        </td>
-                                        <td class="pl-5"></td>
-                                        <td class="pl-4">
-                                            <div class="flex justify-end pr-4">
-                                                <!-- <Button variant="outline" size="sm">View</Button> -->
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="h-4"></tr>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
+                                </tr>
+                                <tr
+                                    v-for="commission in group.commissions"
+                                    :key="commission.id"
+                                    class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                    <td class="">
+                                        <div class="flex items-center pl-5">
+                                            <!-- <p class="mr-2 text-base leading-none text-slate-700">{{ commission.amount }}</p> -->
+                                        </div>
+                                    </td>
+                                    <td class="pl-24">
+                                        <!-- <Badge variant="secondary">Pending</Badge> -->
+                                    </td>
+                                    <td class="pl-5"></td>
+                                    <td class="pl-5"></td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <!-- <Users class="size-4 text-slate-400" /> -->
+                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ commission.amount / 100 }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5"></td>
+                                    <td class="pl-4">
+                                        <div class="flex justify-end pr-4">
+                                            <!-- <Button variant="outline" size="sm">View</Button> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="h-4"></tr>
+                            </template>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

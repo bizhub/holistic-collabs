@@ -4,12 +4,12 @@ namespace Domain\Shopify\Actions;
 
 use Domain\Shopify\Data\ShopifyOAuthData;
 use Domain\Shopify\Enums\ConnectionStatus;
-use Domain\Shopify\Models\ShopifyConnection;
+use Domain\Shopify\Settings\ShopifySettings;
 use PHPShopify\AuthHelper;
 
 class HandleShopifyOAuthCallbackAction
 {
-    public function execute(ShopifyOAuthData $data): ShopifyConnection
+    public function execute(ShopifyOAuthData $data): ShopifySettings
     {
         $this->verifyState($data);
 
@@ -22,13 +22,16 @@ class HandleShopifyOAuthCallbackAction
 
         $tokenData = $helper->getAccessToken($data->code);
 
-        return ShopifyConnection::updateOrCreate([
-            'url' => $data->shop,
-        ], [
-            'status'       => ConnectionStatus::Active,
-            'access_token' => $tokenData['access_token'],
-            'scope'        => $tokenData['scope'] ?? null,
-        ]);
+        $settings = resolve(ShopifySettings::class);
+
+        $settings->status       = ConnectionStatus::Connected;
+        $settings->store_domain = $data->shop;
+        $settings->access_token = $tokenData['access_token'];
+        $settings->scopes       = $tokenData['scope'] ?? null;
+
+        $settings->save();
+
+        return $settings;
     }
 
     protected function verifyState(ShopifyOAuthData $data): void

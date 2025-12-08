@@ -3,7 +3,7 @@ import ClientIndexController from '@/actions/App/Http/Controllers/Client/ClientI
 import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
 import CommissionIndexController from '@/actions/App/Http/Controllers/Commission/CommissionIndexController'
 import CouponIndexController from '@/actions/App/Http/Controllers/Coupon/CouponIndexController'
-import IntegrationIndexController from '@/actions/App/Http/Controllers/Integration/IntegrationIndexController'
+import ShopifyIndexController from '@/actions/App/Http/Controllers/Shopify/ShopifyIndexController'
 import NavFooter from '@/components/NavFooter.vue'
 import NavMain from '@/components/NavMain.vue'
 import NavUser from '@/components/NavUser.vue'
@@ -41,8 +41,8 @@ const mainNavItems: NavItem[] = [
         icon: Users,
     },
     {
-        title: 'Integrations',
-        href: IntegrationIndexController().url,
+        title: 'Shopify',
+        href: ShopifyIndexController().url,
         icon: Zap,
     },
     {
