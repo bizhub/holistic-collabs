@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Shopify;
 
 use Domain\Shopify\Data\ShopifyData;
-use Domain\Shopify\Enums\ConnectionStatus;
 use Domain\Shopify\Settings\ShopifySettings;
 use Inertia\Inertia;
 

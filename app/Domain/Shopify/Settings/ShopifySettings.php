@@ -8,7 +8,7 @@ use Spatie\LaravelSettings\Settings;
 class ShopifySettings extends Settings
 {
     public ConnectionStatus $status = ConnectionStatus::Disconnected;
-    public string $store_domain = '';
+    public string $url = '';
     public string $access_token = '';
     public string $scopes = '';
     public string $webhook_secret = '';
@@ -20,13 +20,6 @@ class ShopifySettings extends Settings
             'webhook_secret',
         ];
     }
-
-    // public static function casts(): array
-    // {
-    //     return [
-            // 'status' => ConnectionStatus::class,
-    //     ];
-    // }
 
     public static function group(): string
     {

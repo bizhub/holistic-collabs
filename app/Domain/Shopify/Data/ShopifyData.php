@@ -10,5 +10,6 @@ class ShopifyData extends Data
 {
     public function __construct(
         public ConnectionStatus $status,
+        public string $url,
     ) {}
 }
