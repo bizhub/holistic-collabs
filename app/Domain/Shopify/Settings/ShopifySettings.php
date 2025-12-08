@@ -9,9 +9,8 @@ class ShopifySettings extends Settings
 {
     public ConnectionStatus $status = ConnectionStatus::Disconnected;
     public string $url = '';
-    public string $access_token = '';
-    public string $scopes = '';
-    public string $webhook_secret = '';
+    public ?string $access_token = null;
+    public ?string $webhook_secret = null;
 
     public static function encrypted(): array
     {

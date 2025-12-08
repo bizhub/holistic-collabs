@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Shopify/ShopifyIndexController'
+import StartShopifyOAuthController from '@/actions/App/Http/Controllers/Shopify/StartShopifyOAuthController'
 import { Button } from '@/components/ui/button'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
@@ -22,6 +23,10 @@ const shopifyUrl = ref('bizhub-dev-store.myshopify.com')
 const loading = ref(false)
 const connect = () => {
     loading.value = true
+
+    router.post(StartShopifyOAuthController(), {
+        url: shopifyUrl.value,
+    })
 }
 </script>
 

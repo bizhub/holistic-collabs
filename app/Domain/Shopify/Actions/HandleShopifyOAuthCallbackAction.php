@@ -6,32 +6,31 @@ use Domain\Shopify\Data\ShopifyOAuthData;
 use Domain\Shopify\Enums\ConnectionStatus;
 use Domain\Shopify\Settings\ShopifySettings;
 use PHPShopify\AuthHelper;
+use PHPShopify\ShopifySDK;
 
 class HandleShopifyOAuthCallbackAction
 {
-    public function execute(ShopifyOAuthData $data): ShopifySettings
+    public function __construct(
+        protected ShopifySettings $settings,
+    ) {}
+
+    public function execute(ShopifyOAuthData $data): void
     {
         $this->verifyState($data);
 
-        $helper = new AuthHelper([
-            'ShopUrl'     => $data->shop,
-            'ApiKey'      => config('services.shopify.client_id'),
-            'ApiSecret'   => config('services.shopify.client_secret'),
-            'RedirectUrl' => config('services.shopify.callback'),
+        ShopifySDK::config([
+            'ShopUrl'      => $data->shop,
+            'ApiKey'       => config('services.shopify.client_id'),
+            'SharedSecret' => config('services.shopify.client_secret'),
         ]);
 
-        $tokenData = $helper->getAccessToken($data->code);
+        $accessToken = AuthHelper::getAccessToken();
 
-        $settings = resolve(ShopifySettings::class);
+        $this->settings->status = ConnectionStatus::Connected;
+        $this->settings->url = $data->shop;
+        $this->settings->access_token = $accessToken;
 
-        $settings->status       = ConnectionStatus::Connected;
-        $settings->store_domain = $data->shop;
-        $settings->access_token = $tokenData['access_token'];
-        $settings->scopes       = $tokenData['scope'] ?? null;
-
-        $settings->save();
-
-        return $settings;
+        $this->settings->save();
     }
 
     protected function verifyState(ShopifyOAuthData $data): void

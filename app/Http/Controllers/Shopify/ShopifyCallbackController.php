@@ -14,13 +14,11 @@ class ShopifyCallbackController
     ) {
         $data = new ShopifyOAuthData(
             shop: $request->query('shop'),
-            code: $request->query('code'),
             state: $request->query('state'),
-            hmac: $request->query('hmac'),
         );
 
         $handleShopifyOAuthCallbackAction->execute($data);
 
-        return redirect('integrations');
+        return redirect('shopify');
     }
 }
