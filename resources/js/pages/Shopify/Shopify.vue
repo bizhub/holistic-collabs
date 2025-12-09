@@ -17,6 +17,11 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: ShopifyIndexController().url,
     },
 ]
+
+const ucfirst = (str: string) => {
+    if (!str) return ''
+    return str.charAt(0).toUpperCase() + str.slice(1)
+}
 </script>
 
 <template>
@@ -32,7 +37,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <p class="pt-1 text-slate-600">Connect Holistic Collabs to Shopify</p>
                 </div>
                 <div>
-                    <Link :href="ShopifyConnectController()">
+                    <Link v-if="shopify.status != 'connected'" :href="ShopifyConnectController()">
                         <Button><Plug /> Connect</Button>
                     </Link>
                 </div>
@@ -41,13 +46,15 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div class="grid grid-cols-3 gap-6">
                 <Card>
                     <CardHeader>Status</CardHeader>
-                    <CardContent>{{ shopify.status }}</CardContent>
+                    <CardContent>{{ ucfirst(shopify.status) }}</CardContent>
                 </Card>
                 <Card>
-                    <CardHeader>asd</CardHeader>
+                    <CardHeader>Store</CardHeader>
+                    <CardContent>{{ shopify.url }}</CardContent>
                 </Card>
                 <Card>
-                    <CardHeader>asd</CardHeader>
+                    <CardHeader>Webhooks</CardHeader>
+                    <CardContent>Active</CardContent>
                 </Card>
             </div>
 

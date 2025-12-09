@@ -254,9 +254,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     <td class="pl-5"></td>
                                     <td class="pl-5"></td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
+                                        <div class="flex items-center justify-end">
                                             <!-- <Users class="size-4 text-slate-400" /> -->
-                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ commission.amount / 100 }}</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ (commission.amount / 100).toFixed(2) }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5"></td>

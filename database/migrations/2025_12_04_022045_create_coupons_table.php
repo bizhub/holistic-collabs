@@ -14,6 +14,9 @@ return new class extends Migration
             $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
 
             $table->string('code');
+            $table->string('shopify_id')->unique();
+
+            $table->decimal('amount', 10, 2)->nullable();
 
             $table->timestamps();
         });

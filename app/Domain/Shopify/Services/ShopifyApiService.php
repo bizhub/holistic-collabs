@@ -14,7 +14,7 @@ class ShopifyApiService
     {
         if ($settings->status === ConnectionStatus::Connected) {
             $this->client = new ShopifySDK([
-                'ShopUrl'     => $settings->store_domain,
+                'ShopUrl' => $settings->url,
                 'AccessToken' => $settings->access_token,
             ]);
         }

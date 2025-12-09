@@ -5,35 +5,58 @@ namespace Domain\Shopify\Actions;
 use Domain\Client\Models\Client;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Actions\CreateCommissionAction;
+use Domain\Coupon\Models\Coupon;
 use Domain\Shopify\Data\ShopifyWebhookData;
 
 class HandleOrderCreatedWebhookAction
 {
     public function __construct(
         protected CreateCommissionAction $createCommission,
-    ) {
-    }
+    ) {}
 
     public function execute(ShopifyWebhookData $data)
     {
         $email = $data->email();
-        $coupon = $data->coupon();
+        $couponCode = $data->coupon();
+        $orderTotal = $data->total(); // in cents or main unit
 
         $client = $this->findClientByEmail($email);
+        $coupon = Coupon::query()
+            ->with('clinic')
+            ->where('code', $couponCode)
+            ->first();
 
         if ($client) {
-            return $this->createCommission->execute($client->clinic, $data);
+            // Client exists
+            if ($coupon) {
+                $clinic = $this->findClinicByCoupon($coupon);
+                if ($clinic && $client->clinic_id !== $clinic->id) {
+                    // Client switching clinics via coupon
+                    $client->update(['clinic_id' => $clinic->id]);
+                    $this->createCommission->execute($clinic, $orderTotal, $coupon, firstTime: true);
+                    return;
+                }
+            }
+
+            $clinic = $client->clinic;
+            $this->createCommission->execute($clinic, $orderTotal, null, firstTime: false);
+            return;
         }
 
-        $clinic = $this->findClinicByCoupon($coupon);
+        // No client exists
+        if (! $coupon) {
+            // No referral, skip everything
+            return;
+        }
 
+        // Client referred via coupon
+        $clinic = $this->findClinicByCoupon($coupon);
         if (! $clinic) {
             return;
         }
 
         $client = $this->createClient($email, $clinic);
-
-        return $this->createCommission->execute($clinic, $data);
+        $this->createCommission->execute($clinic, $orderTotal, $coupon, firstTime: true);
     }
 
     protected function findClientByEmail(?string $email): ?Client

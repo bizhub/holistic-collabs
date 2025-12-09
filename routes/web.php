@@ -10,6 +10,7 @@ use App\Http\Controllers\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Shopify\ShopifyIndexController;
 use App\Http\Controllers\Shopify\StartShopifyOAuthController;
+use Domain\Shopify\Services\ShopifyApiService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -37,5 +38,21 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::get('shopify/callback', ShopifyCallbackController::class);
+
+Route::get('test', function(ShopifyApiService $api){
+    $priceRules = $api->getClient()->PriceRule->get();
+
+    $coupons = [];
+
+    foreach ($priceRules as $priceRule) {
+        if ($priceRule['value_type'] != 'fixed_amount') {
+            continue;
+        }
+
+        $coupons[] = $priceRule;
+    }
+
+    dd($coupons);
+});
 
 require __DIR__.'/settings.php';

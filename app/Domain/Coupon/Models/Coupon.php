@@ -15,6 +15,7 @@ class Coupon extends Model
 
     protected $fillable = [
         'code',
+        'shopify_id',
     ];
 
     public function clinic(): BelongsTo
