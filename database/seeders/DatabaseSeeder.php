@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'lex@bizhub.co.nz',
         ]);
 
-        Commission::factory(10)->create();
+        // Commission::factory(10)->create();
     }
 }

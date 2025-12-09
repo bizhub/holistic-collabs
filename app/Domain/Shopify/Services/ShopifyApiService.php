@@ -5,6 +5,7 @@ namespace Domain\Shopify\Services;
 use PHPShopify\ShopifySDK;
 use Domain\Shopify\Settings\ShopifySettings;
 use Domain\Shopify\Enums\ConnectionStatus;
+use Domain\Shopify\Exceptions\ShopifyNotConnectedException;
 
 class ShopifyApiService
 {
@@ -23,7 +24,7 @@ class ShopifyApiService
     public function getClient(): ShopifySDK
     {
         if (!$this->client) {
-            throw new \RuntimeException('Shopify integration is not connected.');
+            throw new ShopifyNotConnectedException;
         }
 
         return $this->client;

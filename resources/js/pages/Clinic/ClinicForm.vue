@@ -4,6 +4,12 @@ import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { Loader2 } from 'lucide-vue-next'
 
+interface Props {
+    available_coupons: Domain.Coupon.Data.AvailableCouponData[]
+}
+
+defineProps<Props>()
+
 const breadcrumbs: BreadcrumbItem[] = [
     // {
     //     title: 'Integrations',
@@ -15,6 +21,7 @@ const loading = ref(false)
 
 const form = useForm<Domain.Clinic.Data.ClinicFormData>({
     name: '',
+    coupon_shopify_id: '',
 })
 
 const temp = ref('')
@@ -80,14 +87,26 @@ const connectIntegration = () => {
                         </div>
                         <div>
                             <div class="mb-5">
-                                <h2 class="text-xl font-medium tracking-tight">Referral Code</h2>
-                                <p class="pt-1 text-sm text-slate-600">Coupon code from Shopify</p>
+                                <h2 class="text-xl font-medium tracking-tight">Coupon Code</h2>
+                                <p class="pt-1 text-sm text-slate-600">
+                                    Select an available Shopify discount code. If you don't see yours, refresh the list.<br />
+                                    This field is optional, you can add coupons later.
+                                </p>
                             </div>
 
                             <div class="space-y-6">
                                 <div class="space-y-2">
-                                    <Label for="name">Coupon Code</Label>
-                                    <Input id="name" v-model="temp" placeholder="Enter a shopify coupon code" />
+                                    <!-- <Label for="name">Code</Label> -->
+                                    <Select v-model="form.coupon_shopify_id">
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Select a coupon code" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem v-for="coupon in available_coupons" :key="coupon.code" :value="coupon.shopify_id">
+                                                {{ coupon.code }}
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             </div>
                         </div>

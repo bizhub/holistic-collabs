@@ -12,6 +12,7 @@ declare namespace Domain.Clinic.Data {
     }
     export type ClinicFormData = {
         name: string
+        coupon_shopify_id: string
     }
 }
 declare namespace Domain.Commission.Data {
@@ -29,6 +30,10 @@ declare namespace Domain.Commission.Enums {
     export type CommissionStatus = 'paid' | 'pending'
 }
 declare namespace Domain.Coupon.Data {
+    export type AvailableCouponData = {
+        code: string
+        shopify_id: string
+    }
     export type CouponData = {
         id: string
     }

@@ -9,5 +9,6 @@ class ClinicFormData extends Data
 {
     public function __construct(
         public string $name,
+        public string $coupon_shopify_id,
     ) {}
 }
