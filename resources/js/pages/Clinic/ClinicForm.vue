@@ -94,21 +94,16 @@ const connectIntegration = () => {
                                 </p>
                             </div>
 
-                            <div class="space-y-6">
-                                <div class="space-y-2">
-                                    <!-- <Label for="name">Code</Label> -->
-                                    <Select v-model="form.coupon_shopify_id" :disabled="available_coupons.length == 0">
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select a coupon code" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            <SelectItem v-for="coupon in available_coupons" :key="coupon.code" :value="coupon.shopify_id">
-                                                {{ coupon.code }}
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
+                            <Select v-model="form.coupon_shopify_id" :disabled="available_coupons.length == 0">
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select a coupon code" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem v-for="coupon in available_coupons" :key="coupon.code" :value="coupon.shopify_id">
+                                        {{ coupon.code }}
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
                     </div>
 

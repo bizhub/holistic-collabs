@@ -3,6 +3,7 @@
 use App\Http\Controllers\Client\ClientIndexController;
 use App\Http\Controllers\Clinic\ClinicIndexController;
 use App\Http\Controllers\Clinic\CreateClinicController;
+use App\Http\Controllers\Clinic\DeleteClinicController;
 use App\Http\Controllers\Clinic\StoreClinicController;
 use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function(){
     Route::get('clinics', ClinicIndexController::class);
     Route::get('clinics/create', CreateClinicController::class);
     Route::post('clinics', StoreClinicController::class);
+    Route::delete('clinics/{clinic}', DeleteClinicController::class);
 
     Route::get('coupons', CouponIndexController::class);
     Route::get('clients', ClientIndexController::class);
