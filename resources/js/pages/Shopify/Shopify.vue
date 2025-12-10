@@ -17,11 +17,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: ShopifyIndexController().url,
     },
 ]
-
-const ucfirst = (str: string) => {
-    if (!str) return ''
-    return str.charAt(0).toUpperCase() + str.slice(1)
-}
 </script>
 
 <template>
@@ -36,26 +31,82 @@ const ucfirst = (str: string) => {
                     </div>
                     <p class="pt-1 text-slate-600">Connect Holistic Collabs to Shopify</p>
                 </div>
-                <div>
-                    <Link v-if="shopify.status != 'connected'" :href="ShopifyConnectController()">
-                        <Button><Plug /> Connect</Button>
-                    </Link>
-                </div>
+                <div></div>
             </div>
 
             <div class="grid grid-cols-3 gap-6">
-                <Card>
-                    <CardHeader>Status</CardHeader>
-                    <CardContent>{{ ucfirst(shopify.status) }}</CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>Store</CardHeader>
-                    <CardContent>{{ shopify.url }}</CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>Webhooks</CardHeader>
-                    <CardContent>-</CardContent>
-                </Card>
+                <div v-if="shopify.status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
+                    <div class="flex justify-center py-2 font-medium text-green-800">Shopify connected</div>
+                    <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
+                        <div class="flex flex-col items-center text-center">
+                            <!-- <div>
+                                <div class="flex size-6 items-center justify-center rounded-full bg-green-400">
+                                    <Check class="size-5 text-white" />
+                                </div>
+                            </div> -->
+                            <div>{{ shopify.url }}</div>
+                            <div class="text-xs font-medium text-slate-500 italic">Last Successful API Call: 08/08/25</div>
+                            <div class="mt-6">
+                                <Button variant="outline">Disconnect</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="flex flex-col border-red-200 bg-red-100/80 p-1">
+                    <div class="flex justify-center py-2 font-medium text-red-800">Shopify disconnected</div>
+                    <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
+                        <div class="flex flex-col items-center text-center">
+                            <!-- <div>
+                                <div class="flex size-6 items-center justify-center rounded-full bg-green-400">
+                                    <Check class="size-5 text-white" />
+                                </div>
+                            </div> -->
+                            <!-- <div>{{ shopify.url }}</div> -->
+                            <div>Your Shopify connection is not active</div>
+                            <div class="text-xs font-medium text-slate-500 italic">Last Successful API Call: 00/00/0000</div>
+                            <div class="mt-6">
+                                <Link :href="ShopifyConnectController()">
+                                    <Button variant="outline"><Plug /> Connect</Button>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col border-red-200 bg-red-100/80 p-1">
+                    <div class="flex justify-center py-2 font-medium text-red-800">Webhooks disconnected</div>
+                    <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
+                        <div class="flex flex-col items-center text-center">
+                            <!-- <div>
+                                <div class="flex size-6 items-center justify-center rounded-full bg-red-400">
+                                    <Check class="size-5 text-white" />
+                                </div>
+                            </div> -->
+                            <!-- <div>{{ shopify.url }}</div> -->
+                            <div>Webhook status cannot be determined</div>
+                            <div class="text-xs font-medium text-slate-500 italic">Last Successful API Call: 08/08/25</div>
+                            <div class="mt-6">
+                                <Button variant="outline">Refresh</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col border-slate-200 bg-slate-100/80 p-1">
+                    <div class="flex justify-center py-2 font-medium text-slate-800">Webhooks disconnected</div>
+                    <div class="flex flex-1 items-center justify-center border border-slate-200 bg-white p-6 shadow-sm shadow-slate-100">
+                        <div class="flex flex-col items-center text-center">
+                            <!-- <div>
+                                <div class="flex size-6 items-center justify-center rounded-full bg-red-400">
+                                    <Check class="size-5 text-white" />
+                                </div>
+                            </div> -->
+                            <div>{{ shopify.url }}</div>
+                            <div class="text-xs font-medium text-slate-500 italic">Last Successful API Call: 08/08/25</div>
+                            <div class="mt-6">
+                                <Button variant="outline">Refresh</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="hidden w-full">
