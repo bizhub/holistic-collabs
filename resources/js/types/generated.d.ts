@@ -38,6 +38,7 @@ declare namespace Domain.Coupon.Data {
     export type CouponData = {
         id: string
         code: string
+        clinic: Domain.Clinic.Data.ClinicData | null
     }
 }
 declare namespace Domain.Order.Data {
