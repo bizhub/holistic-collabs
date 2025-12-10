@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { dashboard } from '@/routes'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { Plug } from 'lucide-vue-next'
+import { ChartNoAxesCombined, Plug } from 'lucide-vue-next'
 
 interface Props {
     commissions: Domain.Commission.Data.CommissionGroupData[]
@@ -31,10 +31,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <Button size="sm"><Plug />Connect</Button>
                     </Link>
                 </div>
-                <p class="pt-1 text-slate-600">Browse and manage all coupons, their usage details, and associations with clinics</p>
+                <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p>
             </div>
 
-            <div class="w-full">
+            <div v-if="commissions.length > 0" class="w-full">
                 <!-- <div class="items-center justify-between sm:flex">
                         <div class="flex items-center">
                             <a
@@ -125,6 +125,16 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </table>
                 </div>
             </div>
+
+            <Empty v-else class="border border-dashed">
+                <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                        <ChartNoAxesCombined />
+                    </EmptyMedia>
+                    <EmptyTitle>You're all caught up</EmptyTitle>
+                    <EmptyDescription>There are currently no unpaid commissions to review.</EmptyDescription>
+                </EmptyHeader>
+            </Empty>
         </div>
     </AppLayout>
 </template>

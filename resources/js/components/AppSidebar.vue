@@ -3,7 +3,9 @@ import ClientIndexController from '@/actions/App/Http/Controllers/Client/ClientI
 import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
 import CommissionIndexController from '@/actions/App/Http/Controllers/Commission/CommissionIndexController'
 import CouponIndexController from '@/actions/App/Http/Controllers/Coupon/CouponIndexController'
+import OrderIndexController from '@/actions/App/Http/Controllers/Order/OrderIndexController'
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Shopify/ShopifyIndexController'
+import UserIndexController from '@/actions/App/Http/Controllers/User/UserIndexController'
 import NavFooter from '@/components/NavFooter.vue'
 import NavMain from '@/components/NavMain.vue'
 import NavUser from '@/components/NavUser.vue'
@@ -11,7 +13,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, Sid
 import { dashboard } from '@/routes'
 import { type NavItem } from '@/types'
 import { Link } from '@inertiajs/vue3'
-import { Handshake, LayoutGrid, Settings, Tag, Users, Zap } from 'lucide-vue-next'
+import { ChartNoAxesCombined, Handshake, LayoutGrid, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
 import AppLogo from './AppLogo.vue'
 
 const mainNavItems: NavItem[] = [
@@ -23,22 +25,32 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Commissions',
         href: CommissionIndexController().url,
-        icon: Handshake,
+        icon: ChartNoAxesCombined,
+    },
+    {
+        title: 'Orders',
+        href: OrderIndexController().url,
+        icon: Truck,
     },
     {
         title: 'Clinics',
         href: ClinicIndexController().url,
+        icon: Store,
+    },
+    {
+        title: 'Users',
+        href: UserIndexController().url,
         icon: Users,
     },
     {
         title: 'Coupons',
         href: CouponIndexController().url,
-        icon: Tag,
+        icon: Tags,
     },
     {
         title: 'Clients',
         href: ClientIndexController().url,
-        icon: Users,
+        icon: Handshake,
     },
     {
         title: 'Shopify',

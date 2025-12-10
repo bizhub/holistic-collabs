@@ -25,6 +25,7 @@ const form = useForm<Domain.Clinic.Data.ClinicFormData>({
 })
 
 const temp = ref('')
+const temp2 = ref('')
 
 const connectIntegration = () => {
     loading.value = true
@@ -50,16 +51,15 @@ const connectIntegration = () => {
     <Head title="Create Clinic" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="mx-auto w-full max-w-4xl px-6 py-12">
+        <div class="mx-auto w-full max-w-4xl px-6 py-4">
             <div class="relative flex-1">
                 <div class="mb-10 border-b border-slate-200 pb-4">
                     <h1 class="text-3xl font-bold tracking-tight">Add Clinic</h1>
-                    <p class="pt-1 text-slate-600">Integrate Fulfillr with your existing tools in just a few steps</p>
                 </div>
 
                 <form @submit.prevent="connectIntegration">
-                    <div class="space-y-12">
-                        <div>
+                    <div class="space-y-8">
+                        <div class="border-b border-slate-200 pb-10">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Clinic details</h2>
                                 <p class="pt-1 text-sm text-slate-600">
@@ -70,17 +70,17 @@ const connectIntegration = () => {
 
                             <div class="space-y-6">
                                 <div class="space-y-2">
-                                    <Label for="name">Clinic Name</Label>
-                                    <Input id="name" v-model="form.name" placeholder="Enter a clinics name" />
+                                    <Label for="clinic_name">Clinic Name</Label>
+                                    <Input id="clinic_name" v-model="form.name" placeholder="Enter a clinics name" />
                                 </div>
                                 <div class="flex space-x-6">
                                     <div class="flex-1 space-y-2">
-                                        <Label for="name">Contact Name</Label>
-                                        <Input id="name" v-model="temp" placeholder="Enter a clinics name" />
+                                        <Label for="contact_name">Contact Name</Label>
+                                        <Input id="contact_name" v-model="temp" placeholder="Enter a contact name" />
                                     </div>
                                     <div class="flex-1 space-y-2">
-                                        <Label for="name">Email</Label>
-                                        <Input id="name" v-model="temp" placeholder="Enter a clinics name" />
+                                        <Label for="contact_email">Email</Label>
+                                        <Input id="contact_email" v-model="temp2" placeholder="Enter a contact email" />
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +89,10 @@ const connectIntegration = () => {
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Coupon Code</h2>
                                 <p class="pt-1 text-sm text-slate-600">
-                                    Select an available Shopify discount code. If you don't see yours, refresh the list.<br />
-                                    This field is optional, you can add coupons later.
+                                    Choose an available Shopify discount code. Can't find the one you need? Refresh the list.
                                 </p>
+                                <p class="pt-0.5 text-sm text-slate-600">This field is optional, you can always add coupons later.</p>
+                                <p class="pt-0.5 text-sm text-slate-600">Note: each discount code can only be assigned to a single clinic.</p>
                             </div>
 
                             <Select v-model="form.coupon_shopify_id" :disabled="available_coupons.length == 0">

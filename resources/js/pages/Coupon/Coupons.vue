@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { dashboard } from '@/routes'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { MoreHorizontal, Tag } from 'lucide-vue-next'
+import { MoreHorizontal, Tag, Tags } from 'lucide-vue-next'
 
 interface Props {
     coupons: Domain.Coupon.Data.CouponData[]
@@ -82,19 +82,19 @@ const deleteCoupon = (id: string) => {
             <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
-                        <Users />
+                        <Tags />
                     </EmptyMedia>
-                    <EmptyTitle>No Clinics</EmptyTitle>
-                    <EmptyDescription>Add your first clinic to manage coupons, commissions, and client referrals.</EmptyDescription>
+                    <EmptyTitle>No Coupons</EmptyTitle>
+                    <EmptyDescription>Assign discount codes from Shopify to existing clinics.</EmptyDescription>
                 </EmptyHeader>
-                <EmptyContent>
-                    <!-- <Link :href="CreateClinicController()">
+                <!-- <EmptyContent>
+                    <Link :href="CreateClinicController()">
                         <Button variant="outline" size="sm">
                             <Plus />
                             Add Clinic
                         </Button>
-                    </Link> -->
-                </EmptyContent>
+                    </Link>
+                </EmptyContent> -->
             </Empty>
         </div>
     </AppLayout>

@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { dashboard } from '@/routes'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { HandshakeIcon } from 'lucide-vue-next'
+import { Truck } from 'lucide-vue-next'
 
 // interface Props {
 //     commissions: Domain.Commission.Data.CommissionGroupData[]
@@ -20,19 +20,16 @@ const breadcrumbs: BreadcrumbItem[] = [
 </script>
 
 <template>
-    <Head title="Clients" />
+    <Head title="Orders" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
+                        <h1 class="text-3xl font-bold tracking-tight">Orders</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">
-                        See all clients created through your referral system. Track referred customers, their associated clinics, and their order
-                        activity.
-                    </p>
+                    <p class="pt-1 text-slate-600">View all orders placed through Shopify that include referral activity.</p>
                 </div>
                 <div></div>
             </div>
@@ -40,10 +37,10 @@ const breadcrumbs: BreadcrumbItem[] = [
             <Empty class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
-                        <HandshakeIcon />
+                        <Truck />
                     </EmptyMedia>
-                    <EmptyTitle>No clients</EmptyTitle>
-                    <EmptyDescription>Clients appear automatically when new referred orders come through your Shopify store.</EmptyDescription>
+                    <EmptyTitle>No orders yet</EmptyTitle>
+                    <EmptyDescription>Orders will appear here once clients place purchases using your clinics’ referral coupons.</EmptyDescription>
                 </EmptyHeader>
             </Empty>
         </div>
