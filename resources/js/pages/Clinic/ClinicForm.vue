@@ -97,7 +97,7 @@ const connectIntegration = () => {
                             <div class="space-y-6">
                                 <div class="space-y-2">
                                     <!-- <Label for="name">Code</Label> -->
-                                    <Select v-model="form.coupon_shopify_id">
+                                    <Select v-model="form.coupon_shopify_id" :disabled="available_coupons.length == 0">
                                         <SelectTrigger>
                                             <SelectValue placeholder="Select a coupon code" />
                                         </SelectTrigger>

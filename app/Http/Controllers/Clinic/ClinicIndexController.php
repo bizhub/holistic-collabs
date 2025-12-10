@@ -10,7 +10,9 @@ class ClinicIndexController
 {
     public function __invoke()
     {
-        $clinics = Clinic::all();
+        $clinics = Clinic::query()
+            ->with('coupons')
+            ->get();
 
         return Inertia::render('Clinic/Clinics', [
             'clinics' => ClinicData::collect($clinics),

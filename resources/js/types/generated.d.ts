@@ -9,6 +9,7 @@ declare namespace Domain.Clinic.Data {
     export type ClinicData = {
         id: string
         name: string
+        coupons: any | null
     }
     export type ClinicFormData = {
         name: string
@@ -36,6 +37,7 @@ declare namespace Domain.Coupon.Data {
     }
     export type CouponData = {
         id: string
+        code: string
     }
 }
 declare namespace Domain.Order.Data {

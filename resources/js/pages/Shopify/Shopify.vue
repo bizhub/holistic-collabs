@@ -54,11 +54,11 @@ const ucfirst = (str: string) => {
                 </Card>
                 <Card>
                     <CardHeader>Webhooks</CardHeader>
-                    <CardContent>Active</CardContent>
+                    <CardContent>-</CardContent>
                 </Card>
             </div>
 
-            <div class="w-full">
+            <div class="hidden w-full">
                 <div class="bg-white">
                     <div class="mt-3 overflow-x-auto">
                         <table class="w-full whitespace-nowrap shadow-sm shadow-slate-100">

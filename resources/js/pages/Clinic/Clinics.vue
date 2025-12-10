@@ -4,7 +4,7 @@ import CreateClinicController from '@/actions/App/Http/Controllers/Clinic/Create
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head, Link } from '@inertiajs/vue3'
-import { Plus } from 'lucide-vue-next'
+import { MoreHorizontal, Plus, Tag } from 'lucide-vue-next'
 
 interface Props {
     clinics: Domain.Clinic.Data.ClinicData[]
@@ -137,7 +137,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                 </svg>
                                                 <p class="ml-2 text-sm leading-none text-slate-600">Urgent</p>
                                             </div> -->
-                                            <Badge variant="secondary">Active</Badge>
+                                            <!-- <Badge variant="secondary">Active</Badge> -->
                                         </td>
                                         <td class="pl-5">
                                             <!-- <div class="flex items-center">
@@ -220,64 +220,82 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </div>
                                         </td>
                                         <td class="pl-5">
-                                            <!-- <button class="rounded bg-red-100 px-3 py-3 text-sm leading-none text-red-700 focus:outline-none">
-                                            Due today at 18:00
-                                        </button> -->
+                                            <div class="flex items-center">
+                                                <!-- <Users class="size-4 text-slate-400" /> -->
+                                                <p class="ml-2 text-sm leading-none text-slate-600">0 Commissions</p>
+                                            </div>
+                                        </td>
+                                        <td class="pl-5">
+                                            <div v-if="clinic.coupons">
+                                                <div
+                                                    v-for="coupon in clinic.coupons"
+                                                    :key="coupon.id"
+                                                    class="inline-block bg-slate-200 p-1 text-sm font-medium text-slate-700">
+                                                    <div class="flex items-center space-x-1">
+                                                        <Tag class="size-4 text-slate-600" />
+                                                        <div>{{ coupon.code }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="pl-4">
                                             <div class="flex justify-end pr-4">
-                                                <Button variant="outline" size="sm">View</Button>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger as-child>
+                                                        <Button variant="secondary" size="sm" aria-label="More Options">
+                                                            <MoreHorizontal />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent class="w-56" align="end">
+                                                        <!-- <DropdownMenuLabel>My Account</DropdownMenuLabel> -->
+                                                        <!-- <DropdownMenuGroup>
+                                                            <DropdownMenuItem>
+                                                                Profile
+                                                                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                Billing
+                                                                <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                Settings
+                                                                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                                                            </DropdownMenuItem>
+                                                            <DropdownMenuItem>
+                                                                Keyboard shortcuts
+                                                                <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
+                                                            </DropdownMenuItem>
+                                                        </DropdownMenuGroup> -->
+                                                        <!-- <DropdownMenuSeparator /> -->
+                                                        <DropdownMenuGroup>
+                                                            <DropdownMenuItem>View</DropdownMenuItem>
+                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                            <DropdownMenuItem>Add Coupon</DropdownMenuItem>
+                                                            <!-- <DropdownMenuSub>
+                                                                <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                                                                <DropdownMenuPortal>
+                                                                    <DropdownMenuSubContent>
+                                                                        <DropdownMenuItem>Email</DropdownMenuItem>
+                                                                        <DropdownMenuItem>Message</DropdownMenuItem>
+                                                                        <DropdownMenuSeparator />
+                                                                        <DropdownMenuItem>More...</DropdownMenuItem>
+                                                                    </DropdownMenuSubContent>
+                                                                </DropdownMenuPortal>
+                                                            </DropdownMenuSub>
+                                                            <DropdownMenuItem>
+                                                                New Team
+                                                                <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+                                                            </DropdownMenuItem> -->
+                                                        </DropdownMenuGroup>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem>
+                                                            Delete
+                                                            <!-- <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> -->
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
                                             </div>
                                         </td>
-                                        <!-- <td>
-                                        <div class="relative px-5 pt-2">
-                                            <button
-                                                class="rounded-md focus:ring-2 focus:outline-none"
-                                                onclick="dropdownFunction(this)"
-                                                role="button"
-                                                aria-label="option">
-                                                <svg
-                                                    class="dropbtn"
-                                                    onclick="dropdownFunction(this)"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="20"
-                                                    height="20"
-                                                    viewBox="0 0 20 20"
-                                                    fill="none">
-                                                    <path
-                                                        d="M4.16667 10.8332C4.62691 10.8332 5 10.4601 5 9.99984C5 9.5396 4.62691 9.1665 4.16667 9.1665C3.70643 9.1665 3.33334 9.5396 3.33334 9.99984C3.33334 10.4601 3.70643 10.8332 4.16667 10.8332Z"
-                                                        stroke="#9CA3AF"
-                                                        stroke-width="1.25"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <path
-                                                        d="M10 10.8332C10.4602 10.8332 10.8333 10.4601 10.8333 9.99984C10.8333 9.5396 10.4602 9.1665 10 9.1665C9.53976 9.1665 9.16666 9.5396 9.16666 9.99984C9.16666 10.4601 9.53976 10.8332 10 10.8332Z"
-                                                        stroke="#9CA3AF"
-                                                        stroke-width="1.25"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                    <path
-                                                        d="M15.8333 10.8332C16.2936 10.8332 16.6667 10.4601 16.6667 9.99984C16.6667 9.5396 16.2936 9.1665 15.8333 9.1665C15.3731 9.1665 15 9.5396 15 9.99984C15 10.4601 15.3731 10.8332 15.8333 10.8332Z"
-                                                        stroke="#9CA3AF"
-                                                        stroke-width="1.25"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                            </button>
-                                            <div class="dropdown-content absolute right-0 z-30 mr-6 hidden w-24 bg-white shadow">
-                                                <div
-                                                    tabindex="0"
-                                                    class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none">
-                                                    <p>Edit</p>
-                                                </div>
-                                                <div
-                                                    tabindex="0"
-                                                    class="w-full cursor-pointer px-4 py-4 text-xs hover:bg-indigo-700 hover:text-white focus:text-indigo-600 focus:outline-none">
-                                                    <p>Delete</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td> -->
                                     </tr>
                                     <!-- <tr class="h-2"></tr> -->
                                 </template>
