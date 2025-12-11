@@ -13,7 +13,6 @@ class StartShopifyOAuthAction
 
         $authUrl = "https://{$shopUrl}/admin/oauth/authorize?" . http_build_query([
             'client_id' => config('services.shopify.client_id'),
-            'scope' => 'read_orders,read_price_rules',
             'redirect_uri' => config('services.shopify.callback'),
             'state' => $state,
         ]);

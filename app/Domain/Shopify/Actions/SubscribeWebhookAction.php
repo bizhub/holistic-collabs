@@ -13,18 +13,19 @@ class SubscribeWebhookAction
     public function execute(): void
     {
         $webhooks = [
-            ['topic' => 'orders/create', 'address' => route('shopify.webhooks.orders-create')],
-            ['topic' => 'orders/updated', 'address' => route('shopify.webhooks.orders-updated')],
-            ['topic' => 'customers/create', 'address' => route('shopify.webhooks.customers-create')],
+            [
+                'topic' => 'orders/create',
+                'address' => 'https://25fe63e4e3e0.ngrok-free.app/ext/shopify/webhook',
+            ],
+            // ['topic' => 'orders/updated', 'address' => route('shopify.webhooks.orders-updated')],
+            // ['topic' => 'customers/create', 'address' => route('shopify.webhooks.customers-create')],
         ];
 
         foreach ($webhooks as $webhook) {
-            $this->api->post('webhooks', [
-                'webhook' => [
-                    'topic'   => $webhook['topic'],
-                    'address' => $webhook['address'],
-                    'format'  => 'json',
-                ],
+            $response = $this->api->post('Webhook', [
+                'topic'   => $webhook['topic'],
+                'address' => $webhook['address'],
+                'format'  => 'json',
             ]);
         }
     }

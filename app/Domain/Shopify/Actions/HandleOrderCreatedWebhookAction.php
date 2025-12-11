@@ -14,11 +14,11 @@ class HandleOrderCreatedWebhookAction
         protected CreateCommissionAction $createCommission,
     ) {}
 
-    public function execute(ShopifyWebhookData $data)
+    public function execute(ShopifyWebhookData $data): void
     {
         $email = $data->email();
         $couponCode = $data->coupon();
-        $orderTotal = $data->total(); // in cents or main unit
+        $orderTotal = $data->total();
 
         $client = $this->findClientByEmail($email);
         $coupon = Coupon::query()
@@ -27,19 +27,35 @@ class HandleOrderCreatedWebhookAction
             ->first();
 
         if ($client) {
-            // Client exists
             if ($coupon) {
                 $clinic = $this->findClinicByCoupon($coupon);
+
+                // Client attached to a different clinic?
                 if ($clinic && $client->clinic_id !== $clinic->id) {
-                    // Client switching clinics via coupon
-                    $client->update(['clinic_id' => $clinic->id]);
-                    $this->createCommission->execute($clinic, $orderTotal, $coupon, firstTime: true);
+                    $client->update([
+                        'clinic_id' => $clinic->id
+                    ]);
+
+                    // TODO: Create order
+
+                    $this->createCommission->execute(
+                        clinic: $clinic,
+                        coupon: $coupon,
+                        orderTotal: $orderTotal,
+                        firstTime: true,
+                    );
+
                     return;
                 }
             }
 
-            $clinic = $client->clinic;
-            $this->createCommission->execute($clinic, $orderTotal, null, firstTime: false);
+            // Client exists without coupon
+            $this->createCommission->execute(
+                clinic: $clinic,
+                coupon: null,
+                orderTotal: $orderTotal,
+            );
+
             return;
         }
 
@@ -51,12 +67,19 @@ class HandleOrderCreatedWebhookAction
 
         // Client referred via coupon
         $clinic = $this->findClinicByCoupon($coupon);
+
         if (! $clinic) {
             return;
         }
 
         $client = $this->createClient($email, $clinic);
-        $this->createCommission->execute($clinic, $orderTotal, $coupon, firstTime: true);
+
+        $this->createCommission->execute(
+            clinic: $clinic,
+            coupon: $coupon,
+            orderTotal: $orderTotal,
+            firstTime: true,
+        );
     }
 
     protected function findClientByEmail(?string $email): ?Client

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import ShopifyConnectController from '@/actions/App/Http/Controllers/Shopify/ShopifyConnectController'
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Shopify/ShopifyIndexController'
+import SubscribeToShopifyWebhooksController from '@/actions/App/Http/Controllers/Shopify/SubscribeToShopifyWebhooksController'
 import { type BreadcrumbItem } from '@/types'
 import { Head, Link } from '@inertiajs/vue3'
-import { Plug } from 'lucide-vue-next'
+import { Plug, Zap } from 'lucide-vue-next'
 
 interface Props {
     shopify: Domain.Shopify.Data.ShopifyData
@@ -23,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Shopify" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="mx-auto flex h-full w-full max-w-6xl flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center space-x-6">
@@ -34,7 +35,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div></div>
             </div>
 
-            <div class="grid grid-cols-3 gap-6">
+            <div class="mb-6 grid grid-cols-3 gap-6">
                 <div v-if="shopify.status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
                     <div class="flex justify-center py-2 font-medium text-green-800">Shopify connected</div>
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
@@ -85,7 +86,9 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <div>Webhook status cannot be determined</div>
                             <div class="text-xs font-medium text-slate-500 italic">Last Successful API Call: 08/08/25</div>
                             <div class="mt-6">
-                                <Button variant="outline">Refresh</Button>
+                                <Link :href="SubscribeToShopifyWebhooksController()">
+                                    <Button variant="outline">Subscribe</Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -108,6 +111,16 @@ const breadcrumbs: BreadcrumbItem[] = [
                     </div>
                 </div>
             </div>
+
+            <Empty class="border border-dashed">
+                <EmptyHeader>
+                    <EmptyMedia variant="icon">
+                        <Zap />
+                    </EmptyMedia>
+                    <EmptyTitle>No Activity Yet</EmptyTitle>
+                    <EmptyDescription> Your Shopify integration hasn't recorded any activity yet. </EmptyDescription>
+                </EmptyHeader>
+            </Empty>
 
             <div class="hidden w-full">
                 <div class="bg-white">

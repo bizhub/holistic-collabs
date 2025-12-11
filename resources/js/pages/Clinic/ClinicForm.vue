@@ -85,6 +85,32 @@ const connectIntegration = () => {
                                 </div>
                             </div>
                         </div>
+                        <div class="border-b border-slate-200 pb-10">
+                            <div class="mb-5">
+                                <h2 class="text-xl font-medium tracking-tight">Commission</h2>
+                                <p class="pt-1 text-sm text-slate-600">
+                                    Add a new clinic and set up their referral code so new<br />
+                                    clients can be automatically linked and tracked for future commissions.
+                                </p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="space-y-2">
+                                    <Label for="clinic_name">Commission percentage</Label>
+                                    <Input id="clinic_name" v-model="form.name" placeholder="Enter a clinics name" />
+                                </div>
+                                <!-- <div class="flex space-x-6">
+                                    <div class="flex-1 space-y-2">
+                                        <Label for="contact_name">Contact Name</Label>
+                                        <Input id="contact_name" v-model="temp" placeholder="Enter a contact name" />
+                                    </div>
+                                    <div class="flex-1 space-y-2">
+                                        <Label for="contact_email">Email</Label>
+                                        <Input id="contact_email" v-model="temp2" placeholder="Enter a contact email" />
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
                         <div>
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Coupon Code</h2>

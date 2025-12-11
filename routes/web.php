@@ -12,7 +12,10 @@ use App\Http\Controllers\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Shopify\ShopifyIndexController;
 use App\Http\Controllers\Shopify\StartShopifyOAuthController;
+use App\Http\Controllers\Shopify\SubscribeToShopifyWebhooksController;
 use App\Http\Controllers\User\UserIndexController;
+use Domain\Shopify\Services\ShopifyApiService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -39,9 +42,18 @@ Route::middleware('auth')->group(function(){
 
     Route::get('shopify', ShopifyIndexController::class);
     Route::get('shopify/connect', ShopifyConnectController::class);
+    Route::get('shopify/webhooks/subscribe', SubscribeToShopifyWebhooksController::class);
     Route::post('shopify', StartShopifyOAuthController::class);
 });
 
 Route::get('shopify/callback', ShopifyCallbackController::class);
+
+Route::post('ext/shopify/webhook', function(Request $request, ShopifyApiService $shopifyApiService){
+    ds($request->all());
+
+
+
+    return response('Successful');
+});
 
 require __DIR__.'/settings.php';

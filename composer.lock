@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1803eb7e842638ea88ee4cfd3e528e4c",
+    "content-hash": "25d28622a31979b7e658645aba42ed52",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -8717,16 +8717,16 @@
         },
         {
             "name": "laradumps/laradumps",
-            "version": "v4.5.4",
+            "version": "v4.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laradumps/laradumps.git",
-                "reference": "ac0ed16a2f650a6c0399877720cf4ebd10c1c4ba"
+                "reference": "7f299b4c91d7f970e52147ee2ed46e8744fca24b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laradumps/laradumps/zipball/ac0ed16a2f650a6c0399877720cf4ebd10c1c4ba",
-                "reference": "ac0ed16a2f650a6c0399877720cf4ebd10c1c4ba",
+                "url": "https://api.github.com/repos/laradumps/laradumps/zipball/7f299b4c91d7f970e52147ee2ed46e8744fca24b",
+                "reference": "7f299b4c91d7f970e52147ee2ed46e8744fca24b",
                 "shasum": ""
             },
             "require": {
@@ -8777,7 +8777,7 @@
             "homepage": "https://github.com/laradumps/laradumps",
             "support": {
                 "issues": "https://github.com/laradumps/laradumps/issues",
-                "source": "https://github.com/laradumps/laradumps/tree/v4.5.4"
+                "source": "https://github.com/laradumps/laradumps/tree/v4.6.1"
             },
             "funding": [
                 {
@@ -8785,20 +8785,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-14T12:19:35+00:00"
+            "time": "2025-12-02T14:09:49+00:00"
         },
         {
             "name": "laradumps/laradumps-core",
-            "version": "v3.2.9",
+            "version": "v3.2.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laradumps/laradumps-core.git",
-                "reference": "fc0b888a9eda11a192631891d19c06e3379ae0fc"
+                "reference": "adfd62ca7328d971af618fbf83e89f61f7188748"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laradumps/laradumps-core/zipball/fc0b888a9eda11a192631891d19c06e3379ae0fc",
-                "reference": "fc0b888a9eda11a192631891d19c06e3379ae0fc",
+                "url": "https://api.github.com/repos/laradumps/laradumps-core/zipball/adfd62ca7328d971af618fbf83e89f61f7188748",
+                "reference": "adfd62ca7328d971af618fbf83e89f61f7188748",
                 "shasum": ""
             },
             "require": {
@@ -8846,7 +8846,7 @@
             "homepage": "https://github.com/laradumps/laradumps-core",
             "support": {
                 "issues": "https://github.com/laradumps/laradumps-core/issues",
-                "source": "https://github.com/laradumps/laradumps-core/tree/v3.2.9"
+                "source": "https://github.com/laradumps/laradumps-core/tree/v3.2.10"
             },
             "funding": [
                 {
@@ -8854,7 +8854,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-19T17:06:46+00:00"
+            "time": "2025-11-25T15:35:01+00:00"
         },
         {
             "name": "laravel/pail",
