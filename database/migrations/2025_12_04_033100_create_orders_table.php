@@ -8,11 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('clinics', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name');
-            $table->unsignedInteger('commission_rate')->default(0);
+            $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
+
+            $table->string('stripe_id')->unique();
+            $table->unsignedInteger('total_price');
 
             $table->timestamps();
         });
@@ -20,6 +22,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('clinics');
+        Schema::dropIfExists('orders');
     }
 };

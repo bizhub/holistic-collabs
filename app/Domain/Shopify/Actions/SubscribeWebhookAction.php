@@ -15,7 +15,7 @@ class SubscribeWebhookAction
         $webhooks = [
             [
                 'topic' => 'orders/create',
-                'address' => 'https://25fe63e4e3e0.ngrok-free.app/ext/shopify/webhook',
+                'address' => 'https://3e8ab9a409a0.ngrok-free.app/ext/shopify/webhook/orders/created',
             ],
             // ['topic' => 'orders/updated', 'address' => route('shopify.webhooks.orders-updated')],
             // ['topic' => 'customers/create', 'address' => route('shopify.webhooks.customers-create')],
@@ -27,6 +27,8 @@ class SubscribeWebhookAction
                 'address' => $webhook['address'],
                 'format'  => 'json',
             ]);
+
+            dd($response);
         }
     }
 }

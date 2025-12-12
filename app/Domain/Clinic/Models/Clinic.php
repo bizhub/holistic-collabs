@@ -4,6 +4,7 @@ namespace Domain\Clinic\Models;
 
 use Database\Factories\ClinicFactory;
 use Domain\Client\Models\Client;
+use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Coupon\Models\Coupon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,15 @@ class Clinic extends Model
 
     protected $fillable = [
         'name',
+        'commission_rate',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'commission_rate' => CommissionRateCast::class,
+        ];
+    }
 
     protected static function newFactory(): ClinicFactory
     {

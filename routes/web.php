@@ -8,14 +8,13 @@ use App\Http\Controllers\Clinic\StoreClinicController;
 use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
 use App\Http\Controllers\Order\OrderIndexController;
+use App\Http\Controllers\Shopify\HandleOrdersCreatedWebhookController;
 use App\Http\Controllers\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Shopify\ShopifyIndexController;
 use App\Http\Controllers\Shopify\StartShopifyOAuthController;
 use App\Http\Controllers\Shopify\SubscribeToShopifyWebhooksController;
 use App\Http\Controllers\User\UserIndexController;
-use Domain\Shopify\Services\ShopifyApiService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -46,14 +45,9 @@ Route::middleware('auth')->group(function(){
     Route::post('shopify', StartShopifyOAuthController::class);
 });
 
-Route::get('shopify/callback', ShopifyCallbackController::class);
-
-Route::post('ext/shopify/webhook', function(Request $request, ShopifyApiService $shopifyApiService){
-    ds($request->all());
-
-
-
-    return response('Successful');
+Route::prefix('ext')->group(function(){
+    Route::get('shopify/callback', ShopifyCallbackController::class);
+    Route::post('shopify/webhook/orders/created', HandleOrdersCreatedWebhookController::class);
 });
 
 require __DIR__.'/settings.php';

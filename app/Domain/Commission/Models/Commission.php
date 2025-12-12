@@ -6,6 +6,8 @@ use Database\Factories\CommissionFactory;
 use Domain\Client\Models\Client;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Enums\CommissionStatus;
+use Domain\Order\Models\Order;
+use Domain\Shared\Casts\CentsCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +22,7 @@ class Commission extends Model
     protected $fillable = [
         'clinic_id',
         'client_id',
+        'order_id',
         'status',
         'amount',
     ];
@@ -28,6 +31,7 @@ class Commission extends Model
     {
         return [
             'status' => CommissionStatus::class,
+            'amount' => CentsCast::class,
         ];
     }
 
@@ -44,5 +48,10 @@ class Commission extends Model
     public function client(): HasOne
     {
         return $this->hasOne(Client::class);
+    }
+
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class);
     }
 }

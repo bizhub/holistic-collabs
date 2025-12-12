@@ -74,6 +74,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         <Badge variant="secondary">Pending</Badge>
                                     </td>
                                     <td class="pl-5"></td>
+                                    <td class="pl-5"></td>
 
                                     <td class="pl-5">
                                         <div class="flex items-center">

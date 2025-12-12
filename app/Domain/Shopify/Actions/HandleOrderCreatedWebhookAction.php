@@ -3,58 +3,92 @@
 namespace Domain\Shopify\Actions;
 
 use Domain\Client\Models\Client;
-use Domain\Clinic\Models\Clinic;
-use Domain\Commission\Actions\CreateCommissionAction;
+use Domain\Commission\Actions\CalculateCommissionAction;
+use Domain\Commission\Models\Commission;
 use Domain\Coupon\Models\Coupon;
-use Domain\Shopify\Data\ShopifyWebhookData;
+use Domain\Order\Models\Order;
+use Domain\Shopify\Data\OrderCreatedWebhookData;
 
 class HandleOrderCreatedWebhookAction
 {
     public function __construct(
-        protected CreateCommissionAction $createCommission,
+        protected CalculateCommissionAction $calculateCommission,
     ) {}
 
-    public function execute(ShopifyWebhookData $data): void
+    public function execute(OrderCreatedWebhookData $data): void
     {
-        $email = $data->email();
-        $couponCode = $data->coupon();
-        $orderTotal = $data->total();
-
-        $client = $this->findClientByEmail($email);
-        $coupon = Coupon::query()
+        $client = Client::query()
             ->with('clinic')
-            ->where('code', $couponCode)
+            ->where('shopify_id', $data->customer->id)
             ->first();
+
+        $code = '';
+        foreach ($data->discount_codes as $discount) {
+            if ($discount['type'] != 'fixed_amount') {
+                continue;
+            }
+
+            $code = $discount['code'];
+        }
+
+        $coupon = $code
+            ? Coupon::query()
+                ->with('clinic')
+                ->where('code', $code)
+                ->first()
+            : null;
 
         if ($client) {
             if ($coupon) {
-                $clinic = $this->findClinicByCoupon($coupon);
+                $clinicFromCoupon = $coupon->clinic;
 
-                // Client attached to a different clinic?
-                if ($clinic && $client->clinic_id !== $clinic->id) {
+                // ** Client attached to a different clinic **
+                if ($client->clinic_id !== $clinicFromCoupon->id) {
                     $client->update([
-                        'clinic_id' => $clinic->id
+                        'clinic_id' => $clinicFromCoupon->id
                     ]);
 
-                    // TODO: Create order
+                    $order = Order::create([
+                        'clinic_id' => $clinicFromCoupon->id,
+                        'shopify_id' => $data->id,
+                        'total_price' => $data->total_price,
+                    ]);
 
-                    $this->createCommission->execute(
-                        clinic: $clinic,
-                        coupon: $coupon,
-                        orderTotal: $orderTotal,
-                        firstTime: true,
+                    $commissionAmount = $this->calculateCommission->execute(
+                        clinic: $clinicFromCoupon,
+                        total: $data->total_price,
                     );
+
+                    Commission::create([
+                        'clinic_id' => $clinicFromCoupon->id,
+                        'client_id' => $client->id,
+                        'order_id' => $order->id,
+                        'amount' => $commissionAmount,
+                    ]);
 
                     return;
                 }
             }
 
-            // Client exists without coupon
-            $this->createCommission->execute(
-                clinic: $clinic,
-                coupon: null,
-                orderTotal: $orderTotal,
+            // ** Client exists without coupon **
+
+            $order = Order::create([
+                'clinic_id' => $client->clinic->id,
+                'shopify_id' => $data->id,
+                'total_price' => $data->total_price,
+            ]);
+
+            $commissionAmount = $this->calculateCommission->execute(
+                clinic: $client->clinic,
+                total: $data->total_price,
             );
+
+            Commission::create([
+                'clinic_id' => $client->clinic->id,
+                'client_id' => $client->id,
+                'order_id' => $order->id,
+                'amount' => $commissionAmount,
+            ]);
 
             return;
         }
@@ -66,45 +100,36 @@ class HandleOrderCreatedWebhookAction
         }
 
         // Client referred via coupon
-        $clinic = $this->findClinicByCoupon($coupon);
+        $clinicFromCoupon = $coupon->clinic;
 
-        if (! $clinic) {
+        if (!$clinicFromCoupon) {
             return;
         }
 
-        $client = $this->createClient($email, $clinic);
+        $client = Client::create([
+            'shopify_id' => $data->customer->id,
+            'clinic_id' => $clinicFromCoupon->id,
 
-        $this->createCommission->execute(
-            clinic: $clinic,
-            coupon: $coupon,
-            orderTotal: $orderTotal,
-            firstTime: true,
+            'name' => $data->customer->first_name,
+            'email' => $data->customer->email,
+        ]);
+
+        $order = Order::create([
+            'clinic_id' => $clinicFromCoupon->id,
+            'shopify_id' => $data->id,
+            'total_price' => $data->total_price,
+        ]);
+
+        $commissionAmount = $this->calculateCommission->execute(
+            clinic: $clinicFromCoupon->id,
+            total: $data->total_price,
         );
-    }
 
-    protected function findClientByEmail(?string $email): ?Client
-    {
-        return $email
-            ? Client::where('email', $email)->first()
-            : null;
-    }
-
-    protected function findClinicByCoupon(?string $code): ?Clinic
-    {
-        if (! $code) {
-            return null;
-        }
-
-        return Clinic::whereHas('coupons', function ($query) use ($code) {
-            $query->where('code', $code);
-        })->first();
-    }
-
-    protected function createClient(?string $email, Clinic $clinic): Client
-    {
-        return Client::create([
-            'email' => $email,
-            'clinic_id' => $clinic->id,
+        Commission::create([
+            'clinic_id' => $clinicFromCoupon->id,
+            'client_id' => $client->id,
+            'order_id' => $order->id,
+            'amount' => $commissionAmount,
         ]);
     }
 }
