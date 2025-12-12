@@ -121,7 +121,7 @@ class HandleOrderCreatedWebhookAction
         ]);
 
         $commissionAmount = $this->calculateCommission->execute(
-            clinic: $clinicFromCoupon->id,
+            clinic: $clinicFromCoupon,
             total: $data->total_price,
         );
 

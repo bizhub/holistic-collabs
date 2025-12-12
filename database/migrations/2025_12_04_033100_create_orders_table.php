@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
 
-            $table->string('stripe_id')->unique();
+            $table->string('shopify_id')->unique();
             $table->unsignedInteger('total_price');
 
             $table->timestamps();

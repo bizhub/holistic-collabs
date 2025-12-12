@@ -9,9 +9,9 @@ class StoreClinicController
 {
     public function __invoke(
         ClinicFormData $request,
-        CreateClinicAction $createClinicAction,
+        CreateClinicAction $createClinic,
     ) {
-        $createClinicAction->execute($request);
+        $createClinic->execute($request);
 
         return redirect('/clinics');
     }

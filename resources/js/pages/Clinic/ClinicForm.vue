@@ -22,6 +22,7 @@ const loading = ref(false)
 const form = useForm<Domain.Clinic.Data.ClinicFormData>({
     name: '',
     coupon_shopify_id: '',
+    commission_rate: 10,
 })
 
 const temp = ref('')
@@ -96,8 +97,8 @@ const connectIntegration = () => {
 
                             <div class="space-y-6">
                                 <div class="space-y-2">
-                                    <Label for="clinic_name">Commission percentage</Label>
-                                    <Input id="clinic_name" v-model="form.name" placeholder="Enter a clinics name" />
+                                    <Label for="clinic_name">Commission rate (%)</Label>
+                                    <Input id="clinic_name" v-model="form.commission_rate" placeholder="Enter a commission rate percentage" />
                                 </div>
                                 <!-- <div class="flex space-x-6">
                                     <div class="flex-1 space-y-2">

@@ -15,7 +15,7 @@ class SubscribeWebhookAction
         $webhooks = [
             [
                 'topic' => 'orders/create',
-                'address' => 'https://3e8ab9a409a0.ngrok-free.app/ext/shopify/webhook/orders/created',
+                'address' => 'https://eb831722c264.ngrok-free.app/ext/shopify/webhook/orders/created',
             ],
             // ['topic' => 'orders/updated', 'address' => route('shopify.webhooks.orders-updated')],
             // ['topic' => 'customers/create', 'address' => route('shopify.webhooks.customers-create')],

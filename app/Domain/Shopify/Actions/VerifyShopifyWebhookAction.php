@@ -7,6 +7,9 @@ class VerifyShopifyWebhookAction
     public function execute(): bool
     {
         $request = request();
+
+        ds($request->headers);
+
         $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
         $data = $request->getContent();
 

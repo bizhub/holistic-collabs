@@ -16,6 +16,7 @@ class CreateClinicAction
     {
         $clinic = Clinic::create([
             'name' => $data->name,
+            'commission_rate' => $data->commission_rate,
         ]);
 
         if (!empty($data->coupon_shopify_id)) {

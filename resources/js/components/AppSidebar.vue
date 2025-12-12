@@ -23,16 +23,6 @@ const mainNavItems: NavItem[] = [
         icon: LayoutGrid,
     },
     {
-        title: 'Commissions',
-        href: CommissionIndexController().url,
-        icon: ChartNoAxesCombined,
-    },
-    {
-        title: 'Orders',
-        href: OrderIndexController().url,
-        icon: Truck,
-    },
-    {
         title: 'Clinics',
         href: ClinicIndexController().url,
         icon: Store,
@@ -43,14 +33,24 @@ const mainNavItems: NavItem[] = [
         icon: Users,
     },
     {
+        title: 'Clients',
+        href: ClientIndexController().url,
+        icon: Handshake,
+    },
+    {
+        title: 'Commissions',
+        href: CommissionIndexController().url,
+        icon: ChartNoAxesCombined,
+    },
+    {
         title: 'Coupons',
         href: CouponIndexController().url,
         icon: Tags,
     },
     {
-        title: 'Clients',
-        href: ClientIndexController().url,
-        icon: Handshake,
+        title: 'Orders',
+        href: OrderIndexController().url,
+        icon: Truck,
     },
     {
         title: 'Shopify',

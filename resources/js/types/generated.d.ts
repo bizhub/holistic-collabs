@@ -14,6 +14,7 @@ declare namespace Domain.Clinic.Data {
     export type ClinicFormData = {
         name: string
         coupon_shopify_id: string
+        commission_rate: number
     }
 }
 declare namespace Domain.Commission.Data {

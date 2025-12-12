@@ -12,6 +12,6 @@ class CommissionData extends Data
         public string $id,
 
         public CommissionStatus $status,
-        public int $amount,
+        public float $amount,
     ) {}
 }
