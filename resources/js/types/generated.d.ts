@@ -48,6 +48,11 @@ declare namespace Domain.Order.Data {
     }
 }
 declare namespace Domain.Shopify.Data {
+    export type ShopifyActivityData = {
+        id: string
+        description: string
+        created_at: any
+    }
     export type ShopifyData = {
         status: Domain.Shopify.Enums.ConnectionStatus
         url: string

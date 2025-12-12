@@ -12,6 +12,7 @@ class HandleShopifyOAuthCallbackAction
 {
     public function __construct(
         protected ShopifySettings $settings,
+        protected RecordShopifyActivityAction $recordShopifyActivity,
     ) {}
 
     public function execute(ShopifyOAuthData $data): void
@@ -19,8 +20,8 @@ class HandleShopifyOAuthCallbackAction
         $this->verifyState($data);
 
         ShopifySDK::config([
-            'ShopUrl'      => $data->shop,
-            'ApiKey'       => config('services.shopify.client_id'),
+            'ShopUrl' => $data->shop,
+            'ApiKey' => config('services.shopify.client_id'),
             'SharedSecret' => config('services.shopify.client_secret'),
         ]);
 
@@ -31,6 +32,8 @@ class HandleShopifyOAuthCallbackAction
         $this->settings->access_token = $accessToken;
 
         $this->settings->save();
+
+        $this->recordShopifyActivity->execute('Connect to Shopify store: ' . $data->shop);
     }
 
     protected function verifyState(ShopifyOAuthData $data): void

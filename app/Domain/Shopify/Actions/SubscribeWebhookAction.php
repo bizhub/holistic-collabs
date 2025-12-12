@@ -8,6 +8,7 @@ class SubscribeWebhookAction
 {
     public function __construct(
         protected ShopifyApiService $api,
+        protected RecordShopifyActivityAction $recordShopifyActivity,
     ) {}
 
     public function execute(): void
@@ -17,18 +18,24 @@ class SubscribeWebhookAction
                 'topic' => 'orders/create',
                 'address' => 'https://eb831722c264.ngrok-free.app/ext/shopify/webhook/orders/created',
             ],
-            // ['topic' => 'orders/updated', 'address' => route('shopify.webhooks.orders-updated')],
-            // ['topic' => 'customers/create', 'address' => route('shopify.webhooks.customers-create')],
         ];
 
+        $existing = $this->api->get('Webhook');
+
         foreach ($webhooks as $webhook) {
-            $response = $this->api->post('Webhook', [
-                'topic'   => $webhook['topic'],
+            foreach ($existing as $ex) {
+                if ($ex['topic'] === $webhook['topic']) {
+                    $this->api->getClient()->Webhook($ex['id'])->delete();
+                }
+            }
+
+            $this->api->post('Webhook', [
+                'topic' => $webhook['topic'],
                 'address' => $webhook['address'],
-                'format'  => 'json',
+                'format' => 'json',
             ]);
 
-            dd($response);
+            $this->recordShopifyActivity->execute('Subscribe to orders/create webhook');
         }
     }
 }

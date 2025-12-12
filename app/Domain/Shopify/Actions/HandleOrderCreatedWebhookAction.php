@@ -13,6 +13,7 @@ class HandleOrderCreatedWebhookAction
 {
     public function __construct(
         protected CalculateCommissionAction $calculateCommission,
+        protected RecordShopifyActivityAction $recordShopifyActivity,
     ) {}
 
     public function execute(OrderCreatedWebhookData $data): void
@@ -66,6 +67,8 @@ class HandleOrderCreatedWebhookAction
                         'amount' => $commissionAmount,
                     ]);
 
+                    $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Coupon found but client is connected with a different clinic. Moving.');
+
                     return;
                 }
             }
@@ -90,12 +93,15 @@ class HandleOrderCreatedWebhookAction
                 'amount' => $commissionAmount,
             ]);
 
+            $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Client exists. No coupon found on order.');
+
             return;
         }
 
         // No client exists
-        if (! $coupon) {
-            // No referral, skip everything
+        if (!$coupon) {
+            $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Client and coupon doesn\'t exist ... skipping');
+
             return;
         }
 
@@ -131,5 +137,7 @@ class HandleOrderCreatedWebhookAction
             'order_id' => $order->id,
             'amount' => $commissionAmount,
         ]);
+
+        $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - New client referral');
     }
 }

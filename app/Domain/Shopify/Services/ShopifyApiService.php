@@ -30,13 +30,18 @@ class ShopifyApiService
         return $this->client;
     }
 
+    public function get(string $endpoint, array $params = [])
+    {
+        return $this->getClient()->$endpoint->get($params);
+    }
+
     public function post(string $endpoint, array $data)
     {
         return $this->getClient()->$endpoint->post($data);
     }
 
-    public function get(string $endpoint, array $params = [])
+    public function delete(string $endpoint, int|string $id)
     {
-        return $this->getClient()->$endpoint->get($params);
+        return $this->getClient()->$endpoint->delete($id);
     }
 }
