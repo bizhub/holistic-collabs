@@ -3,6 +3,7 @@
 namespace Domain\Shopify\Actions;
 
 use Domain\Shopify\Services\ShopifyApiService;
+use Illuminate\Support\Facades\Cache;
 
 class SubscribeWebhookAction
 {
@@ -34,6 +35,8 @@ class SubscribeWebhookAction
                 'address' => $webhook['address'],
                 'format' => 'json',
             ]);
+
+            Cache::forget('shopify_webhook_status');
 
             $this->recordShopifyActivity->execute('Subscribe to orders/create webhook');
         }

@@ -60,6 +60,7 @@ declare namespace Domain.Shopify.Data {
 }
 declare namespace Domain.Shopify.Enums {
     export type ConnectionStatus = 'connected' | 'disconnected'
+    export type WebhookStatus = 'connected' | 'partial' | 'disconnected' | 'error'
 }
 declare namespace Domain.User.Data {
     export type UserData = {

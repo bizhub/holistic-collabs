@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shopify;
 
+use Domain\Shopify\Actions\GetWebhookStatusAction;
 use Domain\Shopify\Data\ShopifyActivityData;
 use Domain\Shopify\Data\ShopifyData;
 use Domain\Shopify\Models\ShopifyActivity;
@@ -10,8 +11,10 @@ use Inertia\Inertia;
 
 class ShopifyIndexController
 {
-    public function __invoke(ShopifySettings $shopify)
-    {
+    public function __invoke(
+        ShopifySettings $shopify,
+        GetWebhookStatusAction $getWebhookStatus,
+    ) {
         $shopifyActivity = ShopifyActivity::query()
             ->orderByDesc('created_at')
             ->get();
@@ -19,6 +22,7 @@ class ShopifyIndexController
         return Inertia::render('Shopify/Shopify', [
             'shopify' => ShopifyData::from($shopify),
             'activity' => ShopifyActivityData::collect($shopifyActivity),
+            'webhook_status' => $getWebhookStatus->execute(),
         ]);
     }
 }

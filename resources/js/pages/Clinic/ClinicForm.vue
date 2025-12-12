@@ -89,10 +89,7 @@ const connectIntegration = () => {
                         <div class="border-b border-slate-200 pb-10">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Commission</h2>
-                                <p class="pt-1 text-sm text-slate-600">
-                                    Add a new clinic and set up their referral code so new<br />
-                                    clients can be automatically linked and tracked for future commissions.
-                                </p>
+                                <p class="pt-1 text-sm text-slate-600">Define the commission percentage for this clinic.</p>
                             </div>
 
                             <div class="space-y-6">

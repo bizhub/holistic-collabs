@@ -5,11 +5,12 @@ import SubscribeToShopifyWebhooksController from '@/actions/App/Http/Controllers
 import { type BreadcrumbItem } from '@/types'
 import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { Plug, Zap } from 'lucide-vue-next'
+import { Plug, Webhook, Zap } from 'lucide-vue-next'
 
 interface Props {
     shopify: Domain.Shopify.Data.ShopifyData
     activity: Domain.Shopify.Data.ShopifyActivityData[]
+    webhook_status: Domain.Shopify.Enums.WebhookStatus
 }
 
 const props = defineProps<Props>()
@@ -45,12 +46,15 @@ const lastActivityAt = computed(() => {
 
             <div class="mb-6 grid grid-cols-3 gap-6">
                 <div v-if="shopify.status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
-                    <div class="flex justify-center py-2 font-medium text-green-800">Shopify connected</div>
+                    <div class="flex items-center justify-center gap-2 py-2 font-medium text-green-800">
+                        <Zap class="size-5" />
+                        <div>Connected</div>
+                    </div>
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
-                            <div>{{ shopify.url }}</div>
+                            <div>Holistic Collabs is connected to Shopify</div>
                             <div class="text-xs font-medium text-slate-500 italic">
-                                Last Successful API Call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
+                                Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
                                 <Button variant="outline">Disconnect</Button>
@@ -59,12 +63,12 @@ const lastActivityAt = computed(() => {
                     </div>
                 </div>
                 <div v-else class="flex flex-col border-red-200 bg-red-100/80 p-1">
-                    <div class="flex justify-center py-2 font-medium text-red-800">Shopify disconnected</div>
+                    <div class="flex justify-center py-2 font-medium text-red-800">Disconnected</div>
                     <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Your Shopify connection is not active</div>
                             <div class="text-xs font-medium text-slate-500 italic">
-                                Last Successful API Call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
+                                Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
                                 <Link :href="ShopifyConnectController()">
@@ -74,13 +78,13 @@ const lastActivityAt = computed(() => {
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col border-green-200 bg-green-100/80 p-1">
-                    <div class="flex justify-center py-2 font-medium text-green-800">Webhooks connected</div>
+                <div v-if="webhook_status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
+                    <div class="flex items-center justify-center gap-2 py-2 font-medium text-green-800"><Webhook class="size-5" /> Connected</div>
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
-                            <div>Subscribed to topics: orders/created</div>
+                            <div>Shopify webhooks are active</div>
                             <div class="text-xs font-medium text-slate-500 italic">
-                                Last Successful API Call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
+                                Last successful request: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
                                 <Link :href="SubscribeToShopifyWebhooksController()">
@@ -90,13 +94,13 @@ const lastActivityAt = computed(() => {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="flex flex-col border-red-200 bg-red-100/80 p-1">
+                <div v-else class="flex flex-col border-red-200 bg-red-100/80 p-1">
                     <div class="flex justify-center py-2 font-medium text-red-800">Webhooks disconnected</div>
                     <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
                         <div class="flex flex-col items-center text-center">
-                            <div>Webhook status cannot be determined</div>
+                            <div>No Shopify webhooks are currently installed</div>
                             <div class="text-xs font-medium text-slate-500 italic">
-                                Last Successful API Call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
+                                Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
                                 <Link :href="SubscribeToShopifyWebhooksController()">
@@ -105,14 +109,14 @@ const lastActivityAt = computed(() => {
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="flex flex-col border-slate-200 bg-slate-100/80 p-1">
                     <div class="flex justify-center py-2 font-medium text-slate-800">Health check</div>
                     <div class="flex flex-1 items-center justify-center border border-slate-200 bg-white p-6 shadow-sm shadow-slate-100">
                         <div class="flex flex-col items-center text-center">
                             <div>{{ shopify.url }}</div>
                             <div class="text-xs font-medium text-slate-500 italic">
-                                Last Successful API Call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
+                                Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
                                 <Button variant="outline">Refresh</Button>

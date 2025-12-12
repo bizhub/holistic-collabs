@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Clients" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center space-x-6">
