@@ -128,13 +128,10 @@ const lastActivityAt = computed(() => {
 
             <div v-if="activity.length > 0" class="w-full">
                 <div class="bg-white">
-                    <div class="mt-3 overflow-x-auto">
-                        <table class="w-full whitespace-nowrap shadow-sm shadow-slate-100">
+                    <div class="mt-3 overflow-x-auto border border-slate-200 py-3 shadow-sm shadow-slate-100">
+                        <table class="w-full whitespace-nowrap">
                             <tbody>
-                                <tr
-                                    v-for="log in activity"
-                                    :key="log.id"
-                                    class="h-12 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr v-for="log in activity" :key="log.id" class="h-8 rounded hover:bg-slate-50 focus:outline-none">
                                     <td width="200">
                                         <div class="flex items-center pl-5">
                                             <p class="mr-2 font-mono text-sm leading-none text-slate-700">
