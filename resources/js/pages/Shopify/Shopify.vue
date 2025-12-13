@@ -137,14 +137,14 @@ const lastActivityAt = computed(() => {
                                     class="h-12 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td width="200">
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-sm leading-none text-slate-700">
+                                            <p class="mr-2 font-mono text-sm leading-none text-slate-700">
                                                 {{ dayjs(log.created_at).format('DD/MM/YYYY h:mma') }}
                                             </p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-sm leading-none text-slate-700">{{ log.description }}</p>
+                                            <p class="mr-2 font-mono text-sm leading-none text-slate-700">{{ log.description }}</p>
                                         </div>
                                     </td>
                                 </tr>

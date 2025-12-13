@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignUuid('order_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('status')->default(CommissionStatus::Pending->value);
+
+            $table->unsignedInteger('commission_rate');
+            $table->unsignedInteger('coupon_amount');
             $table->unsignedInteger('amount');
 
             $table->timestamps();

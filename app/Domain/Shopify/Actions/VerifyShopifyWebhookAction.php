@@ -2,16 +2,20 @@
 
 namespace Domain\Shopify\Actions;
 
+use Illuminate\Http\Request;
+
 class VerifyShopifyWebhookAction
 {
+    public function __construct(
+        protected Request $request,
+    ) {}
+
     public function execute(): bool
     {
-        $request = request();
+        ds($this->request->headers);
 
-        ds($request->headers);
-
-        $hmacHeader = $request->header('X-Shopify-Hmac-Sha256');
-        $data = $request->getContent();
+        $hmacHeader = $this->request->header('X-Shopify-Hmac-Sha256');
+        $data = $this->request->getContent();
 
         $calculatedHmac = base64_encode(
             hash_hmac('sha256', $data, config('services.shopify.client_secret'), true)

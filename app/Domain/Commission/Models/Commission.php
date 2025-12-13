@@ -5,6 +5,7 @@ namespace Domain\Commission\Models;
 use Database\Factories\CommissionFactory;
 use Domain\Client\Models\Client;
 use Domain\Clinic\Models\Clinic;
+use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Commission\Enums\CommissionStatus;
 use Domain\Order\Models\Order;
 use Domain\Shared\Casts\CentsCast;
@@ -24,6 +25,8 @@ class Commission extends Model
         'client_id',
         'order_id',
         'status',
+        'commission_rate',
+        'coupon_amount',
         'amount',
     ];
 
@@ -31,6 +34,8 @@ class Commission extends Model
     {
         return [
             'status' => CommissionStatus::class,
+            'commission_rate' => CommissionRateCast::class,
+            'coupon_amount' => CentsCast::class,
             'amount' => CentsCast::class,
         ];
     }

@@ -24,12 +24,14 @@ class HandleOrderCreatedWebhookAction
             ->first();
 
         $code = '';
+        $shopifyDiscountAmount = 0;
         foreach ($data->discount_codes as $discount) {
             if ($discount['type'] != 'fixed_amount') {
                 continue;
             }
 
             $code = $discount['code'];
+            $shopifyDiscountAmount = (float) $discount['amount'];
         }
 
         $coupon = $code
@@ -52,22 +54,26 @@ class HandleOrderCreatedWebhookAction
                     $order = Order::create([
                         'clinic_id' => $clinicFromCoupon->id,
                         'shopify_id' => $data->id,
-                        'total_price' => $data->total_price,
+                        'subtotal_price' => $data->total_line_items_price,
                     ]);
 
                     $commissionAmount = $this->calculateCommission->execute(
                         clinic: $clinicFromCoupon,
-                        total: $data->total_price,
+                        subtotal: $data->total_line_items_price,
+                        couponAmount: $shopifyDiscountAmount,
+                        firstOrder: true,
                     );
 
                     Commission::create([
                         'clinic_id' => $clinicFromCoupon->id,
                         'client_id' => $client->id,
                         'order_id' => $order->id,
+                        'commission_rate' => $clinicFromCoupon->commission_rate,
+                        'coupon_amount' => $shopifyDiscountAmount,
                         'amount' => $commissionAmount,
                     ]);
 
-                    $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Coupon found but client is connected with a different clinic. Moving.');
+                    $this->recordShopifyActivity->execute('Webhook (orders.created) ' . $data->id . ' - Coupon found but client is connected with a different clinic. Moving.');
 
                     return;
                 }
@@ -78,29 +84,31 @@ class HandleOrderCreatedWebhookAction
             $order = Order::create([
                 'clinic_id' => $client->clinic->id,
                 'shopify_id' => $data->id,
-                'total_price' => $data->total_price,
+                'subtotal_price' => $data->total_line_items_price,
             ]);
 
             $commissionAmount = $this->calculateCommission->execute(
                 clinic: $client->clinic,
-                total: $data->total_price,
+                subtotal: $data->total_line_items_price,
             );
 
             Commission::create([
                 'clinic_id' => $client->clinic->id,
                 'client_id' => $client->id,
                 'order_id' => $order->id,
+                'commission_rate' => $client->clinic->commission_rate,
+                'coupon_amount' => 0,
                 'amount' => $commissionAmount,
             ]);
 
-            $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Client exists. No coupon found on order.');
+            $this->recordShopifyActivity->execute('Webhook (orders.created) ' . $data->id . ' - Client exists. No coupon found on order.');
 
             return;
         }
 
         // No client exists
         if (!$coupon) {
-            $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - Client and coupon doesn\'t exist ... skipping');
+            $this->recordShopifyActivity->execute('Webhook (orders.created) ' . $data->id . ' - Client and coupon doesn\'t exist ... skipping');
 
             return;
         }
@@ -123,21 +131,25 @@ class HandleOrderCreatedWebhookAction
         $order = Order::create([
             'clinic_id' => $clinicFromCoupon->id,
             'shopify_id' => $data->id,
-            'total_price' => $data->total_price,
+            'subtotal_price' => $data->total_line_items_price,
         ]);
 
         $commissionAmount = $this->calculateCommission->execute(
             clinic: $clinicFromCoupon,
-            total: $data->total_price,
+            subtotal: $data->total_line_items_price,
+            couponAmount: $shopifyDiscountAmount,
+            firstOrder: true,
         );
 
         Commission::create([
             'clinic_id' => $clinicFromCoupon->id,
             'client_id' => $client->id,
             'order_id' => $order->id,
+            'commission_rate' => $clinicFromCoupon->commission_rate,
+            'coupon_amount' => $shopifyDiscountAmount,
             'amount' => $commissionAmount,
         ]);
 
-        $this->recordShopifyActivity->execute('Webhook (orders.created): ' . $data->id . ' - New client referral');
+        $this->recordShopifyActivity->execute('Webhook (orders.created) ' . $data->id . ' - New client referral');
     }
 }

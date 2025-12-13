@@ -16,6 +16,8 @@ class HandleOrdersCreatedWebhookController
     ) {
         abort_if(!$verifyShopifyWebhook->execute(), Response::HTTP_UNAUTHORIZED, 'Invalid HMAC');
 
+        ds(request()->all());
+
         $handleOrderCreatedWebhook->execute($data);
 
         return response('Webhook processed', Response::HTTP_OK);

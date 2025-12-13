@@ -17,13 +17,13 @@ class Order extends Model
     protected $fillable = [
         'clinic_id',
         'shopify_id',
-        'total_price',
+        'subtotal_price',
     ];
 
     protected function casts(): array
     {
         return [
-            'total_price' => CentsCast::class,
+            'subtotal_price' => CentsCast::class,
         ];
     }
 

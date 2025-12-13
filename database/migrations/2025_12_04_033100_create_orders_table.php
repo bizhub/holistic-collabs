@@ -14,7 +14,7 @@ return new class extends Migration
             $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
 
             $table->string('shopify_id')->unique();
-            $table->unsignedInteger('total_price');
+            $table->unsignedInteger('subtotal_price');
 
             $table->timestamps();
         });

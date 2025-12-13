@@ -67,7 +67,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <tr class="h-16 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none text-slate-700">{{ group.clinic.name }}</p>
+                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ group.clinic.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-24">
@@ -120,7 +120,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         </div>
                                     </td>
                                 </tr>
-                                <tr class="h-4"></tr>
+                                <tr class="h-10"></tr>
                             </template>
                         </tbody>
                     </table>

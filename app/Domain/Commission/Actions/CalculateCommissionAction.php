@@ -8,8 +8,16 @@ class CalculateCommissionAction
 {
     public function execute(
         Clinic $clinic,
-        float $total = 0,
+        float $subtotal = 0,
+        float $couponAmount = 0,
+        bool $firstOrder = false,
     ): float {
-        return round($total * ($clinic->commission_rate / 100), 2);
+        $commission = $subtotal * ($clinic->commission_rate / 100);
+
+        if ($firstOrder) {
+            $commission -= $couponAmount;
+        }
+
+        return max(0, round($commission, 2));
     }
 }

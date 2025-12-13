@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/AppLayout.vue'
 import { dashboard } from '@/routes'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { HandshakeIcon } from 'lucide-vue-next'
+import { HandshakeIcon, MoreHorizontal } from 'lucide-vue-next'
 
 interface Props {
     clients: Domain.Client.Data.ClientData[]
@@ -55,18 +55,13 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">5 Contributions</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">Janine Tait</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <!-- <div v-if="client.coupons">
-                                            <div v-for="coupon in clinic.coupons" :key="coupon.id" class="inline-block bg-slate-200 px-3 py-1.5">
-                                                <div class="flex items-center space-x-1">
-                                                    <Tag class="size-4 text-slate-600" />
-                                                    <div class="text-sm font-medium text-slate-600">{{ coupon.code }}</div>
-                                                </div>
-                                            </div>
-                                        </div> -->
+                                        <div class="flex items-center">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">5 Contributions</p>
+                                        </div>
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">
@@ -82,7 +77,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                         <DropdownMenuItem>Edit</DropdownMenuItem>
                                                         <!-- <DropdownMenuItem>Add Coupon</DropdownMenuItem> -->
                                                     </DropdownMenuGroup>
-                                                    <DropdownMenuSeparator />
+                                                    <!-- <DropdownMenuSeparator /> -->
                                                     <!-- <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem> -->
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
