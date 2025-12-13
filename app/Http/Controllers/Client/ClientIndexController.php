@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers\Client;
 
+use Domain\Client\Data\ClientData;
+use Domain\Client\Models\Client;
 use Inertia\Inertia;
 
 class ClientIndexController
 {
     public function __invoke()
     {
-        return Inertia::render('Client/Clients');
+        $clients = Client::all();
+
+        return Inertia::render('Client/Clients', [
+            'clients' => ClientData::collect($clients),
+        ]);
     }
 }

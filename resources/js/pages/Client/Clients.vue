@@ -5,11 +5,11 @@ import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { HandshakeIcon } from 'lucide-vue-next'
 
-// interface Props {
-//     commissions: Domain.Commission.Data.CommissionGroupData[]
-// }
+interface Props {
+    clients: Domain.Client.Data.ClientData[]
+}
 
-// defineProps<Props>()
+defineProps<Props>()
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -37,7 +37,65 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div></div>
             </div>
 
-            <Empty class="border border-dashed">
+            <div v-if="clients.length > 0" class="w-full">
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <tbody>
+                            <template v-for="client in clients" :key="client.id">
+                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                    <td>
+                                        <div class="flex items-center pl-5">
+                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ client.name }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ client.email }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">5 Contributions</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <!-- <div v-if="client.coupons">
+                                            <div v-for="coupon in clinic.coupons" :key="coupon.id" class="inline-block bg-slate-200 px-3 py-1.5">
+                                                <div class="flex items-center space-x-1">
+                                                    <Tag class="size-4 text-slate-600" />
+                                                    <div class="text-sm font-medium text-slate-600">{{ coupon.code }}</div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                    <td class="pl-4">
+                                        <div class="flex justify-end pr-4">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger as-child>
+                                                    <Button variant="secondary" size="sm" aria-label="Options">
+                                                        <MoreHorizontal />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent class="w-56" align="end">
+                                                    <DropdownMenuGroup>
+                                                        <DropdownMenuItem>View</DropdownMenuItem>
+                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        <!-- <DropdownMenuItem>Add Coupon</DropdownMenuItem> -->
+                                                    </DropdownMenuGroup>
+                                                    <DropdownMenuSeparator />
+                                                    <!-- <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem> -->
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
                         <HandshakeIcon />
