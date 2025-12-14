@@ -45,6 +45,9 @@ declare namespace Domain.Coupon.Data {
 declare namespace Domain.Order.Data {
     export type OrderData = {
         id: string
+        coupon_code: string | null
+        subtotal_price: number
+        clinic: Domain.Clinic.Data.ClinicData | null
     }
 }
 declare namespace Domain.Shopify.Data {

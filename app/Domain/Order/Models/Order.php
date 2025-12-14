@@ -17,6 +17,7 @@ class Order extends Model
     protected $fillable = [
         'clinic_id',
         'shopify_id',
+        'coupon_code',
         'subtotal_price',
     ];
 
