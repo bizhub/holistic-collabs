@@ -65,6 +65,12 @@ declare namespace Domain.Shopify.Enums {
     export type ConnectionStatus = 'connected' | 'disconnected'
     export type WebhookStatus = 'connected' | 'partial' | 'disconnected' | 'error'
 }
+declare namespace Domain.Shopify.Webhooks.OrderCreated.Context {
+    export type CouponContext = {
+        coupon: any | null
+        amount: number
+    }
+}
 declare namespace Domain.User.Data {
     export type UserData = {
         id: string

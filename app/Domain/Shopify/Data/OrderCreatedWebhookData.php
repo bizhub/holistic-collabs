@@ -10,7 +10,7 @@ class OrderCreatedWebhookData extends Data
         public int $id,
         public CustomerWebhookData $customer,
         public string $order_status_url,
-        public array $discount_codes,
+        public ?array $discount_codes,
         public float $total_line_items_price,
     ) {}
 }

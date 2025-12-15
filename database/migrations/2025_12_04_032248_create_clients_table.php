@@ -13,7 +13,7 @@ return new class extends Migration
 
             $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
 
-            $table->string('shopify_id');
+            $table->string('shopify_id')->unique();
 
             $table->string('name')->nullable();
             $table->string('email')->nullable();

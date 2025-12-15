@@ -8,8 +8,6 @@ use App\Http\Controllers\Clinic\StoreClinicController;
 use App\Http\Controllers\Commission\CommissionIndexController;
 use App\Http\Controllers\Coupon\CouponIndexController;
 use App\Http\Controllers\Order\OrderIndexController;
-use App\Http\Controllers\Shopify\HandleOrdersCreatedWebhookController;
-use App\Http\Controllers\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Shopify\ShopifyIndexController;
 use App\Http\Controllers\Shopify\StartShopifyOAuthController;
@@ -43,11 +41,6 @@ Route::middleware('auth')->group(function(){
     Route::get('shopify/connect', ShopifyConnectController::class);
     Route::get('shopify/webhooks/subscribe', SubscribeToShopifyWebhooksController::class);
     Route::post('shopify', StartShopifyOAuthController::class);
-});
-
-Route::prefix('ext')->group(function(){
-    Route::get('shopify/callback', ShopifyCallbackController::class);
-    Route::post('shopify/webhook/orders/created', HandleOrdersCreatedWebhookController::class);
 });
 
 require __DIR__.'/settings.php';

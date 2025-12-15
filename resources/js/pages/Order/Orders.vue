@@ -60,7 +60,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         <div class="inline-block bg-slate-200 px-3 py-1.5">
                                             <div class="flex items-center space-x-1">
                                                 <Tag class="size-4 text-slate-600" />
-                                                <div class="text-sm font-medium text-slate-600">COUPON_CODE_HERE</div>
+                                                <div class="text-sm font-medium text-slate-600">{{ order.coupon_code }}</div>
                                             </div>
                                         </div>
                                         <!-- </div> -->

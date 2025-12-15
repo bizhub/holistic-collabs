@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('code');
             $table->string('shopify_id')->unique();
 
-            $table->decimal('amount', 10, 2)->nullable();
-
             $table->timestamps();
         });
     }
