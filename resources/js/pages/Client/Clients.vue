@@ -55,12 +55,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">Janine Tait</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ client.clinic?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">5 Contributions</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                                {{ client.commissions_count }} {{ client.commissions_count === 1 ? 'Contribution' : 'Contributions' }}
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="pl-4">
@@ -73,12 +75,11 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <DropdownMenuItem>View</DropdownMenuItem>
-                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                        <!-- <DropdownMenuItem>Add Coupon</DropdownMenuItem> -->
+                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
                                                     </DropdownMenuGroup>
-                                                    <!-- <DropdownMenuSeparator /> -->
-                                                    <!-- <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem> -->
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>

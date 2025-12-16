@@ -54,6 +54,13 @@ const deleteCoupon = (id: string) => {
                                             <p class="ml-2 text-sm leading-none text-slate-600">{{ coupon.clinic?.name }}</p>
                                         </div>
                                     </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                                {{ coupon.commissions_count }} {{ coupon.commissions_count === 1 ? 'Commission' : 'Commissions' }}
+                                            </p>
+                                        </div>
+                                    </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">
                                             <DropdownMenu>

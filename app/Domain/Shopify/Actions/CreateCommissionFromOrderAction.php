@@ -27,6 +27,7 @@ class CreateCommissionFromOrderAction
             'clinic_id' => $clinic->id,
             'client_id' => $client->id,
             'order_id' => $order->id,
+            'coupon_id' => $couponContext?->coupon?->id,
             'commission_rate' => $clinic->commission_rate,
             'coupon_amount' => $couponContext->amount,
             'amount' => $this->calculateCommission->execute(

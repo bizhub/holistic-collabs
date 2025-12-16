@@ -42,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">Client Name</p>
+                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ order.client?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
@@ -60,7 +60,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ order.subtotal_price.toFixed(2) }}</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                                ${{
+                                                    order.subtotal_price.toLocaleString(undefined, {
+                                                        minimumFractionDigits: 2,
+                                                        maximumFractionDigits: 2,
+                                                    })
+                                                }}
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="pl-4">

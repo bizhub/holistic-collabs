@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         then: function () {
             Route::prefix('ext')
+                ->middleware('web')
                 ->name('ext.')
                 ->group(base_path('routes/external.php'));
         },

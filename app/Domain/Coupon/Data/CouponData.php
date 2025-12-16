@@ -13,5 +13,7 @@ class CouponData extends Data
         public string $code,
 
         public ?ClinicData $clinic,
+
+        public ?int $commissions_count,
     ) {}
 }

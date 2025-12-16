@@ -12,6 +12,10 @@ class ClinicIndexController
     {
         $clinics = Clinic::query()
             ->with('coupons')
+            ->withCount([
+                'commissions',
+                'clients',
+            ])
             ->get();
 
         return Inertia::render('Clinic/Clinics', [

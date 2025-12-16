@@ -5,6 +5,7 @@ namespace Domain\Clinic\Models;
 use Database\Factories\ClinicFactory;
 use Domain\Client\Models\Client;
 use Domain\Commission\Casts\CommissionRateCast;
+use Domain\Commission\Models\Commission;
 use Domain\Coupon\Models\Coupon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,5 +42,10 @@ class Clinic extends Model
     public function coupons(): HasMany
     {
         return $this->hasMany(Coupon::class);
+    }
+
+    public function commissions(): HasMany
+    {
+        return $this->hasMany(Commission::class);
     }
 }

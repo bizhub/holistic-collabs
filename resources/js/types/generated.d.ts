@@ -3,6 +3,8 @@ declare namespace Domain.Client.Data {
         id: string
         name: string
         email: string
+        clinic: Domain.Clinic.Data.ClinicData | null
+        commissions_count: number | null
     }
 }
 declare namespace Domain.Clinic.Data {
@@ -10,6 +12,8 @@ declare namespace Domain.Clinic.Data {
         id: string
         name: string
         coupons: any | null
+        commissions_count: number | null
+        clients_count: number | null
     }
     export type ClinicFormData = {
         name: string
@@ -40,6 +44,7 @@ declare namespace Domain.Coupon.Data {
         id: string
         code: string
         clinic: Domain.Clinic.Data.ClinicData | null
+        commissions_count: number | null
     }
 }
 declare namespace Domain.Order.Data {

@@ -7,6 +7,7 @@ use Domain\Client\Models\Client;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Commission\Enums\CommissionStatus;
+use Domain\Coupon\Models\Coupon;
 use Domain\Order\Models\Order;
 use Domain\Shared\Casts\CentsCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -24,6 +25,7 @@ class Commission extends Model
         'clinic_id',
         'client_id',
         'order_id',
+        'coupon_id',
         'status',
         'commission_rate',
         'coupon_amount',
@@ -58,5 +60,10 @@ class Commission extends Model
     public function order(): HasOne
     {
         return $this->hasOne(Order::class);
+    }
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
     }
 }

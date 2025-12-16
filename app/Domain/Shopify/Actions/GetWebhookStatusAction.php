@@ -25,7 +25,7 @@ class GetWebhookStatusAction
         return Cache::remember($this->cacheKey, $this->cacheTtlSeconds, fn() => $this->getStatus());
     }
 
-    protected function getStatus()
+    protected function getStatus(): WebhookStatus
     {
         try {
             $webhooks = collect($this->api->getClient()->Webhook->get());
@@ -34,8 +34,23 @@ class GetWebhookStatusAction
                 return WebhookStatus::Disconnected;
             }
 
-            $installedTopics = $webhooks->pluck('topic')->toArray();
-            $missing = array_diff($this->requiredTopics, $installedTopics);
+            $baseUrl = rtrim(config('services.shopify.webhook_url'), '/');
+
+            $installedTopics = $webhooks->mapWithKeys(fn($webhook) => [
+                $webhook['topic'] => rtrim($webhook['address'], '/')
+            ])->toArray();
+
+            $missing = [];
+            foreach ($this->requiredTopics as $topic) {
+                if (!isset($installedTopics[$topic])) {
+                    $missing[] = $topic;
+                    continue;
+                }
+
+                if (strpos($installedTopics[$topic], $baseUrl) !== 0) {
+                    $missing[] = $topic;
+                }
+            }
 
             return empty($missing)
                 ? WebhookStatus::Connected

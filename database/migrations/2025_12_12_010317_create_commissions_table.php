@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignUuid('clinic_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid('client_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignUuid('order_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignUuid('coupon_id')->nullable()->constrained()->nullOnDelete();
 
             $table->string('status')->default(CommissionStatus::Pending->value);
 

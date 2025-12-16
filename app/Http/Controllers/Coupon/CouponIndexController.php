@@ -12,6 +12,7 @@ class CouponIndexController
     {
         $coupons = Coupon::query()
             ->with('clinic')
+            ->withCount('commissions')
             ->get();
 
         return Inertia::render('Coupon/Coupons', [

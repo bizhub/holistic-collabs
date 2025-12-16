@@ -64,12 +64,16 @@ const deleteClinic = (id: string) => {
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">0 Clients</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                                {{ clinic.clients_count }} {{ clinic.clients_count === 1 ? 'Client' : 'Clients' }}
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">0 Commissions</p>
+                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                                {{ clinic.commissions_count }} {{ clinic.commissions_count === 1 ? 'Commission' : 'Commissions' }}
+                                            </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
@@ -92,9 +96,9 @@ const deleteClinic = (id: string) => {
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <DropdownMenuItem>View</DropdownMenuItem>
-                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                        <DropdownMenuItem>Add Coupon</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem>

@@ -17,7 +17,7 @@ class SubscribeWebhookAction
         $webhooks = [
             [
                 'topic' => 'orders/create',
-                'address' => 'https://be45c65dfb55.ngrok-free.app/ext/shopify/webhook/orders/created',
+                'address' => rtrim(config('services.shopify.webhook_url'), '/') . '/ext/shopify/webhook/orders/created',
             ],
         ];
 

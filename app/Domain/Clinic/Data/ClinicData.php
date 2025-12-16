@@ -16,5 +16,8 @@ class ClinicData extends Data
 
         #[DataCollectionOf(CouponData::class)]
         public ?DataCollection $coupons,
+
+        public ?int $commissions_count,
+        public ?int $clients_count,
     ) {}
 }

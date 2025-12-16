@@ -12,10 +12,7 @@ class ShopifyCallbackController
         Request $request,
         HandleShopifyOAuthCallbackAction $handleShopifyOAuthCallbackAction,
     ) {
-        $data = new ShopifyOAuthData(
-            shop: $request->query('shop'),
-            state: $request->query('state'),
-        );
+        $data = ShopifyOAuthData::from($request->all());
 
         $handleShopifyOAuthCallbackAction->execute($data);
 

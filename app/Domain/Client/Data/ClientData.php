@@ -2,6 +2,7 @@
 
 namespace Domain\Client\Data;
 
+use Domain\Clinic\Data\ClinicData;
 use Spatie\LaravelData\Data;
 
 /** @typescript */
@@ -12,5 +13,9 @@ class ClientData extends Data
 
         public string $name,
         public string $email,
+
+        public ?ClinicData $clinic,
+
+        public ?int $commissions_count,
     ) {}
 }

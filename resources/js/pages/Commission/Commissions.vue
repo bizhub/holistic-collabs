@@ -97,19 +97,14 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     v-for="commission in group.commissions"
                                     :key="commission.id"
                                     class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
-                                    <td class="">
-                                        <div class="flex items-center pl-5">
-                                            <!-- <p class="mr-2 text-base leading-none text-slate-700">{{ commission.amount }}</p> -->
-                                        </div>
+                                    <td>
+                                        <div class="flex items-center pl-5"></div>
                                     </td>
-                                    <td class="pl-24">
-                                        <!-- <Badge variant="secondary">Pending</Badge> -->
-                                    </td>
+                                    <td class="pl-24"></td>
                                     <td class="pl-5"></td>
                                     <td class="pl-5"></td>
                                     <td class="pl-5">
                                         <div class="flex items-center justify-end">
-                                            <!-- <Users class="size-4 text-slate-400" /> -->
                                             <p class="ml-2 text-sm leading-none text-slate-600">${{ commission.amount.toFixed(2) }}</p>
                                         </div>
                                     </td>

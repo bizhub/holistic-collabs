@@ -10,7 +10,10 @@ class ClientIndexController
 {
     public function __invoke()
     {
-        $clients = Client::all();
+        $clients = Client::query()
+            ->with('clinic')
+            ->withCount('commissions')
+            ->get();
 
         return Inertia::render('Client/Clients', [
             'clients' => ClientData::collect($clients),
