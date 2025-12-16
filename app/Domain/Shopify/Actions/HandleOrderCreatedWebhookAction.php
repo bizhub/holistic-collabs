@@ -5,7 +5,6 @@ namespace Domain\Shopify\Actions;
 use Domain\Order\Actions\CreateOrderAction;
 use Domain\Order\Models\Order;
 use Domain\Shopify\Data\OrderCreatedWebhookData;
-use Domain\Shopify\Context\ShopifyOrderContext;
 use Illuminate\Support\Facades\DB;
 
 class HandleOrderCreatedWebhookAction
@@ -15,7 +14,7 @@ class HandleOrderCreatedWebhookAction
         protected ResolveWebhookOrderClientAction $resolveClient,
         protected CreateOrderAction $createOrder,
         protected CreateCommissionFromOrderAction $createCommission,
-        protected RecordShopifyActivityAction $activity,
+        protected RecordShopifyActivityAction $recordActivity,
     ) {}
 
     public function execute(OrderCreatedWebhookData $data): void
@@ -25,10 +24,9 @@ class HandleOrderCreatedWebhookAction
             ->exists();
 
         if ($orderExists) {
-            $this->activity->execute(
+            $this->recordActivity->execute(
                 "Webhook (orders.created) {$data->id} - Duplicate",
             );
-
             return;
         }
 
@@ -43,21 +41,13 @@ class HandleOrderCreatedWebhookAction
             );
 
             if (!$client) {
-                $this->activity->execute(
+                $this->recordActivity->execute(
                     "Webhook (orders.created) {$data->id} - Skipped",
                 );
                 return;
             }
 
             $clinic = $couponContext->coupon?->clinic ?? $client->clinic;
-
-            $context = new ShopifyOrderContext(
-                client: $client,
-                clinic: $clinic,
-                couponContext: $couponContext,
-                subtotal: $data->total_line_items_price,
-                firstOrder: (bool) $couponContext->coupon,
-            );
 
             $order = $this->createOrder->execute(
                 clinic: $clinic,
@@ -67,11 +57,15 @@ class HandleOrderCreatedWebhookAction
             );
 
             $this->createCommission->execute(
-                context: $context,
                 order: $order,
+                client: $client,
+                clinic: $clinic,
+                couponContext: $couponContext,
+                subtotal: $data->total_line_items_price,
+                firstOrder: (bool) $couponContext->coupon,
             );
 
-            $this->activity->execute(
+            $this->recordActivity->execute(
                 "Webhook (orders.created) {$data->id} - Processed",
             );
         });

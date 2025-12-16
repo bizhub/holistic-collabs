@@ -2,10 +2,12 @@
 
 namespace Domain\Shopify\Actions;
 
+use Domain\Client\Models\Client;
+use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Actions\CalculateCommissionAction;
 use Domain\Commission\Models\Commission;
 use Domain\Order\Models\Order;
-use Domain\Shopify\Context\ShopifyOrderContext;
+use Domain\Shopify\Context\CouponContext;
 
 class CreateCommissionFromOrderAction
 {
@@ -14,20 +16,24 @@ class CreateCommissionFromOrderAction
     ) {}
 
     public function execute(
-        ShopifyOrderContext $context,
         Order $order,
+        ?Client $client,
+        ?Clinic $clinic,
+        CouponContext $couponContext,
+        float $subtotal,
+        bool $firstOrder,
     ): Commission {
         return Commission::create([
-            'clinic_id' => $context->clinic->id,
-            'client_id' => $context->client->id,
+            'clinic_id' => $clinic->id,
+            'client_id' => $client->id,
             'order_id' => $order->id,
-            'commission_rate' => $context->clinic->commission_rate,
-            'coupon_amount' => $context->couponContext->amount,
+            'commission_rate' => $clinic->commission_rate,
+            'coupon_amount' => $couponContext->amount,
             'amount' => $this->calculateCommission->execute(
-                clinic: $context->clinic,
-                subtotal: $context->subtotal,
-                couponAmount: $context->couponContext->amount,
-                firstOrder: $context->firstOrder,
+                clinic: $clinic,
+                subtotal: $subtotal,
+                couponAmount: $couponContext->amount,
+                firstOrder: $firstOrder,
             ),
         ]);
     }

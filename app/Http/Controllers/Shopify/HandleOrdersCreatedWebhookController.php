@@ -13,7 +13,7 @@ class HandleOrdersCreatedWebhookController
         OrderCreatedWebhookData $data,
         VerifyShopifyWebhookAction $verifyShopifyWebhook,
         HandleOrderCreatedWebhookAction $handleOrderCreatedWebhook,
-    ) {
+    ): Response {
         abort_if(
             boolean: !$verifyShopifyWebhook->execute(),
             code: Response::HTTP_UNAUTHORIZED,
