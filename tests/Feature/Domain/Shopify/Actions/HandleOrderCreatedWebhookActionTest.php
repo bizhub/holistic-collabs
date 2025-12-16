@@ -57,6 +57,7 @@ it('handles first time customer with a known coupon', function () {
 
     expect($order)
         ->clinic_id->toBe($clinic->id)
+        ->client_id->toBe($client->id)
         ->shopify_id->toBe('6249589899403')
         ->coupon_code->toBe('REF123')
         ->subtotal_price->toBe(1000);
@@ -120,6 +121,7 @@ it('handles existing client without coupon', function () {
 
     expect($order)
         ->clinic_id->toBe($clinic->id)
+        ->client_id->toBe($client->id)
         ->shopify_id->toBe('6249589899403')
         ->coupon_code->toBeNull()
         ->subtotal_price->toBe(1000);
@@ -188,6 +190,7 @@ it('handles existing client with known coupon attached a different clinic', func
 
     expect($order)
         ->clinic_id->toBe($clinic->id)
+        ->client_id->toBe($client->id)
         ->shopify_id->toBe('6249589899403')
         ->coupon_code->toBe('REF123')
         ->subtotal_price->toBe(1000);

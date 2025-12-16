@@ -46,24 +46,22 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <!-- <p class="ml-2 text-sm leading-none text-slate-600">{{ client.email }}</p> -->
+                                        <div v-if="order.clinic" class="flex items-center">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ order.clinic.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">Janine Tait</p>
-                                        </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <!-- <div v-if="clinic.coupons"> -->
-                                        <div class="inline-block bg-slate-200 px-3 py-1.5">
+                                        <div v-if="order.coupon_code" class="inline-block bg-slate-200 px-3 py-1.5">
                                             <div class="flex items-center space-x-1">
                                                 <Tag class="size-4 text-slate-600" />
                                                 <div class="text-sm font-medium text-slate-600">{{ order.coupon_code }}</div>
                                             </div>
                                         </div>
-                                        <!-- </div> -->
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center justify-end">
+                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ order.subtotal_price.toFixed(2) }}</p>
+                                        </div>
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">

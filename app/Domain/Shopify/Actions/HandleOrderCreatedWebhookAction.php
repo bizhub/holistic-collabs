@@ -51,6 +51,7 @@ class HandleOrderCreatedWebhookAction
 
             $order = $this->createOrder->execute(
                 clinic: $clinic,
+                client: $client,
                 shopifyId: $data->id,
                 subtotal: $data->total_line_items_price,
                 couponCode: $couponContext->coupon?->code,

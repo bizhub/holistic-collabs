@@ -48,6 +48,7 @@ declare namespace Domain.Order.Data {
         coupon_code: string | null
         subtotal_price: number
         clinic: Domain.Clinic.Data.ClinicData | null
+        client: Domain.Client.Data.ClientData | null
     }
 }
 declare namespace Domain.Shopify.Context {

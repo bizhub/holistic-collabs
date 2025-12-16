@@ -2,6 +2,7 @@
 
 namespace Domain\Order\Models;
 
+use Domain\Client\Models\Client;
 use Domain\Clinic\Models\Clinic;
 use Domain\Shared\Casts\CentsCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -16,6 +17,7 @@ class Order extends Model
 
     protected $fillable = [
         'clinic_id',
+        'client_id',
         'shopify_id',
         'coupon_code',
         'subtotal_price',
@@ -31,5 +33,10 @@ class Order extends Model
     public function clinic(): BelongsTo
     {
         return $this->belongsTo(Clinic::class);
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
     }
 }

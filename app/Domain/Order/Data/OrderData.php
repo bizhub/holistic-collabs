@@ -2,6 +2,7 @@
 
 namespace Domain\Order\Data;
 
+use Domain\Client\Data\ClientData;
 use Domain\Clinic\Data\ClinicData;
 use Spatie\LaravelData\Data;
 
@@ -14,5 +15,6 @@ class OrderData extends Data
         public float $subtotal_price,
 
         public ?ClinicData $clinic,
+        public ?ClientData $client,
     ) {}
 }

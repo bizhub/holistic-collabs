@@ -10,7 +10,12 @@ class OrderIndexController
 {
     public function __invoke()
     {
-        $orders = Order::query()->get();
+        $orders = Order::query()
+            ->with([
+                'clinic',
+                'client',
+            ])
+            ->get();
 
         return Inertia::render('Order/Orders', [
             'orders' => OrderData::collect($orders),

@@ -12,6 +12,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->foreignUuid('clinic_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('client_id')->constrained()->cascadeOnDelete();
 
             $table->string('shopify_id')->unique();
             $table->string('coupon_code')->nullable();
