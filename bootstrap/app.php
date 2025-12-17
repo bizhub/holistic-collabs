@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
         then: function () {
             Route::prefix('ext')
-                ->middleware('web')
+                ->middleware('api')
                 ->name('ext.')
                 ->group(base_path('routes/external.php'));
         },
@@ -30,9 +30,9 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        $middleware->validateCsrfTokens(except: [
-            'ext/*',
-        ]);
+        // $middleware->validateCsrfTokens(except: [
+        //     'ext/*',
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
