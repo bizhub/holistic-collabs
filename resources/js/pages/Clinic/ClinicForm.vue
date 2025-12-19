@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import StoreClinicController from '@/actions/App/Http/Controllers/Clinic/StoreClinicController'
+import UpdateClinicController from '@/actions/App/Http/Controllers/Clinic/UpdateClinicController'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { Loader2 } from 'lucide-vue-next'
 
 interface Props {
-    available_coupons: Domain.Coupon.Data.AvailableCouponData[]
+    clinic?: Domain.Clinic.Data.ClinicData | null
+    available_coupons?: Domain.Coupon.Data.AvailableCouponData[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const isCreate = !props.clinic
 
 const breadcrumbs: BreadcrumbItem[] = [
     // {
@@ -20,31 +24,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 const loading = ref(false)
 
 const form = useForm<Domain.Clinic.Data.ClinicFormData>({
-    name: '',
-    coupon_shopify_id: '',
-    commission_rate: 10,
+    name: props.clinic?.name ?? '',
+    commission_rate: props.clinic?.commission_rate ?? 10,
+    coupon_shopify_id: isCreate ? '' : null,
 })
 
 const temp = ref('')
 const temp2 = ref('')
 
-const connectIntegration = () => {
+const submit = () => {
     loading.value = true
 
-    form.post(StoreClinicController().url)
+    if (isCreate) {
+        form.post(StoreClinicController().url)
+        return
+    }
 
-    // router.post(
-    //     ConnectIntegrationController(),
-    //     {
-    //         provider: provider.value,
-    //         data,
-    //     },
-    //     {
-    //         onError() {
-    //             loading.value = false
-    //         },
-    //     }
-    // )
+    form.put(UpdateClinicController(props.clinic!.id).url)
 }
 </script>
 
@@ -55,10 +51,10 @@ const connectIntegration = () => {
         <div class="mx-auto w-full max-w-4xl px-6 py-4">
             <div class="relative flex-1">
                 <div class="mb-10 border-b border-slate-200 pb-4">
-                    <h1 class="text-3xl font-bold tracking-tight">Add Clinic</h1>
+                    <h1 class="text-3xl font-bold tracking-tight">{{ isCreate ? 'Add' : 'Update' }} Clinic</h1>
                 </div>
 
-                <form @submit.prevent="connectIntegration">
+                <form @submit.prevent="submit">
                     <div class="space-y-8">
                         <div class="border-b border-slate-200 pb-10">
                             <div class="mb-5">
@@ -86,7 +82,7 @@ const connectIntegration = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="border-b border-slate-200 pb-10">
+                        <div>
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Commission</h2>
                                 <p class="pt-1 text-sm text-slate-600">Define the commission percentage for this clinic.</p>
@@ -97,19 +93,9 @@ const connectIntegration = () => {
                                     <Label for="clinic_name">Commission rate (%)</Label>
                                     <Input id="clinic_name" v-model="form.commission_rate" placeholder="Enter a commission rate percentage" />
                                 </div>
-                                <!-- <div class="flex space-x-6">
-                                    <div class="flex-1 space-y-2">
-                                        <Label for="contact_name">Contact Name</Label>
-                                        <Input id="contact_name" v-model="temp" placeholder="Enter a contact name" />
-                                    </div>
-                                    <div class="flex-1 space-y-2">
-                                        <Label for="contact_email">Email</Label>
-                                        <Input id="contact_email" v-model="temp2" placeholder="Enter a contact email" />
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
-                        <div>
+                        <div v-if="isCreate && available_coupons" class="border-t border-slate-200 pt-8">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Coupon Code</h2>
                                 <p class="pt-1 text-sm text-slate-600">
@@ -136,9 +122,9 @@ const connectIntegration = () => {
                         <Button type="submit" size="lg" :disabled="loading">
                             <div v-if="loading" class="flex items-center">
                                 <Loader2 class="mr-2 h-4 w-4 animate-spin" />
-                                <div>Creating</div>
+                                <div>{{ isCreate ? 'Creating' : 'Updating' }}</div>
                             </div>
-                            <div v-else>Create</div>
+                            <div v-else>{{ isCreate ? 'Create' : 'Update' }}</div>
                         </Button>
                     </DialogFooter>
                 </form>

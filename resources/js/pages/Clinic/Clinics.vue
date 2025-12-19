@@ -2,6 +2,7 @@
 import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
 import CreateClinicController from '@/actions/App/Http/Controllers/Clinic/CreateClinicController'
 import DeleteClinicController from '@/actions/App/Http/Controllers/Clinic/DeleteClinicController'
+import EditClinicController from '@/actions/App/Http/Controllers/Clinic/EditClinicController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head, Link } from '@inertiajs/vue3'
@@ -106,7 +107,9 @@ const deleteClinic = (id: string) => {
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
                                                         <DropdownMenuItem disabled>View</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
+                                                        <Link :href="EditClinicController(clinic.id)">
+                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        </Link>
                                                         <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />

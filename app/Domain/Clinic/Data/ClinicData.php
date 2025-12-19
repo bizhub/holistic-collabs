@@ -14,6 +14,8 @@ class ClinicData extends Data
         public string $id,
         public string $name,
 
+        public float $commission_rate,
+
         #[DataCollectionOf(CouponData::class)]
         public ?DataCollection $coupons,
 
