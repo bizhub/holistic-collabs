@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shopify;
 
 use Domain\Shopify\Actions\StartShopifyOAuthAction;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StartShopifyOAuthController
 {
@@ -11,8 +12,10 @@ class StartShopifyOAuthController
         Request $request,
         StartShopifyOAuthAction $startShopifyOAuthAction,
     ) {
-        return $startShopifyOAuthAction->execute(
+        $authUrl = $startShopifyOAuthAction->execute(
             shopUrl: $request->url,
         );
+
+        return Inertia::location($authUrl);
     }
 }

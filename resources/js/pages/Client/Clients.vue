@@ -40,27 +40,36 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div v-if="clients.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Name</td>
+                                <td class="pl-5">Email</td>
+                                <td class="pl-5">Clinic</td>
+                                <td class="pl-5">Contributions</td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
                         <tbody>
                             <template v-for="client in clients" :key="client.id">
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ client.name }}</p>
+                                            <p class="text-base leading-none font-medium text-slate-700">{{ client.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ client.email }}</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ client.email }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ client.clinic?.name }}</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ client.clinic?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-slate-600">
                                                 {{ client.commissions_count }} {{ client.commissions_count === 1 ? 'Contribution' : 'Contributions' }}
                                             </p>
                                         </div>

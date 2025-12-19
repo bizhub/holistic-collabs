@@ -38,6 +38,14 @@ const deleteCoupon = (id: string) => {
             <div v-if="coupons.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Coupon</td>
+                                <td class="pl-5">Clinic</td>
+                                <td class="pl-5">Commissions</td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
                         <tbody>
                             <template v-for="coupon in coupons" :key="coupon.id">
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
@@ -51,12 +59,12 @@ const deleteCoupon = (id: string) => {
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ coupon.clinic?.name }}</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ coupon.clinic?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-slate-600">
                                                 {{ coupon.commissions_count }} {{ coupon.commissions_count === 1 ? 'Commission' : 'Commissions' }}
                                             </p>
                                         </div>

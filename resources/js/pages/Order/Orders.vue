@@ -37,17 +37,28 @@ const breadcrumbs: BreadcrumbItem[] = [
             <div v-if="orders.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Name</td>
+                                <td class="pl-5">Clinic</td>
+                                <td class="pl-5">Coupon</td>
+                                <td class="pl-5">
+                                    <div class="flex justify-end">Subtotal</div>
+                                </td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
                         <tbody>
                             <template v-for="order in orders" :key="order.id">
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ order.client?.name }}</p>
+                                            <p class="text-base leading-none font-medium text-slate-700">{{ order.client?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="order.clinic" class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">{{ order.clinic.name }}</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ order.clinic.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
@@ -60,7 +71,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-slate-600">
                                                 ${{
                                                     order.subtotal_price.toLocaleString(undefined, {
                                                         minimumFractionDigits: 2,

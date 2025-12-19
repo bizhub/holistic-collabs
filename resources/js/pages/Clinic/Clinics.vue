@@ -54,24 +54,33 @@ const deleteClinic = (id: string) => {
             <div v-if="clinics.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Name</td>
+                                <td class="pl-5">Clients</td>
+                                <td class="pl-5">Commissions</td>
+                                <td class="pl-5">Coupons</td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
                         <tbody>
                             <template v-for="clinic in clinics" :key="clinic.id">
-                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
+                                            <p class="text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-slate-600">
                                                 {{ clinic.clients_count }} {{ clinic.clients_count === 1 ? 'Client' : 'Clients' }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-slate-600">
                                                 {{ clinic.commissions_count }} {{ clinic.commissions_count === 1 ? 'Commission' : 'Commissions' }}
                                             </p>
                                         </div>

@@ -2,11 +2,9 @@
 
 namespace Domain\Shopify\Actions;
 
-use Inertia\Inertia;
-
 class StartShopifyOAuthAction
 {
-    public function execute(string $shopUrl)
+    public function execute(string $shopUrl): string
     {
         $state = bin2hex(random_bytes(16));
         session(['shopify_oauth_state' => $state]);
@@ -17,6 +15,6 @@ class StartShopifyOAuthAction
             'state' => $state,
         ]);
 
-        return Inertia::location($authUrl);
+        return $authUrl;
     }
 }
