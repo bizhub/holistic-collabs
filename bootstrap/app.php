@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
+use Domain\User\Middleware\IsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,6 +20,15 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->middleware('api')
                 ->name('ext.')
                 ->group(base_path('routes/external.php'));
+
+            Route::middleware(['web', 'auth', 'admin'])
+                ->name('admin.')
+                ->group(base_path('routes/admin.php'));
+
+            Route::prefix('clinic')
+                ->middleware(['web', 'auth'])
+                ->name('clinic.')
+                ->group(base_path('routes/clinic.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
@@ -30,9 +40,9 @@ return Application::configure(basePath: dirname(__DIR__))
             AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        // $middleware->validateCsrfTokens(except: [
-        //     'ext/*',
-        // ]);
+        $middleware->alias([
+            'admin' => IsAdmin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

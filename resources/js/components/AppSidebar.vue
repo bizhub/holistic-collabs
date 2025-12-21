@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import ClientIndexController from '@/actions/App/Http/Controllers/Client/ClientIndexController'
-import ClinicIndexController from '@/actions/App/Http/Controllers/Clinic/ClinicIndexController'
-import CommissionIndexController from '@/actions/App/Http/Controllers/Commission/CommissionIndexController'
-import CouponIndexController from '@/actions/App/Http/Controllers/Coupon/CouponIndexController'
-import OrderIndexController from '@/actions/App/Http/Controllers/Order/OrderIndexController'
-import ShopifyIndexController from '@/actions/App/Http/Controllers/Shopify/ShopifyIndexController'
-import UserIndexController from '@/actions/App/Http/Controllers/User/UserIndexController'
+import ClientIndexController from '@/actions/App/Http/Controllers/Admin/Client/ClientIndexController'
+import ClinicIndexController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicIndexController'
+import CommissionIndexController from '@/actions/App/Http/Controllers/Admin/Commission/CommissionIndexController'
+import CouponIndexController from '@/actions/App/Http/Controllers/Admin/Coupon/CouponIndexController'
+import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
+import OrderIndexController from '@/actions/App/Http/Controllers/Admin/Order/OrderIndexController'
+import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
+import UserIndexController from '@/actions/App/Http/Controllers/Admin/User/UserIndexController'
 import NavFooter from '@/components/NavFooter.vue'
 import NavMain from '@/components/NavMain.vue'
 import NavUser from '@/components/NavUser.vue'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
-import { dashboard } from '@/routes'
 import { type NavItem } from '@/types'
 import { Link } from '@inertiajs/vue3'
 import { ChartNoAxesCombined, Handshake, LayoutGrid, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
@@ -19,7 +19,7 @@ import AppLogo from './AppLogo.vue'
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: DashboardIndexController().url,
         icon: LayoutGrid,
     },
     {
@@ -84,7 +84,7 @@ const footerNavItems: NavItem[] = [
             <SidebarMenu>
                 <SidebarMenuItem>
                     <SidebarMenuButton size="lg" as-child>
-                        <Link :href="dashboard()">
+                        <Link :href="DashboardIndexController()">
                             <AppLogo />
                         </Link>
                     </SidebarMenuButton>
