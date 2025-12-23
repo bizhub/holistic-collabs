@@ -89,5 +89,10 @@ declare namespace Domain.User.Data {
     }
     export type UserData = {
         id: string
+        is_admin: boolean
+        clinic_id: string | null
+        name: string
+        email: string
+        clinic: Domain.Clinic.Data.ClinicData | null
     }
 }

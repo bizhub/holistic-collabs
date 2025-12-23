@@ -3,13 +3,13 @@ import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashb
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { Plus, Users } from 'lucide-vue-next'
+import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
 
-// interface Props {
-//     commissions: Domain.Commission.Data.CommissionGroupData[]
-// }
+interface Props {
+    users: Domain.User.Data.UserData[]
+}
 
-// defineProps<Props>()
+defineProps<Props>()
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -41,7 +41,72 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </div>
             </div>
 
-            <Empty class="border border-dashed">
+            <div v-if="users.length > 0" class="w-full">
+                <div class="overflow-x-auto">
+                    <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Name</td>
+                                <td class="pl-5">Email</td>
+                                <td class="pl-5">Clinic</td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="user in users" :key="user.id">
+                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                    <td>
+                                        <div class="flex items-center pl-5">
+                                            <p class="text-sm leading-none text-slate-600">{{ user.name }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">
+                                                {{ user.email }}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">
+                                                <span v-if="user.is_admin"> Admin </span>
+                                                <span v-else-if="user.clinic">
+                                                    {{ user.clinic.name }}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-4">
+                                        <div class="flex justify-end pr-4">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger as-child>
+                                                    <Button variant="secondary" size="sm" aria-label="Options">
+                                                        <MoreHorizontal />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent class="w-56" align="end">
+                                                    <DropdownMenuGroup>
+                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
+                                                        <!-- <Link :href="EditClinicController(clinic.id)">
+                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        </Link> -->
+                                                        <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
+                                                    </DropdownMenuGroup>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
                         <Users />
