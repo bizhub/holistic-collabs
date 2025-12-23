@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
+use Domain\Clinic\Middleware\IsValidClinic;
 use Domain\User\Middleware\IsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -26,7 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->group(base_path('routes/admin.php'));
 
             Route::prefix('clinic')
-                ->middleware(['web', 'auth'])
+                ->middleware(['web', 'auth', 'clinic'])
                 ->name('clinic.')
                 ->group(base_path('routes/clinic.php'));
         },
@@ -42,6 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin' => IsAdmin::class,
+            'clinic' => IsValidClinic::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

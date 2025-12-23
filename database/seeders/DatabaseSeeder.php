@@ -10,16 +10,21 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
         User::factory()->create([
+            'is_admin' => true,
             'name' => 'Lex van der Woude',
             'email' => 'lex@bizhub.co.nz',
         ]);
 
-        // Commission::factory(10)->create();
+        $clinic = Clinic::factory()->create();
+
+        User::factory()->create([
+            'clinic_id' => $clinic->id,
+
+            'name' => 'Test Clinic',
+            'email' => 'clinic@bizhub.co.nz',
+        ]);
     }
 }

@@ -7,6 +7,7 @@ use Domain\Client\Models\Client;
 use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Commission\Models\Commission;
 use Domain\Coupon\Models\Coupon;
+use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -47,5 +48,10 @@ class Clinic extends Model
     public function commissions(): HasMany
     {
         return $this->hasMany(Commission::class);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
     }
 }

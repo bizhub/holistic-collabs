@@ -21,6 +21,9 @@ declare namespace Domain.Clinic.Data {
         coupon_shopify_id: string | null
         commission_rate: number
     }
+    export type SharedClinicData = {
+        name: string
+    }
 }
 declare namespace Domain.Commission.Data {
     export type CommissionData = {
@@ -79,6 +82,11 @@ declare namespace Domain.Shopify.Enums {
     export type WebhookStatus = 'connected' | 'partial' | 'disconnected' | 'error'
 }
 declare namespace Domain.User.Data {
+    export type SharedUserData = {
+        is_admin: boolean
+        name: string
+        email: string
+    }
     export type UserData = {
         id: string
     }

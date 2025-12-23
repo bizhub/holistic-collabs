@@ -3,7 +3,9 @@
 namespace Domain\User\Models;
 
 use Database\Factories\UserFactory;
+use Domain\Clinic\Models\Clinic;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -38,5 +40,10 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
             'is_admin' => 'boolean',
         ];
+    }
+
+    public function clinic(): BelongsTo
+    {
+        return $this->belongsTo(Clinic::class);
     }
 }

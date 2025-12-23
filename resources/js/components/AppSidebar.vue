@@ -7,6 +7,7 @@ import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashb
 import OrderIndexController from '@/actions/App/Http/Controllers/Admin/Order/OrderIndexController'
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
 import UserIndexController from '@/actions/App/Http/Controllers/Admin/User/UserIndexController'
+import ClinicDashboardIndexController from '@/actions/App/Http/Controllers/Clinic/Dashboard/DashboardIndexController'
 import NavFooter from '@/components/NavFooter.vue'
 import NavMain from '@/components/NavMain.vue'
 import NavUser from '@/components/NavUser.vue'
@@ -16,53 +17,71 @@ import { Link } from '@inertiajs/vue3'
 import { ChartNoAxesCombined, Handshake, LayoutGrid, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
 import AppLogo from './AppLogo.vue'
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: DashboardIndexController().url,
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Clinics',
-        href: ClinicIndexController().url,
-        icon: Store,
-    },
-    {
-        title: 'Users',
-        href: UserIndexController().url,
-        icon: Users,
-    },
-    {
-        title: 'Clients',
-        href: ClientIndexController().url,
-        icon: Handshake,
-    },
-    {
-        title: 'Commissions',
-        href: CommissionIndexController().url,
-        icon: ChartNoAxesCombined,
-    },
-    {
-        title: 'Coupons',
-        href: CouponIndexController().url,
-        icon: Tags,
-    },
-    {
-        title: 'Orders',
-        href: OrderIndexController().url,
-        icon: Truck,
-    },
-    {
-        title: 'Shopify',
-        href: ShopifyIndexController().url,
-        icon: Zap,
-    },
-    {
-        title: 'Settings',
-        href: '/settings',
-        icon: Settings,
-    },
-]
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
+// const clinic = computed(() => page.props.auth.clinic)
+
+const mainNavItems: NavItem[] = user.value.is_admin
+    ? [
+          {
+              title: 'Dashboard',
+              href: DashboardIndexController().url,
+              icon: LayoutGrid,
+          },
+          {
+              title: 'Clinics',
+              href: ClinicIndexController().url,
+              icon: Store,
+          },
+          {
+              title: 'Users',
+              href: UserIndexController().url,
+              icon: Users,
+          },
+          {
+              title: 'Clients',
+              href: ClientIndexController().url,
+              icon: Handshake,
+          },
+          {
+              title: 'Commissions',
+              href: CommissionIndexController().url,
+              icon: ChartNoAxesCombined,
+          },
+          {
+              title: 'Coupons',
+              href: CouponIndexController().url,
+              icon: Tags,
+          },
+          {
+              title: 'Orders',
+              href: OrderIndexController().url,
+              icon: Truck,
+          },
+          {
+              title: 'Shopify',
+              href: ShopifyIndexController().url,
+              icon: Zap,
+          },
+          {
+              title: 'Settings',
+              href: '/settings',
+              icon: Settings,
+          },
+      ]
+    : [
+          {
+              title: 'Dashboard',
+              href: ClinicDashboardIndexController().url,
+              icon: LayoutGrid,
+          },
+          {
+              title: 'Settings',
+              href: '/settings',
+              icon: Settings,
+          },
+      ]
 
 const footerNavItems: NavItem[] = [
     // {
