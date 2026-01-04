@@ -51,6 +51,13 @@ declare namespace Domain.Coupon.Data {
         commissions_count: number | null
     }
 }
+declare namespace Domain.Invite.Data {
+    export type CreateInviteData = {
+        name: string
+        email: string
+        clinic_id: string
+    }
+}
 declare namespace Domain.Order.Data {
     export type OrderData = {
         id: string

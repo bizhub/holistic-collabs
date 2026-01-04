@@ -4,6 +4,7 @@ import ClinicIndexController from '@/actions/App/Http/Controllers/Admin/Clinic/C
 import CommissionIndexController from '@/actions/App/Http/Controllers/Admin/Commission/CommissionIndexController'
 import CouponIndexController from '@/actions/App/Http/Controllers/Admin/Coupon/CouponIndexController'
 import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
+import InviteIndexController from '@/actions/App/Http/Controllers/Admin/Invite/InviteIndexController'
 import OrderIndexController from '@/actions/App/Http/Controllers/Admin/Order/OrderIndexController'
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
 import UserIndexController from '@/actions/App/Http/Controllers/Admin/User/UserIndexController'
@@ -14,7 +15,7 @@ import NavUser from '@/components/NavUser.vue'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { type NavItem } from '@/types'
 import { Link } from '@inertiajs/vue3'
-import { ChartNoAxesCombined, Handshake, LayoutGrid, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
+import { ChartNoAxesCombined, Handshake, LayoutGrid, Mails, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
 import AppLogo from './AppLogo.vue'
 
 const page = usePage()
@@ -38,6 +39,11 @@ const mainNavItems: NavItem[] = user.value.is_admin
               title: 'Users',
               href: UserIndexController().url,
               icon: Users,
+          },
+          {
+              title: 'Invites',
+              href: InviteIndexController().url,
+              icon: Mails,
           },
           {
               title: 'Clients',
