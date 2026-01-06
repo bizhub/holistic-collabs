@@ -49,3 +49,4 @@ class InviteNotification extends Notification
         ];
     }
 }
+

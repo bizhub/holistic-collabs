@@ -1,15 +1,23 @@
 <script setup lang="ts">
+import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
+import DeleteInviteController from '@/actions/App/Http/Controllers/Admin/Invite/DeleteInviteController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
 
-// interface Props {
-//     users: Domain.User.Data.UserData[]
-// }
+interface Props {
+    invites: Domain.Invite.Data.InviteData[]
+}
 
-// defineProps<Props>()
+defineProps<Props>()
 
-const invites = ref([])
+const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
+    if (!confirm('Are you sure you want to delete this invite for "' + invite.name + '"?')) {
+        return
+    }
+
+    router.delete(DeleteInviteController(invite.id).url)
+}
 </script>
 
 <template>
@@ -25,12 +33,12 @@ const invites = ref([])
                     <p class="pt-1 text-slate-600">Manage pending invitations. Send, resend, or revoke invites.</p>
                 </div>
                 <div>
-                    <!-- <Link :href="CreateClinicController()"> -->
-                    <Button size="lg">
-                        <Plus />
-                        <span>Send Invitation</span>
-                    </Button>
-                    <!-- </Link> -->
+                    <Link :href="CreateInviteController()">
+                        <Button size="lg">
+                            <Plus />
+                            <span>Send Invitation</span>
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
@@ -46,27 +54,24 @@ const invites = ref([])
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="user in invites" :key="user.id">
+                            <template v-for="invite in invites" :key="invite.id">
                                 <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-slate-600">{{ user.name }}</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ invite.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none text-slate-600">
-                                                {{ user.email }}
+                                                {{ invite.email }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
+                                        <div v-if="invite.clinic" class="flex items-center">
                                             <p class="text-sm leading-none text-slate-600">
-                                                <span v-if="user.is_admin"> Admin </span>
-                                                <span v-else-if="user.clinic">
-                                                    {{ user.clinic.name }}
-                                                </span>
+                                                {{ invite.clinic.name }}
                                             </p>
                                         </div>
                                     </td>
@@ -80,14 +85,10 @@ const invites = ref([])
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
-                                                        <!-- <Link :href="EditClinicController(clinic.id)">
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                        </Link> -->
-                                                        <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Resend</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteInvite(invite)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
@@ -105,17 +106,17 @@ const invites = ref([])
                         <Users />
                     </EmptyMedia>
                     <EmptyTitle>No active invites</EmptyTitle>
-                    <EmptyDescription
-                        >You haven’t sent any invitations. Use the button below to invite users or admins to your system.</EmptyDescription
-                    >
+                    <EmptyDescription>
+                        You haven't sent any invitations. Use the button below to invite users or admins to your system.
+                    </EmptyDescription>
                 </EmptyHeader>
                 <EmptyContent>
-                    <!-- <Link :href="CreateClinicController()"> -->
-                    <Button variant="outline" size="sm">
-                        <Plus />
-                        Send Invitation
-                    </Button>
-                    <!-- </Link> -->
+                    <Link :href="CreateInviteController()">
+                        <Button variant="outline" size="sm">
+                            <Plus />
+                            Send Invitation
+                        </Button>
+                    </Link>
                 </EmptyContent>
             </Empty>
         </div>

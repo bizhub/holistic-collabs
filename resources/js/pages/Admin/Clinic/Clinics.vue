@@ -75,14 +75,14 @@ const deleteClinic = (id: string) => {
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none text-slate-600">
-                                                {{ clinic.clients_count }} {{ clinic.clients_count === 1 ? 'Client' : 'Clients' }}
+                                                {{ clinic.clients_count }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none text-slate-600">
-                                                {{ clinic.commissions_count }} {{ clinic.commissions_count === 1 ? 'Commission' : 'Commissions' }}
+                                                {{ clinic.commissions_count }}
                                             </p>
                                         </div>
                                     </td>

@@ -52,10 +52,21 @@ declare namespace Domain.Coupon.Data {
     }
 }
 declare namespace Domain.Invite.Data {
+    export type AcceptInviteData = {
+        name: any
+        email: any
+        password: any
+    }
     export type CreateInviteData = {
+        clinic_id: string
         name: string
         email: string
-        clinic_id: string
+    }
+    export type InviteData = {
+        id: string
+        name: string
+        email: string
+        clinic: Domain.Clinic.Data.ClinicData | null
     }
 }
 declare namespace Domain.Order.Data {

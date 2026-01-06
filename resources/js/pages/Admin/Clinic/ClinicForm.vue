@@ -70,7 +70,7 @@ const submit = () => {
                                     <Label for="clinic_name">Clinic Name</Label>
                                     <Input id="clinic_name" v-model="form.name" placeholder="Enter a clinics name" />
                                 </div>
-                                <div class="flex space-x-6">
+                                <!-- <div class="flex space-x-6">
                                     <div class="flex-1 space-y-2">
                                         <Label for="contact_name">Contact Name</Label>
                                         <Input id="contact_name" v-model="temp" placeholder="Enter a contact name" />
@@ -79,7 +79,7 @@ const submit = () => {
                                         <Label for="contact_email">Email</Label>
                                         <Input id="contact_email" v-model="temp2" placeholder="Enter a contact email" />
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div>

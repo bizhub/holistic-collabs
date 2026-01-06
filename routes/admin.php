@@ -10,7 +10,10 @@ use App\Http\Controllers\Admin\Clinic\UpdateClinicController;
 use App\Http\Controllers\Admin\Commission\CommissionIndexController;
 use App\Http\Controllers\Admin\Coupon\CouponIndexController;
 use App\Http\Controllers\Admin\Dashboard\DashboardIndexController;
+use App\Http\Controllers\Admin\Invite\CreateInviteController;
+use App\Http\Controllers\Admin\Invite\DeleteInviteController;
 use App\Http\Controllers\Admin\Invite\InviteIndexController;
+use App\Http\Controllers\Admin\Invite\StoreInviteController;
 use App\Http\Controllers\Admin\Order\OrderIndexController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
@@ -34,7 +37,12 @@ Route::delete('clinics/{clinic}', DeleteClinicController::class);
 Route::get('coupons', CouponIndexController::class);
 Route::get('clients', ClientIndexController::class);
 Route::get('users', UserIndexController::class);
+
 Route::get('invites', InviteIndexController::class);
+Route::get('invites/create', CreateInviteController::class);
+Route::post('invites', StoreInviteController::class);
+Route::delete('invites/{invite}', DeleteInviteController::class);
+
 Route::get('orders', OrderIndexController::class);
 
 Route::get('shopify', ShopifyIndexController::class);

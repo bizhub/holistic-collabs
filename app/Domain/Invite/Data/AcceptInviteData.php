@@ -4,15 +4,16 @@ namespace Domain\Invite\Data;
 
 use Domain\User\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 use Spatie\LaravelData\Data;
 
 /** @typescript */
-class CreateInviteData extends Data
+class AcceptInviteData extends Data
 {
     public function __construct(
-        public string $clinic_id,
-        public string $name,
-        public string $email,
+        public $name,
+        public $email,
+        public $password,
     ) {}
 
     public static function rules(): array
@@ -29,6 +30,12 @@ class CreateInviteData extends Data
                 'email',
                 'max:255',
                 Rule::unique(User::class),
+            ],
+            'password' => [
+                'required',
+                'string',
+                Password::default(),
+                'confirmed'
             ],
         ];
     }
