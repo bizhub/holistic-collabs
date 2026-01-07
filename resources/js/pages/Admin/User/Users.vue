@@ -91,7 +91,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                         <!-- <Link :href="EditClinicController(clinic.id)">
                                                             <DropdownMenuItem>Edit</DropdownMenuItem>
                                                         </Link> -->
-                                                        <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Change Clinic</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem disabled>Delete</DropdownMenuItem>

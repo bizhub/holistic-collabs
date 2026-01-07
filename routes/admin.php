@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\Dashboard\DashboardIndexController;
 use App\Http\Controllers\Admin\Invite\CreateInviteController;
 use App\Http\Controllers\Admin\Invite\DeleteInviteController;
 use App\Http\Controllers\Admin\Invite\InviteIndexController;
+use App\Http\Controllers\Admin\Invite\ResendInviteController;
 use App\Http\Controllers\Admin\Invite\StoreInviteController;
 use App\Http\Controllers\Admin\Order\OrderIndexController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
@@ -40,6 +41,7 @@ Route::get('users', UserIndexController::class);
 
 Route::get('invites', InviteIndexController::class);
 Route::get('invites/create', CreateInviteController::class);
+Route::get('invites/{invite}/resend', ResendInviteController::class);
 Route::post('invites', StoreInviteController::class);
 Route::delete('invites/{invite}', DeleteInviteController::class);
 

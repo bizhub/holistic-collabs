@@ -2,8 +2,8 @@
 
 namespace Domain\Invite\Notifications;
 
+use Domain\Invite\Models\Invite;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -11,42 +11,38 @@ class InviteNotification extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(
+        protected Invite $invite,
+    ) {}
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
-    public function via(object $notifiable): array
+    public function via(): array
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(): MailMessage
     {
-        return (new MailMessage)->markdown('mail.invite-notification');
+        $this->invite->loadMissing('clinic');
+
+        return (new MailMessage)
+            ->subject("You've been invited to collaborate with Hollistic Beauty")
+            ->greeting("Hello {$this->invite->name},")
+            ->line("Hollistic Beauty has invited you to collaborate with the clinic **{$this->invite->clinic->name}**.")
+            ->line("You'll be able to view commissions, referrals, and performance for this clinic.")
+            ->line("Click the button below to accept the invitation and get started.")
+            ->action(
+                'Accept Invitation',
+                route('invites.accept', $this->invite->token)
+            )
+            ->line("If you weren't expecting this invitation, you can safely ignore this email.")
+            ->salutation('— ' . config('app.name'));
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
+    public function toArray(): array
     {
         return [
-            //
+            'invite_id' => $this->invite->id,
+            'email' => $this->invite->email,
         ];
     }
 }
-

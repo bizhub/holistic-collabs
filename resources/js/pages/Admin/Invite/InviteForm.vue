@@ -42,11 +42,8 @@ const submit = () => {
                     <div class="space-y-8">
                         <div class="">
                             <div class="mb-5">
-                                <h2 class="text-xl font-medium tracking-tight">Clinic details</h2>
-                                <p class="pt-1 text-sm text-slate-600">
-                                    Add a new clinic and set up their referral code so new<br />
-                                    clients can be automatically linked and tracked for future commissions.
-                                </p>
+                                <h2 class="text-xl font-medium tracking-tight">User details</h2>
+                                <p class="pt-1 text-sm text-slate-600">Enter the details of the person you would like to invite.</p>
                             </div>
 
                             <div class="space-y-6">

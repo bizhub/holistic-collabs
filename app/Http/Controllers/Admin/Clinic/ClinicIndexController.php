@@ -15,6 +15,7 @@ class ClinicIndexController
             ->withCount([
                 'commissions',
                 'clients',
+                'users',
             ])
             ->get();
 

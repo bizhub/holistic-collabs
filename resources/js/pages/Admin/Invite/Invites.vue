@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
 import DeleteInviteController from '@/actions/App/Http/Controllers/Admin/Invite/DeleteInviteController'
+import ResendInviteController from '@/actions/App/Http/Controllers/Admin/Invite/ResendInviteController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
@@ -85,7 +86,9 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <DropdownMenuItem disabled>Resend</DropdownMenuItem>
+                                                        <Link :href="ResendInviteController(invite.id)">
+                                                            <DropdownMenuItem>Resend</DropdownMenuItem>
+                                                        </Link>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem @click="deleteInvite(invite)">Delete</DropdownMenuItem>

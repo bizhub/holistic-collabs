@@ -60,6 +60,7 @@ const deleteClinic = (id: string) => {
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clients</td>
                                 <td class="pl-5">Commissions</td>
+                                <td class="pl-5">Users</td>
                                 <td class="pl-5">Coupons</td>
                                 <td class="pl-5"></td>
                             </tr>
@@ -83,6 +84,13 @@ const deleteClinic = (id: string) => {
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none text-slate-600">
                                                 {{ clinic.commissions_count }}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">
+                                                {{ clinic.users_count }}
                                             </p>
                                         </div>
                                     </td>
@@ -111,6 +119,7 @@ const deleteClinic = (id: string) => {
                                                             <DropdownMenuItem>Edit</DropdownMenuItem>
                                                         </Link>
                                                         <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Invite User</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem>

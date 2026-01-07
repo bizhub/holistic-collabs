@@ -15,6 +15,7 @@ declare namespace Domain.Clinic.Data {
         coupons: any | null
         commissions_count: number | null
         clients_count: number | null
+        users_count: number | null
     }
     export type ClinicFormData = {
         name: string

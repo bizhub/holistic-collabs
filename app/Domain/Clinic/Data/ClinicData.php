@@ -21,5 +21,6 @@ class ClinicData extends Data
 
         public ?int $commissions_count,
         public ?int $clients_count,
+        public ?int $users_count,
     ) {}
 }
