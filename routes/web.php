@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AcceptInviteController;
+use App\Http\Controllers\Auth\RegisterInviteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,9 +14,8 @@ Route::get('/', function () {
     return redirect('login');
 })->name('home');
 
-Route::get('invites/accept/{token}', function(string $token){
-    dd('Accept invite for ' . $token);
-})->name('invites.accept');
+Route::get('invites/accept/{token}', AcceptInviteController::class)->name('invites.accept');
+Route::post('invites/{invite}/register', RegisterInviteController::class);
 
 Route::middleware('auth')->group(function(){
     Route::get('authed', function (Request $request) {
