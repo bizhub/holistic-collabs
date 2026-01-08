@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
+import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
 
@@ -11,18 +10,19 @@ interface Props {
 
 defineProps<Props>()
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: DashboardIndexController().url,
-    },
-]
+const deleteUser = (id: string) => {
+    if (!confirm('Are you sure you want to delete this user?')) {
+        return
+    }
+
+    router.delete(DeleteUserController(id).url)
+}
 </script>
 
 <template>
     <Head title="Users" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
@@ -95,7 +95,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                         <DropdownMenuItem disabled>Change Clinic</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteUser(user.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
