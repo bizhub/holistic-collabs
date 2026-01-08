@@ -82,7 +82,7 @@ const deleteCoupon = (id: string) => {
                                                         <DropdownMenuItem>Edit</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator /> -->
-                                                    <DropdownMenuItem @click="deleteCoupon(coupon.id)">Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteCoupon(coupon.id)" disabled>Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>

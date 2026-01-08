@@ -25,11 +25,11 @@ const user = computed(() => page.props.auth.user)
 
 const mainNavItems: NavItem[] = user.value.is_admin
     ? [
-          {
-              title: 'Dashboard',
-              href: DashboardIndexController().url,
-              icon: LayoutGrid,
-          },
+          //   {
+          //       title: 'Dashboard',
+          //       href: DashboardIndexController().url,
+          //       icon: LayoutGrid,
+          //   },
           {
               title: 'Clinics',
               href: ClinicIndexController().url,

@@ -3,7 +3,7 @@ import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashb
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { ChartNoAxesCombined, Plug } from 'lucide-vue-next'
+import { ChartNoAxesCombined, MoreHorizontal, Plug } from 'lucide-vue-next'
 
 interface Props {
     commissions: Domain.Commission.Data.CommissionGroupData[]
@@ -17,6 +17,12 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: DashboardIndexController().url,
     },
 ]
+
+const calcCommissionsTotal = (commissions: Domain.Commission.Data.CommissionData[]) => {
+    return commissions.reduce((total, commission) => {
+        return total + commission.amount
+    }, 0)
+}
 </script>
 
 <template>
@@ -35,87 +41,71 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
 
             <div v-if="commissions.length > 0" class="w-full">
-                <!-- <div class="items-center justify-between sm:flex">
-                        <div class="flex items-center">
-                            <a
-                                class="rounded-full focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none"
-                                href=" javascript:void(0)">
-                                <div class="bg-primary-100 px-3 py-1 text-sm font-medium text-primary-700">
-                                    <p>All</p>
-                                </div>
-                            </a>
-                            <a
-                                class="ml-2 bg-slate-100 focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none sm:ml-2"
-                                href="javascript:void(0)">
-                                <div class="px-3 py-1 text-sm font-medium text-slate-600 hover:bg-primary-100 hover:text-primary-700">
-                                    <p>Active</p>
-                                </div>
-                            </a>
-                            <a
-                                class="ml-2 bg-slate-100 focus:bg-primary-50 focus:ring-2 focus:ring-primary-800 focus:outline-none sm:ml-2"
-                                href="javascript:void(0)">
-                                <div class="px-3 py-1 text-sm font-medium text-slate-600 hover:bg-primary-100 hover:text-primary-700">
-                                    <p>Pending</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div> -->
-                <div class="mt-2 overflow-x-auto">
+                <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
+                        <thead>
+                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                                <td class="pl-5">Clinic</td>
+                                <!-- <td class="pl-5">Email</td>
+                                <td class="pl-5">Clinic</td> -->
+                                <td class="pl-5">Contributions</td>
+                                <td class="pl-5">Total unpaid</td>
+                                <td class="pl-5"></td>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <template v-for="group in commissions" :key="group.clinic.id">
-                                <tr class="h-16 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 focus:outline-none">
+                            <template v-for="commission in commissions" :key="commission.clinic.id">
+                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 text-base leading-none font-medium text-slate-700">{{ group.clinic.name }}</p>
+                                            <p class="text-base leading-none font-medium text-slate-700">{{ commission.clinic.name }}</p>
                                         </div>
                                     </td>
-                                    <td class="pl-24">
-                                        <Badge variant="secondary">Pending</Badge>
+                                    <!-- <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">{{ commission.email }}</p>
+                                        </div>
                                     </td>
-                                    <td class="pl-5"></td>
-                                    <td class="pl-5"></td>
-
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <!-- <Users class="size-4 text-slate-400" /> -->
-                                            <p class="ml-2 text-sm leading-none text-slate-600"><span class="font-semibold">1</span> Commission</p>
+                                            <p class="text-sm leading-none text-slate-600">{{ commission.clinic?.name }}</p>
+                                        </div>
+                                    </td> -->
+                                    <td class="pl-5">
+                                        <div class="flex items-center">
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                {{ commission.commissions.length }}
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <!-- <button class="rounded bg-red-100 px-3 py-3 text-sm leading-none text-red-700 focus:outline-none">
-                                            Due today at 18:00
-                                        </button> -->
+                                        <div class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">
+                                                ${{ calcCommissionsTotal(commission.commissions).toFixed(2) }}
+                                            </p>
+                                        </div>
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">
-                                            <Button variant="outline" size="sm">View</Button>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger as-child>
+                                                    <Button variant="secondary" size="sm" aria-label="Options">
+                                                        <MoreHorizontal />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent class="w-56" align="end">
+                                                    <DropdownMenuGroup>
+                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
+                                                    </DropdownMenuGroup>
+                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr
-                                    v-for="commission in group.commissions"
-                                    :key="commission.id"
-                                    class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5"></div>
-                                    </td>
-                                    <td class="pl-24"></td>
-                                    <td class="pl-5"></td>
-                                    <td class="pl-5"></td>
-                                    <td class="pl-5">
-                                        <div class="flex items-center justify-end">
-                                            <p class="ml-2 text-sm leading-none text-slate-600">${{ commission.amount.toFixed(2) }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="pl-5"></td>
-                                    <td class="pl-4">
-                                        <div class="flex justify-end pr-4">
-                                            <!-- <Button variant="outline" size="sm">View</Button> -->
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="h-10"></tr>
                             </template>
                         </tbody>
                     </table>

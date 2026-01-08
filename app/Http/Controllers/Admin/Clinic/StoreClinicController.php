@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Clinic;
 
 use Domain\Clinic\Actions\CreateClinicAction;
 use Domain\Clinic\Data\ClinicFormData;
+use Inertia\Inertia;
 
 class StoreClinicController
 {
@@ -12,6 +13,8 @@ class StoreClinicController
         CreateClinicAction $createClinic,
     ) {
         $createClinic->execute($request);
+
+        Inertia::flash('success', 'Clinic created');
 
         return redirect('/clinics');
     }

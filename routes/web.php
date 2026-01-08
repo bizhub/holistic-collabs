@@ -19,7 +19,7 @@ Route::post('invites/{invite}/register', RegisterInviteController::class);
 
 Route::middleware('auth')->group(function(){
     Route::get('authed', function (Request $request) {
-        return redirect($request->user()->is_admin ? 'dashboard' : 'clinic/dashboard');
+        return redirect($request->user()->is_admin ? 'clinics' : 'clinic/dashboard');
     });
 });
 

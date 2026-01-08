@@ -3,7 +3,7 @@ import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashb
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
-import { MoreHorizontal, Tag, Truck } from 'lucide-vue-next'
+import { Tag, Truck } from 'lucide-vue-next'
 
 interface Props {
     orders: Domain.Order.Data.OrderData[]
@@ -42,10 +42,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Coupon</td>
-                                <td class="pl-5">
+                                <td class="pr-10 pl-5">
                                     <div class="flex justify-end">Subtotal</div>
                                 </td>
-                                <td class="pl-5"></td>
+                                <!-- <td class="pl-5"></td> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="pl-5">
+                                    <td class="pr-10 pl-5">
                                         <div class="flex items-center justify-end">
                                             <p class="text-sm leading-none text-slate-600">
                                                 ${{
@@ -81,7 +81,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                             </p>
                                         </div>
                                     </td>
-                                    <td class="pl-4">
+                                    <!-- <td class="pl-4">
                                         <div class="flex justify-end pr-4">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger as-child>
@@ -93,14 +93,11 @@ const breadcrumbs: BreadcrumbItem[] = [
                                                     <DropdownMenuGroup>
                                                         <DropdownMenuItem>View</DropdownMenuItem>
                                                         <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                        <!-- <DropdownMenuItem>Add Coupon</DropdownMenuItem> -->
                                                     </DropdownMenuGroup>
-                                                    <!-- <DropdownMenuSeparator /> -->
-                                                    <!-- <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem> -->
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </template>
                         </tbody>

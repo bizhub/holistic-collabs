@@ -4,7 +4,7 @@ import DeleteInviteController from '@/actions/App/Http/Controllers/Admin/Invite/
 import ResendInviteController from '@/actions/App/Http/Controllers/Admin/Invite/ResendInviteController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
+import { Mails, MoreHorizontal, Plus } from 'lucide-vue-next'
 
 interface Props {
     invites: Domain.Invite.Data.InviteData[]
@@ -106,7 +106,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
             <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
-                        <Users />
+                        <Mails />
                     </EmptyMedia>
                     <EmptyTitle>No active invites</EmptyTitle>
                     <EmptyDescription>
