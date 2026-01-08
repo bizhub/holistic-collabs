@@ -13,5 +13,7 @@ class CommissionData extends Data
 
         public CommissionStatus $status,
         public float $amount,
+
+        public string $created_at,
     ) {}
 }

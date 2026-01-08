@@ -31,6 +31,7 @@ declare namespace Domain.Commission.Data {
         id: string
         status: Domain.Commission.Enums.CommissionStatus
         amount: number
+        created_at: string
     }
     export type CommissionGroupData = {
         clinic: Domain.Clinic.Data.ClinicData
