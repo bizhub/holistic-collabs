@@ -75,23 +75,26 @@ const deleteClinic = (id: string) => {
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
                                                 {{ clinic.clients_count }}
-                                            </p>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
                                                 {{ clinic.commissions_count }}
-                                            </p>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
                                                 {{ clinic.users_count }}
-                                            </p>
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">

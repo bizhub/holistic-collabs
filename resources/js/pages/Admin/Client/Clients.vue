@@ -69,9 +69,10 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
-                                                {{ client.commissions_count }} {{ client.commissions_count === 1 ? 'Contribution' : 'Contributions' }}
-                                            </p>
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                {{ client.commissions_count }}
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-4">

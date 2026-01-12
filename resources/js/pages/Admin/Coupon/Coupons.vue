@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DeleteCouponController from '@/actions/App/Http/Controllers/Admin/Coupon/DeleteCouponController'
 import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { type BreadcrumbItem } from '@/types'
@@ -19,7 +20,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 const deleteCoupon = (id: string) => {
-    console.log(id)
+    if (!confirm('Are you sure you want to delete this coupon?')) {
+        return
+    }
+
+    router.delete(DeleteCouponController(id))
 }
 </script>
 
@@ -64,9 +69,10 @@ const deleteCoupon = (id: string) => {
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
-                                                {{ coupon.commissions_count }} {{ coupon.commissions_count === 1 ? 'Commission' : 'Commissions' }}
-                                            </p>
+                                            <div
+                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                {{ coupon.commissions_count }}
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="pl-4">
@@ -82,7 +88,7 @@ const deleteCoupon = (id: string) => {
                                                         <DropdownMenuItem>Edit</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator /> -->
-                                                    <DropdownMenuItem @click="deleteCoupon(coupon.id)" disabled>Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deleteCoupon(coupon.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>

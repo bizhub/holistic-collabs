@@ -26,7 +26,7 @@ class DashboardIndexController
 
         $commissions = Commission::query()
             ->where('clinic_id', $clinicContext->id())
-            ->orderBy('created_at')
+            ->orderByDesc('created_at')
             ->get();
 
         return Inertia::render('Clinic/Dashboard/Dashboard', [

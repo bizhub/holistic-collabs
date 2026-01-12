@@ -2,29 +2,21 @@
 
 namespace App\Http\Controllers\Admin\Commission;
 
-use Domain\Commission\Data\CommissionGroupData;
-use Domain\Commission\Models\Commission;
+use Domain\Clinic\Data\ClinicData;
+use Domain\Clinic\Models\Clinic;
 use Inertia\Inertia;
 
 class CommissionIndexController
 {
     public function __invoke()
     {
-        $commissions = Commission::query()
-            ->with('clinic')
-            ->orderBy('created_at', 'desc')
-            ->get()
-            ->groupBy('clinic_id')
-            ->map(function ($commissions) {
-                return CommissionGroupData::from([
-                    'clinic' => $commissions->first()->clinic,
-                    'commissions' => $commissions,
-                ]);
-            })
-            ->values();
+        $clinics = Clinic::query()
+            ->withCount('commissions')
+            ->withSum('commissions', 'amount')
+            ->get();
 
         return Inertia::render('Admin/Commission/Commissions', [
-            'commissions' => $commissions,
+            'clinics' => ClinicData::collect($clinics),
         ]);
     }
 }

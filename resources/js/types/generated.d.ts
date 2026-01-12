@@ -13,9 +13,10 @@ declare namespace Domain.Clinic.Data {
         name: string
         commission_rate: number
         coupons: any | null
-        commissions_count: number | null
         clients_count: number | null
         users_count: number | null
+        commissions_count: number | null
+        commissions_sum_amount: number | null
     }
     export type ClinicFormData = {
         name: string
@@ -32,10 +33,6 @@ declare namespace Domain.Commission.Data {
         status: Domain.Commission.Enums.CommissionStatus
         amount: number
         created_at: string
-    }
-    export type CommissionGroupData = {
-        clinic: Domain.Clinic.Data.ClinicData
-        commissions: Array<Domain.Commission.Data.CommissionData>
     }
 }
 declare namespace Domain.Commission.Enums {

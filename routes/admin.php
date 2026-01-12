@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Clinic\StoreClinicController;
 use App\Http\Controllers\Admin\Clinic\UpdateClinicController;
 use App\Http\Controllers\Admin\Commission\CommissionIndexController;
 use App\Http\Controllers\Admin\Coupon\CouponIndexController;
+use App\Http\Controllers\Admin\Coupon\DeleteCouponController;
 use App\Http\Controllers\Admin\Dashboard\DashboardIndexController;
 use App\Http\Controllers\Admin\Invite\CreateInviteController;
 use App\Http\Controllers\Admin\Invite\DeleteInviteController;
@@ -37,6 +38,8 @@ Route::put('clinics/{clinic}', UpdateClinicController::class);
 Route::delete('clinics/{clinic}', DeleteClinicController::class);
 
 Route::get('coupons', CouponIndexController::class);
+Route::delete('coupons/{coupon}', DeleteCouponController::class);
+
 Route::get('clients', ClientIndexController::class);
 
 Route::get('users', UserIndexController::class);
