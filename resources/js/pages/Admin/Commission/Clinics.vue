@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import UnpaidCommissionsController from '@/actions/App/Http/Controllers/Admin/Commission/UnpaidCommissionsController'
+import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import { ChartNoAxesCombined, MoreHorizontal } from 'lucide-vue-next'
@@ -37,7 +37,7 @@ defineProps<Props>()
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <Link :href="UnpaidCommissionsController(clinic.id)" class="hover:underline">
+                                            <Link :href="ClinicCommissionsController(clinic.id)" class="hover:underline">
                                                 <p class="text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
                                             </Link>
                                         </div>
@@ -70,7 +70,7 @@ defineProps<Props>()
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <Link :href="UnpaidCommissionsController(clinic.id)">
+                                                        <Link :href="ClinicCommissionsController(clinic.id)">
                                                             <DropdownMenuItem>View</DropdownMenuItem>
                                                         </Link>
                                                         <DropdownMenuItem disabled>Edit</DropdownMenuItem>

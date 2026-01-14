@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Commission;
+namespace App\Http\Controllers\Admin\Clinic;
 
 use Domain\Clinic\Data\ClinicData;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Data\CommissionData;
 use Domain\Commission\Enums\CommissionStatus;
-use Domain\Commission\Models\Commission;
 use Inertia\Inertia;
 
-class UnpaidCommissionsController
+class ClinicCommissionsController
 {
     public function __invoke(Clinic $clinic)
     {
@@ -19,7 +18,7 @@ class UnpaidCommissionsController
             ->orderByDesc('created_at')
             ->get();
 
-        return Inertia::render('Admin/Commission/Commissions', [
+        return Inertia::render('Admin/Clinic/Commissions', [
             'clinic' => ClinicData::from($clinic),
             'commissions' => CommissionData::collect($commissions),
         ]);

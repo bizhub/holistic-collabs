@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\Admin\Client\ClientIndexController;
+use App\Http\Controllers\Admin\Clinic\ClinicCommissionsController;
 use App\Http\Controllers\Admin\Clinic\ClinicIndexController;
+use App\Http\Controllers\Admin\Clinic\ClinicInvitesController;
+use App\Http\Controllers\Admin\Clinic\ClinicUsersController;
 use App\Http\Controllers\Admin\Clinic\CreateClinicController;
 use App\Http\Controllers\Admin\Clinic\DeleteClinicController;
 use App\Http\Controllers\Admin\Clinic\EditClinicController;
 use App\Http\Controllers\Admin\Clinic\StoreClinicController;
 use App\Http\Controllers\Admin\Clinic\UpdateClinicController;
 use App\Http\Controllers\Admin\Commission\CommissionIndexController;
-use App\Http\Controllers\Admin\Commission\UnpaidCommissionsController;
 use App\Http\Controllers\Admin\Coupon\CouponIndexController;
 use App\Http\Controllers\Admin\Coupon\DeleteCouponController;
 use App\Http\Controllers\Admin\Dashboard\DashboardIndexController;
@@ -30,7 +32,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('dashboard', DashboardIndexController::class)->name('dashboard');
 
 Route::get('commissions', CommissionIndexController::class);
-Route::get('commissions/{clinic}/unpaid', UnpaidCommissionsController::class);
+
+Route::get('clinics/{clinic}/commissions', ClinicCommissionsController::class);
+Route::get('clinics/{clinic}/users', ClinicUsersController::class);
+Route::get('clinics/{clinic}/invites', ClinicInvitesController::class);
 
 Route::get('clinics', ClinicIndexController::class);
 Route::get('clinics/create', CreateClinicController::class);

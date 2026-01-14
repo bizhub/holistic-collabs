@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
+import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
+import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
@@ -13,23 +16,47 @@ defineProps<Props>()
 </script>
 
 <template>
-    <Head title="Commissions" />
+    <Head title="Clinic Commissions" />
 
     <AppLayout>
+        <!-- <SettingsLayout> -->
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
-                <div class="flex items-center">
+                <div class="mb-4 flex items-center">
                     <div class="flex-1">
                         <div>
                             <h1 class="text-3xl font-bold tracking-tight">
-                                <Link href="/commissions" class="hover:underline">Commissions</Link>
-                                <span> > {{ clinic.name }}</span>
+                                <span>{{ clinic.name }}</span>
                             </h1>
                         </div>
-                        <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p>
+                        <!-- <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p> -->
                     </div>
                     <div>
-                        <Button>
+                        <Button variant="secondary">
+                            <!-- <Zap /> -->
+                            <span>Edit Clinic</span>
+                        </Button>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-8 border-b border-slate-200">
+                    <Link :href="ClinicCommissionsController(clinic.id)" class="-mb-0.5 border-b-4 border-primary pb-2 text-slate-600">
+                        Commissions
+                    </Link>
+                    <Link :href="ClinicUsersController(clinic.id)" class="pb-2.5 text-slate-600">Users</Link>
+                    <Link :href="ClinicInvitesController(clinic.id)" class="pb-2.5 text-slate-600">Invites</Link>
+                    <div class="pb-2.5 text-slate-600">Coupons</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <div>
+                            <h1 class="text-2xl tracking-tight">Commissions</h1>
+                        </div>
+                    </div>
+                    <div>
+                        <Button size="sm" variant="secondary">
                             <Zap />
                             <span>Mark all as Paid</span>
                         </Button>
@@ -37,12 +64,11 @@ defineProps<Props>()
                 </div>
             </div>
 
-            <div class="mb-6 grid grid-cols-3 gap-6">
+            <!-- <div class="mb-6 grid grid-cols-3 gap-6">
                 <div class="flex items-center justify-between border border-slate-200/80 bg-white p-4">
                     <div>
                         <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">referrals</h6>
                         <span class="text-3xl font-semibold">{{ 0 }}</span>
-                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
                     </div>
                     <div>
                         <Handshake class="size-12 text-slate-200" />
@@ -52,7 +78,6 @@ defineProps<Props>()
                     <div>
                         <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">commissions</h6>
                         <span class="text-3xl font-semibold">{{ 0 }}</span>
-                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
                     </div>
                     <div>
                         <ChartNoAxesCombined class="size-12 text-slate-200" />
@@ -62,13 +87,12 @@ defineProps<Props>()
                     <div>
                         <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">commission earned</h6>
                         <span class="text-3xl font-semibold">${{ (550 / 100).toFixed(2) }}</span>
-                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
                     </div>
                     <div>
                         <Truck class="size-12 text-slate-200" />
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div v-if="commissions.length > 0" class="w-full">
                 <div class="overflow-x-auto">
@@ -129,5 +153,6 @@ defineProps<Props>()
                 </EmptyHeader>
             </Empty>
         </div>
+        <!-- </SettingsLayout> -->
     </AppLayout>
 </template>

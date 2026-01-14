@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
 import ClinicIndexController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicIndexController'
+import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
 import CreateClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/CreateClinicController'
 import DeleteClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/DeleteClinicController'
 import EditClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/EditClinicController'
@@ -69,9 +71,11 @@ const deleteClinic = (id: string) => {
                             <template v-for="clinic in clinics" :key="clinic.id">
                                 <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
-                                        </div>
+                                        <Link
+                                            :href="ClinicCommissionsController(clinic.id)"
+                                            class="pl-5 text-base leading-none font-medium text-slate-700 hover:underline">
+                                            {{ clinic.name }}
+                                        </Link>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
@@ -122,7 +126,9 @@ const deleteClinic = (id: string) => {
                                                             <DropdownMenuItem>Edit</DropdownMenuItem>
                                                         </Link>
                                                         <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Invite User</DropdownMenuItem>
+                                                        <Link :href="ClinicInvitesController(clinic.id)">
+                                                            <DropdownMenuItem>Invites</DropdownMenuItem>
+                                                        </Link>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem>
