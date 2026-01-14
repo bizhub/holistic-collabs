@@ -37,14 +37,14 @@ const deleteCoupon = (id: string) => {
                 <div class="flex items-center space-x-6">
                     <h1 class="text-3xl font-bold tracking-tight">Coupons</h1>
                 </div>
-                <p class="pt-1 text-slate-600">Browse and manage all coupons, their usage details, and associations with clinics</p>
+                <p class="pt-1 text-zinc-600">Browse and manage all coupons, their usage details, and associations with clinics</p>
             </div>
 
             <div v-if="coupons.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Coupon</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Commissions</td>
@@ -53,24 +53,24 @@ const deleteCoupon = (id: string) => {
                         </thead>
                         <tbody>
                             <template v-for="coupon in coupons" :key="coupon.id">
-                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td class="pl-5">
-                                        <div class="inline-block bg-slate-200 px-3 py-1.5">
+                                        <div class="inline-block bg-zinc-200 px-3 py-1.5">
                                             <div class="flex items-center space-x-1">
-                                                <Tag class="size-4 text-slate-600" />
-                                                <div class="text-sm font-medium text-slate-600">{{ coupon.code }}</div>
+                                                <Tag class="size-4 text-zinc-600" />
+                                                <div class="text-sm font-medium text-zinc-600">{{ coupon.code }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">{{ coupon.clinic?.name }}</p>
+                                            <p class="text-sm leading-none text-zinc-600">{{ coupon.clinic?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
                                                 {{ coupon.commissions_count }}
                                             </div>
                                         </div>

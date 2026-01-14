@@ -38,7 +38,7 @@ const deleteUser = (id: string) => {
                                 <span>{{ clinic.name }}</span>
                             </h1>
                         </div>
-                        <!-- <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p> -->
+                        <!-- <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p> -->
                     </div>
                     <div>
                         <Link :href="EditClinicController(clinic.id)">
@@ -48,11 +48,11 @@ const deleteUser = (id: string) => {
                         </Link>
                     </div>
                 </div>
-                <div class="flex items-center space-x-8 border-b border-slate-200">
-                    <Link :href="ClinicCommissionsController(clinic.id)" class="pb-2.5 text-slate-600">Commissions</Link>
-                    <Link :href="ClinicUsersController(clinic.id)" class="-mb-0.5 border-b-4 border-primary pb-2 text-slate-600">Users</Link>
-                    <Link :href="ClinicInvitesController(clinic.id)" class="pb-2.5 text-slate-600">Invites</Link>
-                    <div class="pb-2.5 text-slate-600">Coupons</div>
+                <div class="flex items-center space-x-8 border-b border-zinc-200">
+                    <Link :href="ClinicCommissionsController(clinic.id)" class="pb-2.5 text-zinc-600">Commissions</Link>
+                    <Link :href="ClinicUsersController(clinic.id)" class="-mb-0.5 border-b-4 border-primary pb-2 text-zinc-600">Users</Link>
+                    <Link :href="ClinicInvitesController(clinic.id)" class="pb-2.5 text-zinc-600">Invites</Link>
+                    <div class="pb-2.5 text-zinc-600">Coupons</div>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@ const deleteUser = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5"></td>
@@ -84,15 +84,15 @@ const deleteUser = (id: string) => {
                         </thead>
                         <tbody>
                             <template v-for="user in users" :key="user.id">
-                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-slate-600">{{ user.name }}</p>
+                                            <p class="text-sm leading-none text-zinc-600">{{ user.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-zinc-600">
                                                 {{ user.email }}
                                             </p>
                                         </div>

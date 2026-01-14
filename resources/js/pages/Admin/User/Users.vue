@@ -27,9 +27,9 @@ const deleteUser = (id: string) => {
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Users</h1>
+                        <h1 class="text-3xl font-bold tracking-tight text-foreground">Users</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">Manage the login accounts for your clinics.</p>
+                    <p class="pt-1 text-muted-foreground">Manage the login accounts for your clinics.</p>
                 </div>
                 <div>
                     <!-- <Link :href="CreateClinicController()"> -->
@@ -45,7 +45,7 @@ const deleteUser = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
@@ -54,22 +54,22 @@ const deleteUser = (id: string) => {
                         </thead>
                         <tbody>
                             <template v-for="user in users" :key="user.id">
-                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-slate-600">{{ user.name }}</p>
+                                            <p class="text-sm leading-none">{{ user.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none">
                                                 {{ user.email }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none">
                                                 <span v-if="user.is_admin"> Admin </span>
                                                 <span v-else-if="user.clinic">
                                                     {{ user.clinic.name }}

@@ -39,7 +39,7 @@ const lastActivityAt = computed(() => {
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Shopify Integration</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">Connect Holistic Collabs to Shopify for real-time synchronizing</p>
+                    <p class="pt-1 text-zinc-600">Connect Holistic Collabs to Shopify for real-time synchronizing</p>
                 </div>
                 <div></div>
             </div>
@@ -53,7 +53,7 @@ const lastActivityAt = computed(() => {
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Holistic Collabs is connected to Shopify</div>
-                            <div class="text-xs font-medium text-slate-500 italic">
+                            <div class="text-xs font-medium text-zinc-500 italic">
                                 Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
@@ -67,7 +67,7 @@ const lastActivityAt = computed(() => {
                     <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Your Shopify connection is not active</div>
-                            <div class="text-xs font-medium text-slate-500 italic">
+                            <div class="text-xs font-medium text-zinc-500 italic">
                                 Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
@@ -83,7 +83,7 @@ const lastActivityAt = computed(() => {
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Shopify webhooks are active</div>
-                            <div class="text-xs font-medium text-slate-500 italic">
+                            <div class="text-xs font-medium text-zinc-500 italic">
                                 Last successful request: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
@@ -99,7 +99,7 @@ const lastActivityAt = computed(() => {
                     <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
                         <div class="flex flex-col items-center text-center">
                             <div>No Shopify webhooks are currently installed</div>
-                            <div class="text-xs font-medium text-slate-500 italic">
+                            <div class="text-xs font-medium text-zinc-500 italic">
                                 Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
@@ -110,12 +110,12 @@ const lastActivityAt = computed(() => {
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col border-slate-200 bg-slate-100/80 p-1">
-                    <div class="flex justify-center py-2 font-medium text-slate-800">Health check</div>
-                    <div class="flex flex-1 items-center justify-center border border-slate-200 bg-white p-6 shadow-sm shadow-slate-100">
+                <div class="flex flex-col border-zinc-200 bg-zinc-100/80 p-1">
+                    <div class="flex justify-center py-2 font-medium text-zinc-800">Health check</div>
+                    <div class="flex flex-1 items-center justify-center border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100">
                         <div class="flex flex-col items-center text-center">
                             <div>{{ shopify.url }}</div>
-                            <div class="text-xs font-medium text-slate-500 italic">
+                            <div class="text-xs font-medium text-zinc-500 italic">
                                 Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
@@ -128,20 +128,20 @@ const lastActivityAt = computed(() => {
 
             <div v-if="activity.length > 0" class="w-full">
                 <div class="bg-white">
-                    <div class="mt-3 overflow-x-auto border border-slate-200 py-3 shadow-sm shadow-slate-100">
+                    <div class="mt-3 overflow-x-auto border border-zinc-200 py-3 shadow-sm shadow-zinc-100">
                         <table class="w-full whitespace-nowrap">
                             <tbody>
-                                <tr v-for="log in activity" :key="log.id" class="h-8 rounded hover:bg-slate-50 focus:outline-none">
+                                <tr v-for="log in activity" :key="log.id" class="h-8 rounded hover:bg-zinc-50 focus:outline-none">
                                     <td width="200">
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 font-mono text-sm leading-none text-slate-700">
+                                            <p class="mr-2 font-mono text-sm leading-none text-zinc-700">
                                                 {{ dayjs(log.created_at).format('DD/MM/YYYY h:mma') }}
                                             </p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="mr-2 font-mono text-sm leading-none text-slate-700">{{ log.description }}</p>
+                                            <p class="mr-2 font-mono text-sm leading-none text-zinc-700">{{ log.description }}</p>
                                         </div>
                                     </td>
                                 </tr>

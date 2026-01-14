@@ -40,9 +40,9 @@ const deleteClinic = (id: string) => {
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Clinics</h1>
+                        <h1 class="text-3xl font-bold tracking-tight text-foreground">Clinics</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">Manage and view all clinics in the system, including key details and linked coupons</p>
+                    <p class="pt-1 text-muted-foreground">Manage and view all clinics in the system, including key details and linked coupons</p>
                 </div>
                 <div>
                     <Link :href="CreateClinicController()">
@@ -58,7 +58,7 @@ const deleteClinic = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-10 border border-zinc-200 bg-zinc-50 text-sm font-medium">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clients</td>
                                 <td class="pl-5">Commissions</td>
@@ -69,18 +69,16 @@ const deleteClinic = (id: string) => {
                         </thead>
                         <tbody>
                             <template v-for="clinic in clinics" :key="clinic.id">
-                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 border border-zinc-200 hover:bg-muted/50 focus:outline-none">
                                     <td>
-                                        <Link
-                                            :href="ClinicCommissionsController(clinic.id)"
-                                            class="pl-5 text-base leading-none font-medium text-slate-700 hover:underline">
+                                        <Link :href="ClinicCommissionsController(clinic.id)" class="pl-5 leading-none hover:underline">
                                             {{ clinic.name }}
                                         </Link>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
                                                 {{ clinic.clients_count }}
                                             </div>
                                         </div>
@@ -88,7 +86,7 @@ const deleteClinic = (id: string) => {
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
                                                 {{ clinic.commissions_count }}
                                             </div>
                                         </div>
@@ -96,17 +94,17 @@ const deleteClinic = (id: string) => {
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
                                                 {{ clinic.users_count }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="clinic.coupons">
-                                            <div v-for="coupon in clinic.coupons" :key="coupon.id" class="inline-block bg-slate-200 px-3 py-1.5">
+                                            <div v-for="coupon in clinic.coupons" :key="coupon.id" class="inline-block bg-zinc-200 px-3 py-1.5">
                                                 <div class="flex items-center space-x-1">
-                                                    <Tag class="size-4 text-slate-600" />
-                                                    <div class="text-sm font-medium text-slate-600">{{ coupon.code }}</div>
+                                                    <Tag class="size-4 text-zinc-600" />
+                                                    <div class="text-sm font-medium text-zinc-600">{{ coupon.code }}</div>
                                                 </div>
                                             </div>
                                         </div>

@@ -50,16 +50,16 @@ const submit = () => {
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mx-auto w-full max-w-4xl px-6 py-4">
             <div class="relative flex-1">
-                <div class="mb-10 border-b border-slate-200 pb-4">
+                <div class="mb-10 border-b border-zinc-200 pb-4">
                     <h1 class="text-3xl font-bold tracking-tight">{{ isCreate ? 'Add' : 'Update' }} Clinic</h1>
                 </div>
 
                 <form @submit.prevent="submit">
                     <div class="space-y-8">
-                        <div class="border-b border-slate-200 pb-10">
+                        <div class="border-b border-zinc-200 pb-10">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Clinic details</h2>
-                                <p class="pt-1 text-sm text-slate-600">
+                                <p class="pt-1 text-sm text-zinc-600">
                                     Add a new clinic and set up their referral code so new<br />
                                     clients can be automatically linked and tracked for future commissions.
                                 </p>
@@ -85,7 +85,7 @@ const submit = () => {
                         <div>
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Commission</h2>
-                                <p class="pt-1 text-sm text-slate-600">Define the commission percentage for this clinic.</p>
+                                <p class="pt-1 text-sm text-zinc-600">Define the commission percentage for this clinic.</p>
                             </div>
 
                             <div class="space-y-6">
@@ -95,14 +95,14 @@ const submit = () => {
                                 </div>
                             </div>
                         </div>
-                        <div v-if="isCreate && available_coupons" class="border-t border-slate-200 pt-8">
+                        <div v-if="isCreate && available_coupons" class="border-t border-zinc-200 pt-8">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">Coupon Code</h2>
-                                <p class="pt-1 text-sm text-slate-600">
+                                <p class="pt-1 text-sm text-zinc-600">
                                     Choose an available Shopify discount code. Can't find the one you need? Refresh the list.
                                 </p>
-                                <p class="pt-0.5 text-sm text-slate-600">This field is optional, you can always add coupons later.</p>
-                                <p class="pt-0.5 text-sm text-slate-600">Note: each discount code can only be assigned to a single clinic.</p>
+                                <p class="pt-0.5 text-sm text-zinc-600">This field is optional, you can always add coupons later.</p>
+                                <p class="pt-0.5 text-sm text-zinc-600">Note: each discount code can only be assigned to a single clinic.</p>
                             </div>
 
                             <Select v-model="form.coupon_shopify_id" :disabled="available_coupons.length == 0">

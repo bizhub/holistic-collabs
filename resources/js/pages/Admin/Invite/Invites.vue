@@ -31,7 +31,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Invites</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">Manage pending invitations. Send, resend, or revoke invites.</p>
+                    <p class="pt-1 text-zinc-600">Manage pending invitations. Send, resend, or revoke invites.</p>
                 </div>
                 <div>
                     <Link :href="CreateInviteController()">
@@ -47,7 +47,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
@@ -56,22 +56,22 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                         </thead>
                         <tbody>
                             <template v-for="invite in invites" :key="invite.id">
-                                <tr class="h-16 border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-slate-600">{{ invite.name }}</p>
+                                            <p class="text-sm leading-none text-zinc-600">{{ invite.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-zinc-600">
                                                 {{ invite.email }}
                                             </p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="invite.clinic" class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-zinc-600">
                                                 {{ invite.clinic.name }}
                                             </p>
                                         </div>

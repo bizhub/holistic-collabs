@@ -34,7 +34,7 @@ const submit = () => {
     <AppLayout>
         <div class="mx-auto w-full max-w-4xl px-6 py-4">
             <div class="relative flex-1">
-                <div class="mb-10 border-b border-slate-200 pb-4">
+                <div class="mb-10 border-b border-zinc-200 pb-4">
                     <h1 class="text-3xl font-bold tracking-tight">Create Invitation</h1>
                 </div>
 
@@ -43,7 +43,7 @@ const submit = () => {
                         <div class="">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">User details</h2>
-                                <p class="pt-1 text-sm text-slate-600">Enter the details of the person you would like to invite.</p>
+                                <p class="pt-1 text-sm text-zinc-600">Enter the details of the person you would like to invite.</p>
                             </div>
 
                             <div class="space-y-6">

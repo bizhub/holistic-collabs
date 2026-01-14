@@ -18,14 +18,14 @@ defineProps<Props>()
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
                 <h1 class="text-3xl font-bold tracking-tight">Commissions</h1>
-                <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p>
+                <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p>
             </div>
 
             <div v-if="clinics.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Contributions</td>
                                 <td class="pl-5 text-right">Total unpaid</td>
@@ -34,25 +34,25 @@ defineProps<Props>()
                         </thead>
                         <tbody>
                             <template v-for="clinic in clinics" :key="clinic.id">
-                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
                                             <Link :href="ClinicCommissionsController(clinic.id)" class="hover:underline">
-                                                <p class="text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
+                                                <p class="text-base leading-none font-medium text-zinc-700">{{ clinic.name }}</p>
                                             </Link>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
+                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
                                                 {{ clinic.commissions_count }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-zinc-600">
                                                 <span v-if="clinic.commissions_sum_amount">
                                                     ${{ (clinic.commissions_sum_amount / 100).toFixed(2) }}
                                                 </span>

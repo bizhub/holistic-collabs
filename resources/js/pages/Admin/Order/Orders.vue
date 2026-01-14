@@ -29,7 +29,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Orders</h1>
                     </div>
-                    <p class="pt-1 text-slate-600">View all orders placed through Shopify that include referral activity.</p>
+                    <p class="pt-1 text-zinc-600">View all orders placed through Shopify that include referral activity.</p>
                 </div>
                 <div></div>
             </div>
@@ -38,7 +38,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Coupon</td>
@@ -50,28 +50,28 @@ const breadcrumbs: BreadcrumbItem[] = [
                         </thead>
                         <tbody>
                             <template v-for="order in orders" :key="order.id">
-                                <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
+                                <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-slate-700">{{ order.client?.name }}</p>
+                                            <p class="text-base leading-none font-medium text-zinc-700">{{ order.client?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="order.clinic" class="flex items-center">
-                                            <p class="text-sm leading-none text-slate-600">{{ order.clinic.name }}</p>
+                                            <p class="text-sm leading-none text-zinc-600">{{ order.clinic.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div v-if="order.coupon_code" class="inline-block bg-slate-200 px-3 py-1.5">
+                                        <div v-if="order.coupon_code" class="inline-block bg-zinc-200 px-3 py-1.5">
                                             <div class="flex items-center space-x-1">
-                                                <Tag class="size-4 text-slate-600" />
-                                                <div class="text-sm font-medium text-slate-600">{{ order.coupon_code }}</div>
+                                                <Tag class="size-4 text-zinc-600" />
+                                                <div class="text-sm font-medium text-zinc-600">{{ order.coupon_code }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="pr-10 pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-slate-600">
+                                            <p class="text-sm leading-none text-zinc-600">
                                                 ${{
                                                     order.subtotal_price.toLocaleString(undefined, {
                                                         minimumFractionDigits: 2,
