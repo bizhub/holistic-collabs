@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { ChartNoAxesCombined, MoreHorizontal, Plug } from 'lucide-vue-next'
+import dayjs from 'dayjs'
+import { Handshake, Zap } from 'lucide-vue-next'
 
 interface Props {
-    clinics: Domain.Clinic.Data.ClinicData[]
+    clinic: Domain.Clinic.Data.ClinicData
+    commissions: Domain.Commission.Data.CommissionData[]
 }
 
 defineProps<Props>()
@@ -16,66 +18,98 @@ defineProps<Props>()
     <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
-                <div class="flex items-center space-x-6">
-                    <h1 class="text-3xl font-bold tracking-tight">Commissions</h1>
-                    <Link :href="'/asd'">
-                        <Button size="sm"><Plug />Connect</Button>
-                    </Link>
+                <div class="flex items-center">
+                    <div class="flex-1">
+                        <div>
+                            <h1 class="text-3xl font-bold tracking-tight">
+                                <Link href="/commissions" class="hover:underline">Commissions</Link>
+                                <span> > {{ clinic.name }}</span>
+                            </h1>
+                        </div>
+                        <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p>
+                    </div>
+                    <div>
+                        <Button>
+                            <Zap />
+                            <span>Mark all as Paid</span>
+                        </Button>
+                    </div>
                 </div>
-                <p class="pt-1 text-slate-600">New commissions will appear here when clients place orders.</p>
             </div>
 
-            <div v-if="clinics.length > 0" class="w-full">
+            <div class="mb-6 grid grid-cols-3 gap-6">
+                <div class="flex items-center justify-between border border-slate-200/80 bg-white p-4">
+                    <div>
+                        <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">referrals</h6>
+                        <span class="text-3xl font-semibold">{{ 0 }}</span>
+                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
+                    </div>
+                    <div>
+                        <Handshake class="size-12 text-slate-200" />
+                    </div>
+                </div>
+                <div class="flex items-center justify-between border border-slate-200/80 bg-white p-4">
+                    <div>
+                        <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">commissions</h6>
+                        <span class="text-3xl font-semibold">{{ 0 }}</span>
+                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
+                    </div>
+                    <div>
+                        <ChartNoAxesCombined class="size-12 text-slate-200" />
+                    </div>
+                </div>
+                <div class="flex items-center justify-between border border-slate-200/80 bg-white p-4">
+                    <div>
+                        <h6 class="text-xs leading-none font-medium tracking-wider text-slate-500 uppercase">commission earned</h6>
+                        <span class="text-3xl font-semibold">${{ (550 / 100).toFixed(2) }}</span>
+                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
+                    </div>
+                    <div>
+                        <Truck class="size-12 text-slate-200" />
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="commissions.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="h-8 border border-slate-200 bg-slate-50 text-xs font-medium text-slate-500 uppercase">
-                                <td class="pl-5">Clinic</td>
-                                <td class="pl-5">Contributions</td>
-                                <td class="pl-5 text-right">Total unpaid</td>
+                                <td class="pl-5">Date</td>
                                 <td class="pl-5"></td>
+                                <td class="pl-5"></td>
+                                <td class="pr-10 pl-5">
+                                    <div class="flex justify-end">Commission</div>
+                                </td>
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="clinic in clinics" :key="clinic.id">
+                            <template v-for="commission in commissions" :key="commission.id">
                                 <tr class="h-16 rounded border border-slate-200 hover:bg-slate-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-slate-700">{{ clinic.name }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-slate-200 text-sm leading-none font-medium text-slate-600">
-                                                {{ clinic.commissions_count }}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-slate-600" v-if="clinic.commissions_sum_amount">
-                                                ${{ (clinic.commissions_sum_amount / 100).toFixed(2) }}
+                                            <p class="text-sm leading-none text-slate-600">
+                                                {{ dayjs(commission.created_at).format('DD/MM/YYYY h:mma') }}
                                             </p>
                                         </div>
                                     </td>
-                                    <td class="pl-4">
-                                        <div class="flex justify-end pr-4">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger as-child>
-                                                    <Button variant="secondary" size="sm" aria-label="Options">
-                                                        <MoreHorizontal />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent class="w-56" align="end">
-                                                    <DropdownMenuGroup>
-                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
-                                                    </DropdownMenuGroup>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
+                                    <td class="pl-5">
+                                        <!-- <div v-if="order.clinic" class="flex items-center">
+                                            <p class="text-sm leading-none text-slate-600">{{ order.clinic.name }}</p>
+                                        </div> -->
+                                        <Badge variant="secondary">{{ commission.status }}</Badge>
+                                    </td>
+                                    <td class="pl-5">
+                                        <!-- <div v-if="order.coupon_code" class="inline-block bg-slate-200 px-3 py-1.5">
+                                            <div class="flex items-center space-x-1">
+                                                <Tag class="size-4 text-slate-600" />
+                                                <div class="text-sm font-medium text-slate-600">{{ order.coupon_code }}</div>
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                    <td class="pr-10 pl-5">
+                                        <div class="flex items-center justify-end">
+                                            <p class="text-sm leading-none text-slate-600">${{ commission.amount.toFixed(2) }}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,10 +122,10 @@ defineProps<Props>()
             <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
-                        <ChartNoAxesCombined />
+                        <Handshake />
                     </EmptyMedia>
-                    <EmptyTitle>You're all caught up</EmptyTitle>
-                    <EmptyDescription>There are currently no unpaid commissions to review.</EmptyDescription>
+                    <EmptyTitle>No commissions yet</EmptyTitle>
+                    <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
                 </EmptyHeader>
             </Empty>
         </div>

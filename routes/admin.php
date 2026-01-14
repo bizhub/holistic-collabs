@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Clinic\EditClinicController;
 use App\Http\Controllers\Admin\Clinic\StoreClinicController;
 use App\Http\Controllers\Admin\Clinic\UpdateClinicController;
 use App\Http\Controllers\Admin\Commission\CommissionIndexController;
+use App\Http\Controllers\Admin\Commission\UnpaidCommissionsController;
 use App\Http\Controllers\Admin\Coupon\CouponIndexController;
 use App\Http\Controllers\Admin\Coupon\DeleteCouponController;
 use App\Http\Controllers\Admin\Dashboard\DashboardIndexController;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('dashboard', DashboardIndexController::class)->name('dashboard');
 
 Route::get('commissions', CommissionIndexController::class);
+Route::get('commissions/{clinic}/unpaid', UnpaidCommissionsController::class);
 
 Route::get('clinics', ClinicIndexController::class);
 Route::get('clinics/create', CreateClinicController::class);
