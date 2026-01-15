@@ -17,6 +17,7 @@ class ClinicUsersController
 
         return Inertia::render('Admin/Clinic/Users', [
             'clinic' => ClinicData::from($clinic),
+            'clinics' => ClinicData::collect(Clinic::all()),
             'users' => UserData::collect($users),
         ]);
     }

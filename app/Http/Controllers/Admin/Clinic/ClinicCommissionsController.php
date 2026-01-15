@@ -20,6 +20,7 @@ class ClinicCommissionsController
 
         return Inertia::render('Admin/Clinic/Commissions', [
             'clinic' => ClinicData::from($clinic),
+            'clinics' => ClinicData::collect(Clinic::all()),
             'commissions' => CommissionData::collect($commissions),
         ]);
     }

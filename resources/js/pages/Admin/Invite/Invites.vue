@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
 import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
 import DeleteInviteController from '@/actions/App/Http/Controllers/Admin/Invite/DeleteInviteController'
 import ResendInviteController from '@/actions/App/Http/Controllers/Admin/Invite/ResendInviteController'
@@ -70,11 +71,12 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div v-if="invite.clinic" class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">
-                                                {{ invite.clinic.name }}
-                                            </p>
-                                        </div>
+                                        <Link
+                                            :href="ClinicInvitesController(invite.clinic.id)"
+                                            v-if="invite.clinic"
+                                            class="text-sm leading-none text-zinc-600 hover:underline">
+                                            {{ invite.clinic.name }}
+                                        </Link>
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">

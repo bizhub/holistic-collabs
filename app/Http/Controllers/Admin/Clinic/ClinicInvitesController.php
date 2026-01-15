@@ -17,6 +17,7 @@ class ClinicInvitesController
 
         return Inertia::render('Admin/Clinic/Invites', [
             'clinic' => ClinicData::from($clinic),
+            'clinics' => ClinicData::collect(Clinic::all()),
             'invites' => InviteData::collect($invites),
         ]);
     }

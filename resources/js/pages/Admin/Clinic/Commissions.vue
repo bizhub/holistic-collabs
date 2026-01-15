@@ -5,10 +5,11 @@ import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/C
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { Handshake, Zap } from 'lucide-vue-next'
+import { ChevronRight, ChevronsUpDown, Handshake, Zap } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
+    clinics: Domain.Clinic.Data.ClinicData[]
     commissions: Domain.Commission.Data.CommissionData[]
 }
 
@@ -16,83 +17,75 @@ defineProps<Props>()
 </script>
 
 <template>
-    <Head title="Clinic Commissions" />
+    <Head title="Commissions" />
 
     <AppLayout>
-        <!-- <SettingsLayout> -->
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="mb-6">
-                <div class="mb-4 flex items-center">
-                    <div class="flex-1">
-                        <div>
-                            <h1 class="text-3xl font-bold tracking-tight">
-                                <span>{{ clinic.name }}</span>
-                            </h1>
-                        </div>
-                        <!-- <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p> -->
-                    </div>
+            <div class="mb-6 flex items-center">
+                <div class="flex flex-1 items-center">
                     <div>
-                        <Button variant="secondary">
-                            <!-- <Zap /> -->
-                            <span>Edit Clinic</span>
-                        </Button>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <div class="flex cursor-pointer items-center px-2 py-1 hover:bg-zinc-100">
+                                    <!-- <div class="mr-2 size-4 bg-blue-800"></div> -->
+                                    <div class="text-xl font-medium text-zinc-700">{{ clinic.name }}</div>
+                                    <ChevronsUpDown class="ml-1 size-5" />
+                                </div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-64 p-0" align="start">
+                                <Command highlight-on-hover>
+                                    <CommandInput placeholder="Search clinics…" />
+                                    <CommandList>
+                                        <CommandEmpty>No results found.</CommandEmpty>
+                                        <CommandGroup heading="Clinics">
+                                            <Link :href="ClinicCommissionsController(_clinic.id)" v-for="_clinic in clinics" :key="_clinic.id">
+                                                <CommandItem :value="_clinic.id">{{ _clinic.name }}</CommandItem>
+                                            </Link>
+                                        </CommandGroup>
+                                    </CommandList>
+                                </Command>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                    <div class="px-4"><ChevronRight class="size-5 text-zinc-500" /></div>
+                    <div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <div class="flex cursor-pointer items-center p-2 hover:bg-zinc-100">
+                                    <!-- <div class="mr-2 size-4 bg-orange-900"></div> -->
+                                    <div class="text-xl font-medium text-zinc-700">Commissions</div>
+                                    <ChevronsUpDown class="ml-1 size-5" />
+                                </div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-56" align="start">
+                                <DropdownMenuGroup>
+                                    <Link :href="ClinicCommissionsController(clinic.id)">
+                                        <DropdownMenuItem>Commissions</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Users</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicInvitesController(clinic.id)">
+                                        <DropdownMenuItem>Invites</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Coupons</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Orders</DropdownMenuItem>
+                                    </Link>
+                                </DropdownMenuGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
-                <div class="flex items-center space-x-8 border-b border-zinc-200">
-                    <Link :href="ClinicCommissionsController(clinic.id)" class="-mb-0.5 border-b-4 border-primary pb-2 text-zinc-600">
-                        Commissions
-                    </Link>
-                    <Link :href="ClinicUsersController(clinic.id)" class="pb-2.5 text-zinc-600">Users</Link>
-                    <Link :href="ClinicInvitesController(clinic.id)" class="pb-2.5 text-zinc-600">Invites</Link>
-                    <div class="pb-2.5 text-zinc-600">Coupons</div>
+                <div>
+                    <Button size="sm">
+                        <Zap />
+                        <span>Mark all as Paid</span>
+                    </Button>
                 </div>
             </div>
-
-            <div>
-                <div class="flex items-center">
-                    <div class="flex-1">
-                        <div>
-                            <h1 class="text-2xl tracking-tight">Commissions</h1>
-                        </div>
-                    </div>
-                    <div>
-                        <Button size="sm" variant="secondary">
-                            <Zap />
-                            <span>Mark all as Paid</span>
-                        </Button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <div class="mb-6 grid grid-cols-3 gap-6">
-                <div class="flex items-center justify-between border border-zinc-200/80 bg-white p-4">
-                    <div>
-                        <h6 class="text-xs leading-none font-medium tracking-wider text-zinc-500 uppercase">referrals</h6>
-                        <span class="text-3xl font-semibold">{{ 0 }}</span>
-                    </div>
-                    <div>
-                        <Handshake class="size-12 text-zinc-200" />
-                    </div>
-                </div>
-                <div class="flex items-center justify-between border border-zinc-200/80 bg-white p-4">
-                    <div>
-                        <h6 class="text-xs leading-none font-medium tracking-wider text-zinc-500 uppercase">commissions</h6>
-                        <span class="text-3xl font-semibold">{{ 0 }}</span>
-                    </div>
-                    <div>
-                        <ChartNoAxesCombined class="size-12 text-zinc-200" />
-                    </div>
-                </div>
-                <div class="flex items-center justify-between border border-zinc-200/80 bg-white p-4">
-                    <div>
-                        <h6 class="text-xs leading-none font-medium tracking-wider text-zinc-500 uppercase">commission earned</h6>
-                        <span class="text-3xl font-semibold">${{ (550 / 100).toFixed(2) }}</span>
-                    </div>
-                    <div>
-                        <Truck class="size-12 text-zinc-200" />
-                    </div>
-                </div>
-            </div> -->
 
             <div v-if="commissions.length > 0" class="w-full">
                 <div class="overflow-x-auto">
@@ -143,7 +136,7 @@ defineProps<Props>()
                 </div>
             </div>
 
-            <Empty v-else class="border border-dashed">
+            <Empty v-else>
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
                         <Handshake />
@@ -153,6 +146,5 @@ defineProps<Props>()
                 </EmptyHeader>
             </Empty>
         </div>
-        <!-- </SettingsLayout> -->
     </AppLayout>
 </template>

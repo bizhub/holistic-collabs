@@ -2,15 +2,15 @@
 import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
 import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
 import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
-import EditClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/EditClinicController'
 import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
 import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { MoreHorizontal, Plus, UsersIcon } from 'lucide-vue-next'
+import { ChevronRight, ChevronsUpDown, MoreHorizontal, Plus, UsersIcon } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
+    clinics: Domain.Clinic.Data.ClinicData[]
     users: Domain.User.Data.UserData[]
 }
 
@@ -30,45 +30,71 @@ const deleteUser = (id: string) => {
 
     <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="mb-6">
-                <div class="mb-4 flex items-center">
-                    <div class="flex-1">
-                        <div>
-                            <h1 class="text-3xl font-bold tracking-tight">
-                                <span>{{ clinic.name }}</span>
-                            </h1>
-                        </div>
-                        <!-- <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p> -->
-                    </div>
+            <div class="mb-6 flex items-center">
+                <div class="flex flex-1 items-center">
                     <div>
-                        <Link :href="EditClinicController(clinic.id)">
-                            <Button variant="secondary">
-                                <span>Edit Clinic</span>
-                            </Button>
-                        </Link>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <div class="flex cursor-pointer items-center px-2 py-1 hover:bg-zinc-100">
+                                    <!-- <div class="mr-2 size-4 bg-blue-800"></div> -->
+                                    <div class="text-xl font-medium text-zinc-700">{{ clinic.name }}</div>
+                                    <ChevronsUpDown class="ml-1 size-5" />
+                                </div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-64 p-0" align="start">
+                                <Command highlight-on-hover>
+                                    <CommandInput placeholder="Search clinics…" />
+                                    <CommandList>
+                                        <CommandEmpty>No results found.</CommandEmpty>
+                                        <CommandGroup heading="Clinics">
+                                            <Link :href="ClinicUsersController(_clinic.id)" v-for="_clinic in clinics" :key="_clinic.id">
+                                                <CommandItem :value="_clinic.id">{{ _clinic.name }}</CommandItem>
+                                            </Link>
+                                        </CommandGroup>
+                                    </CommandList>
+                                </Command>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+                    <div class="px-4"><ChevronRight class="size-5 text-zinc-500" /></div>
+                    <div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                                <div class="flex cursor-pointer items-center p-2 hover:bg-zinc-100">
+                                    <!-- <div class="mr-2 size-4 bg-orange-900"></div> -->
+                                    <div class="text-xl font-medium text-zinc-700">Users</div>
+                                    <ChevronsUpDown class="ml-1 size-5" />
+                                </div>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-56" align="start">
+                                <DropdownMenuGroup>
+                                    <Link :href="ClinicCommissionsController(clinic.id)">
+                                        <DropdownMenuItem>Commissions</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Users</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicInvitesController(clinic.id)">
+                                        <DropdownMenuItem>Invites</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Coupons</DropdownMenuItem>
+                                    </Link>
+                                    <Link :href="ClinicUsersController(clinic.id)">
+                                        <DropdownMenuItem>Orders</DropdownMenuItem>
+                                    </Link>
+                                </DropdownMenuGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
-                <div class="flex items-center space-x-8 border-b border-zinc-200">
-                    <Link :href="ClinicCommissionsController(clinic.id)" class="pb-2.5 text-zinc-600">Commissions</Link>
-                    <Link :href="ClinicUsersController(clinic.id)" class="-mb-0.5 border-b-4 border-primary pb-2 text-zinc-600">Users</Link>
-                    <Link :href="ClinicInvitesController(clinic.id)" class="pb-2.5 text-zinc-600">Invites</Link>
-                    <div class="pb-2.5 text-zinc-600">Coupons</div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex items-center">
-                    <div class="flex-1">
-                        <h1 class="text-2xl tracking-tight">Users</h1>
-                    </div>
-                    <div>
-                        <Link :href="CreateInviteController()">
-                            <Button size="sm">
-                                <Plus />
-                                <span>Create user</span>
-                            </Button>
-                        </Link>
-                    </div>
+                <div>
+                    <Link :href="CreateInviteController()">
+                        <Button size="sm">
+                            <Plus />
+                            <span>Create user</span>
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
@@ -127,7 +153,7 @@ const deleteUser = (id: string) => {
                 </div>
             </div>
 
-            <Empty v-else class="border border-dashed">
+            <Empty v-else>
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
                         <UsersIcon />

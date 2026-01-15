@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
 import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import { MoreHorizontal, Plus, Users } from 'lucide-vue-next'
 
 interface Props {
@@ -70,10 +71,10 @@ const deleteUser = (id: string) => {
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none">
-                                                <span v-if="user.is_admin"> Admin </span>
-                                                <span v-else-if="user.clinic">
+                                                <span v-if="user.is_admin">Admin</span>
+                                                <Link :href="ClinicUsersController(user.clinic.id)" v-else-if="user.clinic" class="hover:underline">
                                                     {{ user.clinic.name }}
-                                                </span>
+                                                </Link>
                                             </p>
                                         </div>
                                     </td>
