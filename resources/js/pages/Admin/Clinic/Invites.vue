@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
-import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
-import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
 import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
 import DeleteInviteController from '@/actions/App/Http/Controllers/Admin/Invite/DeleteInviteController'
 import ResendInviteController from '@/actions/App/Http/Controllers/Admin/Invite/ResendInviteController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { ChevronRight, ChevronsUpDown, Mails, MoreHorizontal, Plus } from 'lucide-vue-next'
+import { Mails, MoreHorizontal, Plus } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -31,63 +28,12 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
 
     <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <ClinicBreadcrumbs :clinic="clinic" :clinics="clinics" current="invites" />
+
             <div class="mb-6 flex items-center">
-                <div class="flex flex-1 items-center">
-                    <div>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger as-child>
-                                <div class="flex cursor-pointer items-center px-2 py-1 hover:bg-zinc-100">
-                                    <!-- <div class="mr-2 size-4 bg-blue-800"></div> -->
-                                    <div class="text-xl font-medium text-zinc-700">{{ clinic.name }}</div>
-                                    <ChevronsUpDown class="ml-1 size-5" />
-                                </div>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent class="w-64 p-0" align="start">
-                                <Command highlight-on-hover>
-                                    <CommandInput placeholder="Search clinics…" />
-                                    <CommandList>
-                                        <CommandEmpty>No results found.</CommandEmpty>
-                                        <CommandGroup heading="Clinics">
-                                            <Link :href="ClinicInvitesController(_clinic.id)" v-for="_clinic in clinics" :key="_clinic.id">
-                                                <CommandItem :value="_clinic.id">{{ _clinic.name }}</CommandItem>
-                                            </Link>
-                                        </CommandGroup>
-                                    </CommandList>
-                                </Command>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
-                    <div class="px-4"><ChevronRight class="size-5 text-zinc-500" /></div>
-                    <div>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger as-child>
-                                <div class="flex cursor-pointer items-center p-2 hover:bg-zinc-100">
-                                    <!-- <div class="mr-2 size-4 bg-orange-900"></div> -->
-                                    <div class="text-xl font-medium text-zinc-700">Invites</div>
-                                    <ChevronsUpDown class="ml-1 size-5" />
-                                </div>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent class="w-56" align="start">
-                                <DropdownMenuGroup>
-                                    <Link :href="ClinicCommissionsController(clinic.id)">
-                                        <DropdownMenuItem>Commissions</DropdownMenuItem>
-                                    </Link>
-                                    <Link :href="ClinicUsersController(clinic.id)">
-                                        <DropdownMenuItem>Users</DropdownMenuItem>
-                                    </Link>
-                                    <Link :href="ClinicInvitesController(clinic.id)">
-                                        <DropdownMenuItem>Invites</DropdownMenuItem>
-                                    </Link>
-                                    <Link :href="ClinicUsersController(clinic.id)">
-                                        <DropdownMenuItem>Coupons</DropdownMenuItem>
-                                    </Link>
-                                    <Link :href="ClinicUsersController(clinic.id)">
-                                        <DropdownMenuItem>Orders</DropdownMenuItem>
-                                    </Link>
-                                </DropdownMenuGroup>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold tracking-tight">Invites</h1>
+                    <p class="pt-1 text-muted-foreground">Manage pending invitations. Send, resend, or revoke invites.</p>
                 </div>
                 <div>
                     <Link :href="CreateInviteController()">
@@ -151,7 +97,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                 </div>
             </div>
 
-            <Empty v-else>
+            <Empty v-else class="border border-dashed">
                 <EmptyHeader>
                     <EmptyMedia variant="icon">
                         <Mails />

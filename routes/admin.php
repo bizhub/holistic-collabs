@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\Client\ClientIndexController;
+use App\Http\Controllers\Admin\Clinic\ClinicClientsController;
 use App\Http\Controllers\Admin\Clinic\ClinicCommissionsController;
+use App\Http\Controllers\Admin\Clinic\ClinicCouponsController;
 use App\Http\Controllers\Admin\Clinic\ClinicIndexController;
 use App\Http\Controllers\Admin\Clinic\ClinicInvitesController;
+use App\Http\Controllers\Admin\Clinic\ClinicOrdersController;
 use App\Http\Controllers\Admin\Clinic\ClinicUsersController;
 use App\Http\Controllers\Admin\Clinic\CreateClinicController;
 use App\Http\Controllers\Admin\Clinic\DeleteClinicController;
@@ -36,6 +39,9 @@ Route::get('commissions', CommissionIndexController::class);
 Route::get('clinics/{clinic}/commissions', ClinicCommissionsController::class);
 Route::get('clinics/{clinic}/users', ClinicUsersController::class);
 Route::get('clinics/{clinic}/invites', ClinicInvitesController::class);
+Route::get('clinics/{clinic}/clients', ClinicClientsController::class);
+Route::get('clinics/{clinic}/coupons', ClinicCouponsController::class);
+Route::get('clinics/{clinic}/orders', ClinicOrdersController::class);
 
 Route::get('clinics', ClinicIndexController::class);
 Route::get('clinics/create', CreateClinicController::class);

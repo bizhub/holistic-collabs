@@ -1,36 +1,28 @@
 <script setup lang="ts">
-import ClinicOrdersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicOrdersController'
-import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { type BreadcrumbItem } from '@/types'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import { Tag, Truck } from 'lucide-vue-next'
 
 interface Props {
+    clinic: Domain.Clinic.Data.ClinicData
+    clinics: Domain.Clinic.Data.ClinicData[]
     orders: Domain.Order.Data.OrderData[]
 }
 
 defineProps<Props>()
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: DashboardIndexController().url,
-    },
-]
 </script>
 
 <template>
     <Head title="Orders" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <ClinicBreadcrumbs :clinic="clinic" :clinics="clinics" current="orders" />
+
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
-                    <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Orders</h1>
-                    </div>
-                    <p class="pt-1 text-zinc-600">View all orders placed through Shopify that include referral activity.</p>
+                    <h1 class="text-3xl font-bold tracking-tight">Orders</h1>
+                    <p class="pt-1 text-muted-foreground">View all orders placed through Shopify that include referral activity.</p>
                 </div>
                 <div></div>
             </div>
@@ -41,7 +33,6 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
-                                <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Coupon</td>
                                 <td class="pr-10 pl-5">
                                     <div class="flex justify-end">Subtotal</div>
@@ -55,15 +46,6 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     <td>
                                         <div class="flex items-center pl-5">
                                             <p class="text-base leading-none font-medium text-zinc-700">{{ order.client?.name }}</p>
-                                        </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <div v-if="order.clinic" class="flex items-center">
-                                            <Link
-                                                :href="ClinicOrdersController(order.clinic.id)"
-                                                class="text-sm leading-none text-zinc-600 hover:underline">
-                                                {{ order.clinic.name }}
-                                            </Link>
                                         </div>
                                     </td>
                                     <td class="pl-5">

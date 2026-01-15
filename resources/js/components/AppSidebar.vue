@@ -31,6 +31,11 @@ const mainNavItems: NavItem[] = user.value.is_admin
           //       icon: LayoutGrid,
           //   },
           {
+              title: 'Commissions',
+              href: CommissionIndexController().url,
+              icon: ChartNoAxesCombined,
+          },
+          {
               title: 'Clinics',
               href: ClinicIndexController().url,
               icon: Store,
@@ -49,11 +54,6 @@ const mainNavItems: NavItem[] = user.value.is_admin
               title: 'Clients',
               href: ClientIndexController().url,
               icon: Handshake,
-          },
-          {
-              title: 'Commissions',
-              href: CommissionIndexController().url,
-              icon: ChartNoAxesCombined,
           },
           {
               title: 'Coupons',

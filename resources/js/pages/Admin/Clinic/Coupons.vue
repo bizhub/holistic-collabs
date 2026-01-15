@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import ClinicCouponsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCouponsController'
 import DeleteCouponController from '@/actions/App/Http/Controllers/Admin/Coupon/DeleteCouponController'
-import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { type BreadcrumbItem } from '@/types'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import { MoreHorizontal, Tag, Tags } from 'lucide-vue-next'
 
 interface Props {
+    clinic: Domain.Clinic.Data.ClinicData
+    clinics: Domain.Clinic.Data.ClinicData[]
     coupons: Domain.Coupon.Data.CouponData[]
 }
 
 defineProps<Props>()
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Dashboard',
-        href: DashboardIndexController().url,
-    },
-]
 
 const deleteCoupon = (id: string) => {
     if (!confirm('Are you sure you want to delete this coupon?')) {
@@ -32,13 +24,23 @@ const deleteCoupon = (id: string) => {
 <template>
     <Head title="Coupons" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div class="mb-6">
-                <div class="flex items-center space-x-6">
+            <ClinicBreadcrumbs :clinic="clinic" :clinics="clinics" current="coupons" />
+
+            <div class="mb-6 flex items-center">
+                <div class="flex-1">
                     <h1 class="text-3xl font-bold tracking-tight">Coupons</h1>
+                    <p class="pt-1 text-muted-foreground">Browse and manage all coupons, their usage details, and associations with clinics</p>
                 </div>
-                <p class="pt-1 text-zinc-600">Browse and manage all coupons, their usage details, and associations with clinics</p>
+                <div>
+                    <!-- <Link :href="CreateInviteController()">
+                        <Button size="sm">
+                            <Plus />
+                            <span>Create user</span>
+                        </Button>
+                    </Link> -->
+                </div>
             </div>
 
             <div v-if="coupons.length > 0" class="w-full">
@@ -47,7 +49,6 @@ const deleteCoupon = (id: string) => {
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Coupon</td>
-                                <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Commissions</td>
                                 <td class="pl-5"></td>
                             </tr>
@@ -62,13 +63,6 @@ const deleteCoupon = (id: string) => {
                                                 <div class="text-sm font-medium text-zinc-600">{{ coupon.code }}</div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <Link
-                                            :href="ClinicCouponsController(coupon.clinic?.id ?? 'unknown')"
-                                            class="text-sm leading-none text-zinc-600 hover:underline">
-                                            {{ coupon.clinic?.name }}
-                                        </Link>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">

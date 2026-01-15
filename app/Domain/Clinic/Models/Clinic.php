@@ -8,6 +8,7 @@ use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Commission\Models\Commission;
 use Domain\Coupon\Models\Coupon;
 use Domain\Invite\Models\Invite;
+use Domain\Order\Models\Order;
 use Domain\User\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,5 +60,10 @@ class Clinic extends Model
     public function invites(): HasMany
     {
         return $this->hasMany(Invite::class);
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

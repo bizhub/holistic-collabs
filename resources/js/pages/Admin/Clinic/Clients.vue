@@ -1,27 +1,37 @@
 <script setup lang="ts">
-import ClinicClientsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicClientsController'
+import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head, Link } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import { HandshakeIcon, MoreHorizontal } from 'lucide-vue-next'
 
 interface Props {
+    clinic: Domain.Clinic.Data.ClinicData
+    clinics: Domain.Clinic.Data.ClinicData[]
     clients: Domain.Client.Data.ClientData[]
 }
 
 defineProps<Props>()
+
+const deleteUser = (id: string) => {
+    if (!confirm('Are you sure you want to delete this user?')) {
+        return
+    }
+
+    router.delete(DeleteUserController(id).url)
+}
 </script>
 
 <template>
     <Head title="Clients" />
 
     <AppLayout>
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
+        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
+            <ClinicBreadcrumbs :clinic="clinic" :clinics="clinics" current="clients" />
+
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
-                    <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
-                    </div>
-                    <p class="pt-1 text-zinc-600">
+                    <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
+                    <p class="pt-1 text-muted-foreground">
                         See all clients created through your referral system. Track referred customers, their associated clinics, and their order
                         activity.
                     </p>
@@ -36,7 +46,6 @@ defineProps<Props>()
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
-                                <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Contributions</td>
                                 <td class="pl-5"></td>
                             </tr>
@@ -53,13 +62,6 @@ defineProps<Props>()
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none text-zinc-600">{{ client.email }}</p>
                                         </div>
-                                    </td>
-                                    <td class="pl-5">
-                                        <Link
-                                            :href="ClinicClientsController(client.clinic?.id ?? 'unknown')"
-                                            class="text-sm leading-none text-zinc-600 hover:underline">
-                                            {{ client.clinic?.name }}
-                                        </Link>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">

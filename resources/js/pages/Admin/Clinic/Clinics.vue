@@ -58,7 +58,7 @@ const deleteClinic = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-10 border border-zinc-200 bg-zinc-50 text-sm font-medium">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clients</td>
                                 <td class="pl-5">Commissions</td>
