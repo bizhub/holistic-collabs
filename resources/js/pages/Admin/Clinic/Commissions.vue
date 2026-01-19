@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import CreatePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/CreatePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head } from '@inertiajs/vue3'
+import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { Handshake, Zap } from 'lucide-vue-next'
+import { HandCoins, Handshake } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -26,12 +27,22 @@ defineProps<Props>()
                     <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p>
                 </div>
                 <div>
-                    <Button size="sm" v-if="commissions.length > 0">
-                        <Zap />
-                        <span>Mark all as Paid</span>
-                    </Button>
+                    <Link :href="CreatePayoutController(clinic.id)">
+                        <Button v-if="commissions.length > 0">
+                            <HandCoins />
+                            <span>Create Payout</span>
+                        </Button>
+                    </Link>
                 </div>
             </div>
+
+            <!-- <Tabs default-value="account">
+                <TabsList>
+                    <TabsTrigger value="account"> Account </TabsTrigger>
+                    <TabsTrigger value="password"> Password </TabsTrigger>
+                </TabsList>
+                <TabsContent value="account"> </TabsContent>
+            </Tabs> -->
 
             <div v-if="commissions.length > 0" class="w-full">
                 <div class="overflow-x-auto">
@@ -57,9 +68,6 @@ defineProps<Props>()
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <!-- <div v-if="order.clinic" class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">{{ order.clinic.name }}</p>
-                                        </div> -->
                                         <Badge variant="secondary">{{ commission.status }}</Badge>
                                     </td>
                                     <td class="pl-5">

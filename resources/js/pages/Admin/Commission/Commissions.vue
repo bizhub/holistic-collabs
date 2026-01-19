@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
+import CreatePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/CreatePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import { ChartNoAxesCombined, MoreHorizontal } from 'lucide-vue-next'
@@ -70,10 +71,12 @@ defineProps<Props>()
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
+                                                        <Link :href="CreatePayoutController(clinic.id)">
+                                                            <DropdownMenuItem>Create Payout</DropdownMenuItem>
+                                                        </Link>
                                                         <Link :href="ClinicCommissionsController(clinic.id)">
                                                             <DropdownMenuItem>View</DropdownMenuItem>
                                                         </Link>
-                                                        <DropdownMenuItem disabled>Edit</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem disabled>Delete</DropdownMenuItem>

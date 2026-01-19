@@ -15,7 +15,7 @@ class CommissionIndexController
             ->withSum('commissions', 'amount')
             ->get();
 
-        return Inertia::render('Admin/Commission/Clinics', [
+        return Inertia::render('Admin/Commission/Commissions', [
             'clinics' => ClinicData::collect($clinics),
         ]);
     }

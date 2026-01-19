@@ -26,6 +26,7 @@ class Commission extends Model
         'client_id',
         'order_id',
         'coupon_id',
+        'payout_id',
         'status',
         'commission_rate',
         'coupon_amount',

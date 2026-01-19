@@ -8,7 +8,7 @@ import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/C
 import { Link } from '@inertiajs/vue3'
 import { ChevronRight, ChevronsUpDown, Store } from 'lucide-vue-next'
 
-type CurrentPage = 'commissions' | 'users' | 'invites' | 'clients' | 'coupons' | 'orders'
+type CurrentPage = 'commissions' | 'payouts' | 'users' | 'invites' | 'clients' | 'coupons' | 'orders'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -21,6 +21,8 @@ const props = defineProps<Props>()
 const clinicSectionHref = (clinicId: string) => {
     switch (props.current) {
         case 'commissions':
+            return ClinicCommissionsController(clinicId)
+        case 'payouts':
             return ClinicCommissionsController(clinicId)
         case 'users':
             return ClinicUsersController(clinicId)
@@ -38,20 +40,8 @@ const clinicSectionHref = (clinicId: string) => {
 }
 
 const sectionLabel = computed(() => {
-    switch (props.current) {
-        case 'users':
-            return 'Users'
-        case 'invites':
-            return 'Invites'
-        case 'clients':
-            return 'Clients'
-        case 'coupons':
-            return 'Coupons'
-        case 'orders':
-            return 'Orders'
-        default:
-            return 'Commissions'
-    }
+    const str = props.current ?? ''
+    return str.charAt(0).toUpperCase() + str.slice(1)
 })
 </script>
 
@@ -102,6 +92,9 @@ const sectionLabel = computed(() => {
                         <DropdownMenuGroup>
                             <Link :href="ClinicCommissionsController(clinic.id)">
                                 <DropdownMenuItem>Commissions</DropdownMenuItem>
+                            </Link>
+                            <Link :href="ClinicCommissionsController(clinic.id)">
+                                <DropdownMenuItem>Payouts</DropdownMenuItem>
                             </Link>
                             <Link :href="ClinicUsersController(clinic.id)">
                                 <DropdownMenuItem>Users</DropdownMenuItem>

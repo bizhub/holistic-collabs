@@ -23,6 +23,8 @@ use App\Http\Controllers\Admin\Invite\InviteIndexController;
 use App\Http\Controllers\Admin\Invite\ResendInviteController;
 use App\Http\Controllers\Admin\Invite\StoreInviteController;
 use App\Http\Controllers\Admin\Order\OrderIndexController;
+use App\Http\Controllers\Admin\Payout\CreatePayoutController;
+use App\Http\Controllers\Admin\Payout\StorePayoutController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Admin\Shopify\ShopifyIndexController;
@@ -35,6 +37,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('dashboard', DashboardIndexController::class)->name('dashboard');
 
 Route::get('commissions', CommissionIndexController::class);
+
+Route::get('clinics/{clinic}/payouts/create', CreatePayoutController::class);
+Route::post('clinics/{clinic}/payouts', StorePayoutController::class);
 
 Route::get('clinics/{clinic}/commissions', ClinicCommissionsController::class);
 Route::get('clinics/{clinic}/users', ClinicUsersController::class);
