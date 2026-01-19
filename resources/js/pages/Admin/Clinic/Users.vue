@@ -36,7 +36,7 @@ const deleteUser = (id: string) => {
                 </div>
                 <div>
                     <Link :href="CreateInviteController()">
-                        <Button size="sm">
+                        <Button>
                             <Plus />
                             <span>Create user</span>
                         </Button>
@@ -48,7 +48,7 @@ const deleteUser = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5"></td>
@@ -57,17 +57,13 @@ const deleteUser = (id: string) => {
                         <tbody>
                             <template v-for="user in users" :key="user.id">
                                 <tr class="h-16 border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-zinc-600">{{ user.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ user.name }}</p>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">
-                                                {{ user.email }}
-                                            </p>
-                                        </div>
+                                        <p class="text-sm leading-none">
+                                            {{ user.email }}
+                                        </p>
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">
@@ -80,9 +76,6 @@ const deleteUser = (id: string) => {
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
                                                         <DropdownMenuItem disabled>View</DropdownMenuItem>
-                                                        <!-- <Link :href="EditClinicController(clinic.id)">
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                        </Link> -->
                                                         <DropdownMenuItem disabled>Edit</DropdownMenuItem>
                                                         <DropdownMenuItem disabled>Change Clinic</DropdownMenuItem>
                                                     </DropdownMenuGroup>

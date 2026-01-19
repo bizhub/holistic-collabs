@@ -32,7 +32,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Invites</h1>
                     </div>
-                    <p class="pt-1 text-zinc-600">Manage pending invitations. Send, resend, or revoke invites.</p>
+                    <p class="pt-1 text-muted-foreground">Manage pending invitations. Send, resend, or revoke invites.</p>
                 </div>
                 <div>
                     <Link :href="CreateInviteController()">
@@ -48,7 +48,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>

@@ -58,7 +58,7 @@ const deleteClinic = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clients</td>
                                 <td class="pl-5">Commissions</td>
@@ -71,32 +71,28 @@ const deleteClinic = (id: string) => {
                             <template v-for="clinic in clinics" :key="clinic.id">
                                 <tr class="h-16 border border-zinc-200 hover:bg-muted/50 focus:outline-none">
                                     <td>
-                                        <Link :href="ClinicCommissionsController(clinic.id)" class="pl-5 leading-none hover:underline">
+                                        <Link
+                                            :href="ClinicCommissionsController(clinic.id)"
+                                            class="pl-5 text-sm leading-none text-foreground hover:underline">
                                             {{ clinic.name }}
                                         </Link>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ clinic.clients_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ clinic.clients_count }}
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ clinic.commissions_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ clinic.commissions_count }}
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ clinic.users_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ clinic.users_count }}
                                         </div>
                                     </td>
                                     <td class="pl-5">
@@ -119,17 +115,26 @@ const deleteClinic = (id: string) => {
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <DropdownMenuItem disabled>View</DropdownMenuItem>
-                                                        <Link :href="EditClinicController(clinic.id)">
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        <Link :href="ClinicCommissionsController(clinic.id)">
+                                                            <DropdownMenuItem>Commissions</DropdownMenuItem>
                                                         </Link>
-                                                        <DropdownMenuItem disabled>Add Coupon</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Payouts</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Users</DropdownMenuItem>
                                                         <Link :href="ClinicInvitesController(clinic.id)">
                                                             <DropdownMenuItem>Invites</DropdownMenuItem>
                                                         </Link>
+                                                        <DropdownMenuItem disabled>Clients</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Coupons</DropdownMenuItem>
+                                                        <DropdownMenuItem disabled>Orders</DropdownMenuItem>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem>
+
+                                                    <DropdownMenuGroup>
+                                                        <Link :href="EditClinicController(clinic.id)">
+                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                        </Link>
+                                                        <DropdownMenuItem @click="deleteClinic(clinic.id)">Delete</DropdownMenuItem>
+                                                    </DropdownMenuGroup>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>

@@ -34,10 +34,10 @@ const deleteUser = (id: string) => {
                 </div>
                 <div>
                     <!-- <Link :href="CreateClinicController()"> -->
-                    <Button size="lg">
+                    <!-- <Button size="lg">
                         <Plus />
                         <span>Add User</span>
-                    </Button>
+                    </Button> -->
                     <!-- </Link> -->
                 </div>
             </div>
@@ -46,7 +46,7 @@ const deleteUser = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
@@ -62,11 +62,9 @@ const deleteUser = (id: string) => {
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="text-sm leading-none">
-                                                {{ user.email }}
-                                            </p>
-                                        </div>
+                                        <p class="text-sm leading-none">
+                                            {{ user.email }}
+                                        </p>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">

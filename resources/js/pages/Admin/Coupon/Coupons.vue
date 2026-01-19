@@ -36,16 +36,16 @@ const deleteCoupon = (id: string) => {
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
                 <div class="flex items-center space-x-6">
-                    <h1 class="text-3xl font-bold tracking-tight">Coupons</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-foreground">Coupons</h1>
                 </div>
-                <p class="pt-1 text-zinc-600">Browse and manage all coupons, their usage details, and associations with clinics</p>
+                <p class="pt-1 text-muted-foreground">Browse and manage all coupons, their usage details, and associations with clinics</p>
             </div>
 
             <div v-if="coupons.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Coupon</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Commissions</td>
@@ -66,16 +66,14 @@ const deleteCoupon = (id: string) => {
                                     <td class="pl-5">
                                         <Link
                                             :href="ClinicCouponsController(coupon.clinic?.id ?? 'unknown')"
-                                            class="text-sm leading-none text-zinc-600 hover:underline">
+                                            class="text-sm leading-none text-foreground hover:underline">
                                             {{ coupon.clinic?.name }}
                                         </Link>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ coupon.commissions_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ coupon.commissions_count }}
                                         </div>
                                     </td>
                                     <td class="pl-4">

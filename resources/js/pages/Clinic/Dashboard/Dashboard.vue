@@ -24,7 +24,7 @@ defineProps<Props>()
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Overview</h1>
                     </div>
-                    <p class="pt-1 text-zinc-600">Earn commissions through orders using your coupon codes.</p>
+                    <p class="pt-1 text-muted-foreground">Earn commissions through orders using your coupon codes.</p>
                 </div>
                 <div></div>
             </div>
@@ -68,14 +68,14 @@ defineProps<Props>()
                         <div class="flex items-center space-x-6">
                             <h1 class="text-xl font-medium tracking-tight">Commissions</h1>
                         </div>
-                        <!-- <p class="pt-1 text-zinc-600">Earn commissions through orders using your coupon codes.</p> -->
+                        <!-- <p class="pt-1 text-muted-foreground">Earn commissions through orders using your coupon codes.</p> -->
                     </div>
                     <div></div>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Date</td>
                                 <td class="pl-5"></td>
                                 <td class="pl-5"></td>

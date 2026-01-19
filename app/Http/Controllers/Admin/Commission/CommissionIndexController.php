@@ -11,8 +11,17 @@ class CommissionIndexController
     public function __invoke()
     {
         $clinics = Clinic::query()
-            ->withCount('commissions')
-            ->withSum('commissions', 'amount')
+            ->whereHas('commissions', function ($query) {
+                $query->whereNull('payout_id'); // only unpaid commissions
+            })
+            // ->withCount('commissions')
+            // ->withSum('commissions', 'amount')
+            ->withCount(['commissions as commissions_count' => function ($query) {
+                $query->whereNull('payout_id');
+            }])
+            ->withSum(['commissions as commissions_sum_amount' => function ($query) {
+                $query->whereNull('payout_id');
+            }], 'amount')
             ->get();
 
         return Inertia::render('Admin/Commission/Commissions', [

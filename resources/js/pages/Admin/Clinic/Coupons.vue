@@ -33,21 +33,14 @@ const deleteCoupon = (id: string) => {
                     <h1 class="text-3xl font-bold tracking-tight">Coupons</h1>
                     <p class="pt-1 text-muted-foreground">Browse and manage all coupons, their usage details, and associations with clinics</p>
                 </div>
-                <div>
-                    <!-- <Link :href="CreateInviteController()">
-                        <Button size="sm">
-                            <Plus />
-                            <span>Create user</span>
-                        </Button>
-                    </Link> -->
-                </div>
+                <div></div>
             </div>
 
             <div v-if="coupons.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Coupon</td>
                                 <td class="pl-5">Commissions</td>
                                 <td class="pl-5"></td>
@@ -65,11 +58,9 @@ const deleteCoupon = (id: string) => {
                                         </div>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ coupon.commissions_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ coupon.commissions_count }}
                                         </div>
                                     </td>
                                     <td class="pl-4">
@@ -81,10 +72,6 @@ const deleteCoupon = (id: string) => {
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
-                                                    <!-- <DropdownMenuGroup>
-                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                    </DropdownMenuGroup>
-                                                    <DropdownMenuSeparator /> -->
                                                     <DropdownMenuItem @click="deleteCoupon(coupon.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>

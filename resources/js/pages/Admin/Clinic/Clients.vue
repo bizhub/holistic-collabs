@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
 import { HandshakeIcon, MoreHorizontal } from 'lucide-vue-next'
@@ -11,14 +10,6 @@ interface Props {
 }
 
 defineProps<Props>()
-
-const deleteUser = (id: string) => {
-    if (!confirm('Are you sure you want to delete this user?')) {
-        return
-    }
-
-    router.delete(DeleteUserController(id).url)
-}
 </script>
 
 <template>
@@ -31,10 +22,7 @@ const deleteUser = (id: string) => {
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
-                    <p class="pt-1 text-muted-foreground">
-                        See all clients created through your referral system. Track referred customers, their associated clinics, and their order
-                        activity.
-                    </p>
+                    <p class="pt-1 text-muted-foreground">Manage clients linked to this clinic and track their contributions</p>
                 </div>
                 <div></div>
             </div>
@@ -43,7 +31,7 @@ const deleteUser = (id: string) => {
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Contributions</td>
@@ -53,22 +41,16 @@ const deleteUser = (id: string) => {
                         <tbody>
                             <template v-for="client in clients" :key="client.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-zinc-700">{{ client.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ client.name }}</p>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">{{ client.email }}</p>
-                                        </div>
+                                        <p class="text-sm leading-none">{{ client.email }}</p>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
-                                                {{ client.commissions_count }}
-                                            </div>
+                                        <div
+                                            class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            {{ client.commissions_count }}
                                         </div>
                                     </td>
                                     <td class="pl-4">

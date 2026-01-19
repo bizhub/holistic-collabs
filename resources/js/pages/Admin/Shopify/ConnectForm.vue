@@ -39,7 +39,7 @@ const connect = () => {
                 <div class="flex items-center space-x-6">
                     <h1 class="text-3xl font-bold tracking-tight">Shopify Integration</h1>
                 </div>
-                <p class="pt-1 text-zinc-600">Connect Holistic Collabs to Shopify</p>
+                <p class="pt-1 text-muted-foreground">Connect Holistic Collabs to Shopify</p>
             </div>
 
             <form @submit.prevent="connect">

@@ -30,7 +30,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Orders</h1>
                     </div>
-                    <p class="pt-1 text-zinc-600">View all orders placed through Shopify that include referral activity.</p>
+                    <p class="pt-1 text-muted-foreground">View all orders placed through Shopify that include referral activity.</p>
                 </div>
                 <div></div>
             </div>
@@ -39,7 +39,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Coupon</td>
@@ -54,14 +54,12 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td>
                                         <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-zinc-700">{{ order.client?.name }}</p>
+                                            <p class="text-sm leading-none">{{ order.client?.name }}</p>
                                         </div>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="order.clinic" class="flex items-center">
-                                            <Link
-                                                :href="ClinicOrdersController(order.clinic.id)"
-                                                class="text-sm leading-none text-zinc-600 hover:underline">
+                                            <Link :href="ClinicOrdersController(order.clinic.id)" class="text-sm leading-none hover:underline">
                                                 {{ order.clinic.name }}
                                             </Link>
                                         </div>
@@ -76,7 +74,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                                     </td>
                                     <td class="pr-10 pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-zinc-600">
+                                            <p class="text-sm leading-none">
                                                 ${{
                                                     order.subtotal_price.toLocaleString(undefined, {
                                                         minimumFractionDigits: 2,

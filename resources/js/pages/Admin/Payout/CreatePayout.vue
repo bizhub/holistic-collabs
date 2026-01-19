@@ -3,7 +3,7 @@ import StorePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/S
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { Handshake } from 'lucide-vue-next'
+import { Handshake, Loader2 } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -20,10 +20,20 @@ const total = computed(() => {
     }, 0)
 })
 
+const loading = ref(false)
 const createPayout = () => {
-    router.post(StorePayoutController(props.clinic.id), {
-        paid_until: props.paid_until,
-    })
+    loading.value = true
+    router.post(
+        StorePayoutController(props.clinic.id),
+        {
+            paid_until: props.paid_until,
+        },
+        {
+            onError() {
+                loading.value = false
+            },
+        }
+    )
 }
 </script>
 
@@ -48,7 +58,7 @@ const createPayout = () => {
                         <div class="overflow-x-auto">
                             <table class="w-full whitespace-nowrap">
                                 <thead>
-                                    <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                                    <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                         <td class="pl-5">Date</td>
                                         <td class="pl-5"></td>
                                         <td class="pr-10 pl-5">
@@ -91,12 +101,27 @@ const createPayout = () => {
                 </div>
                 <div class="w-96">
                     <div class="w-full border border-zinc-200 p-4">
-                        <div class="h-32"></div>
-                        <div class="flex items-center border-t border-zinc-200 py-4">
-                            <div class="flex-1">Total</div>
-                            <div>${{ total.toFixed(2) }} <span>NZD</span></div>
+                        <div class="h-32">
+                            <div class="flex items-center pb-2">
+                                <div class="flex-1 text-muted-foreground">Clinic</div>
+                                <div>{{ clinic.name }}</div>
+                            </div>
+                            <div class="flex items-center pb-2">
+                                <div class="flex-1 text-muted-foreground">Paid until</div>
+                                <div>{{ dayjs(paid_until).format('DD/MM/YYYY hh:mma') }}</div>
+                            </div>
                         </div>
-                        <Button size="lg" class="w-full" :disabled="total <= 0" @click="createPayout">Create Payout</Button>
+                        <div class="flex items-center border-t border-zinc-200 py-4">
+                            <div class="flex-1 text-muted-foreground">Total</div>
+                            <div>${{ total.toFixed(2) }} <span class="text-zinc-600">NZD</span></div>
+                        </div>
+                        <Button size="lg" class="w-full" :disabled="total <= 0 || loading" @click="createPayout">
+                            <div v-if="loading" class="flex items-center">
+                                <Loader2 class="mr-2 h-4 w-4 animate-spin" />
+                                <div>Creating</div>
+                            </div>
+                            <div v-else>Create Payout</div>
+                        </Button>
                     </div>
                 </div>
             </div>

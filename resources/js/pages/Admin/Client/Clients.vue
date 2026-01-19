@@ -18,11 +18,9 @@ defineProps<Props>()
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
-                    <div class="flex items-center space-x-6">
-                        <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
-                    </div>
-                    <p class="pt-1 text-zinc-600">
-                        See all clients created through your referral system. Track referred customers, their associated clinics, and their order
+                    <h1 class="text-3xl font-bold tracking-tight">Clients</h1>
+                    <p class="pt-1 text-muted-foreground">
+                        See all clients created through your referral system. Track referred clients, their associated clinics, and their order
                         activity.
                     </p>
                 </div>
@@ -33,7 +31,7 @@ defineProps<Props>()
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
@@ -44,27 +42,22 @@ defineProps<Props>()
                         <tbody>
                             <template v-for="client in clients" :key="client.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-zinc-700">{{ client.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ client.name }}</p>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">{{ client.email }}</p>
-                                        </div>
+                                        <p class="text-sm leading-none">{{ client.email }}</p>
                                     </td>
                                     <td class="pl-5">
                                         <Link
                                             :href="ClinicClientsController(client.clinic?.id ?? 'unknown')"
-                                            class="text-sm leading-none text-zinc-600 hover:underline">
+                                            class="text-sm leading-none hover:underline">
                                             {{ client.clinic?.name }}
                                         </Link>
                                     </td>
                                     <td class="pl-5">
                                         <div class="flex items-center">
-                                            <div
-                                                class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium text-zinc-600">
+                                            <div class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium">
                                                 {{ client.commissions_count }}
                                             </div>
                                         </div>

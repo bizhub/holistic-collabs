@@ -31,22 +31,19 @@ defineProps<Props>()
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
-                                <td class="pl-5">Coupon</td>
+                                <td class="pl-5">Coupon Used</td>
                                 <td class="pr-10 pl-5">
                                     <div class="flex justify-end">Subtotal</div>
                                 </td>
-                                <!-- <td class="pl-5"></td> -->
                             </tr>
                         </thead>
                         <tbody>
                             <template v-for="order in orders" :key="order.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-base leading-none font-medium text-zinc-700">{{ order.client?.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ order.client?.name }}</p>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="order.coupon_code" class="inline-block bg-zinc-200 px-3 py-1.5">
@@ -68,23 +65,6 @@ defineProps<Props>()
                                             </p>
                                         </div>
                                     </td>
-                                    <!-- <td class="pl-4">
-                                        <div class="flex justify-end pr-4">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger as-child>
-                                                    <Button variant="secondary" size="sm" aria-label="Options">
-                                                        <MoreHorizontal />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent class="w-56" align="end">
-                                                    <DropdownMenuGroup>
-                                                        <DropdownMenuItem>View</DropdownMenuItem>
-                                                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                    </DropdownMenuGroup>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
-                                        </div>
-                                    </td> -->
                                 </tr>
                             </template>
                         </tbody>

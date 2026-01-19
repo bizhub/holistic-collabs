@@ -24,7 +24,7 @@ defineProps<Props>()
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
                     <h1 class="text-3xl font-bold tracking-tight">Commissions</h1>
-                    <p class="pt-1 text-zinc-600">New commissions will appear here when clients place orders.</p>
+                    <p class="pt-1 text-muted-foreground">New commissions will appear here when clients place orders.</p>
                 </div>
                 <div>
                     <Link :href="CreatePayoutController(clinic.id)">
@@ -36,51 +36,32 @@ defineProps<Props>()
                 </div>
             </div>
 
-            <!-- <Tabs default-value="account">
-                <TabsList>
-                    <TabsTrigger value="account"> Account </TabsTrigger>
-                    <TabsTrigger value="password"> Password </TabsTrigger>
-                </TabsList>
-                <TabsContent value="account"> </TabsContent>
-            </Tabs> -->
-
             <div v-if="commissions.length > 0" class="w-full">
                 <div class="overflow-x-auto">
                     <table class="w-full whitespace-nowrap">
                         <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-zinc-500 uppercase">
+                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Date</td>
                                 <td class="pl-5"></td>
-                                <td class="pl-5"></td>
                                 <td class="pr-10 pl-5">
-                                    <div class="flex justify-end">Commission</div>
+                                    <div class="flex justify-end">Commission Amount</div>
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <template v-for="commission in commissions" :key="commission.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-zinc-600">
-                                                {{ dayjs(commission.created_at).format('DD/MM/YYYY h:mma') }}
-                                            </p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">
+                                            {{ dayjs(commission.created_at).format('DD/MM/YYYY h:mma') }}
+                                        </p>
                                     </td>
                                     <td class="pl-5">
                                         <Badge variant="secondary">{{ commission.status }}</Badge>
                                     </td>
-                                    <td class="pl-5">
-                                        <!-- <div v-if="order.coupon_code" class="inline-block bg-zinc-200 px-3 py-1.5">
-                                            <div class="flex items-center space-x-1">
-                                                <Tag class="size-4 text-zinc-600" />
-                                                <div class="text-sm font-medium text-zinc-600">{{ order.coupon_code }}</div>
-                                            </div>
-                                        </div> -->
-                                    </td>
                                     <td class="pr-10 pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-zinc-600">${{ commission.amount.toFixed(2) }}</p>
+                                            <p class="text-sm leading-none">${{ commission.amount.toFixed(2) }}</p>
                                         </div>
                                     </td>
                                 </tr>
