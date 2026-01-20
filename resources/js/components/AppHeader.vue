@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
+import DashboardIndexController from '@/actions/App/Http/Controllers/Clinic/Dashboard/DashboardIndexController'
 import AppLogo from '@/components/AppLogo.vue'
 import AppLogoIcon from '@/components/AppLogoIcon.vue'
 import Breadcrumbs from '@/components/Breadcrumbs.vue'
@@ -14,7 +14,7 @@ import { getInitials } from '@/composables/useInitials'
 import { toUrl, urlIsActive } from '@/lib/utils'
 import type { BreadcrumbItem, NavItem } from '@/types'
 import { InertiaLinkProps, Link, usePage } from '@inertiajs/vue3'
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next'
+import { Menu } from 'lucide-vue-next'
 import { computed } from 'vue'
 
 interface Props {
@@ -36,31 +36,31 @@ const activeItemStyles = computed(
 )
 
 const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: DashboardIndexController().url,
-        icon: LayoutGrid,
-    },
+    // {
+    //     title: 'Overview',
+    //     href: DashboardIndexController().url,
+    //     icon: Zap,
+    // },
 ]
 
 const rightNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
-    },
+    // {
+    //     title: 'Repository',
+    //     href: 'https://github.com/laravel/vue-starter-kit',
+    //     icon: Folder,
+    // },
+    // {
+    //     title: 'Documentation',
+    //     href: 'https://laravel.com/docs/starter-kits#vue',
+    //     icon: BookOpen,
+    // },
 ]
 </script>
 
 <template>
     <div>
         <div class="border-b border-sidebar-border/80">
-            <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
+            <div class="mx-auto flex h-16 items-center px-4">
                 <!-- Mobile Menu -->
                 <div class="lg:hidden">
                     <Sheet>
@@ -69,7 +69,7 @@ const rightNavItems: NavItem[] = [
                                 <Menu class="h-5 w-5" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" class="w-[300px] p-6">
+                        <SheetContent side="left" class="w-75 p-6">
                             <SheetTitle class="sr-only">Navigation Menu</SheetTitle>
                             <SheetHeader class="flex justify-start text-left">
                                 <AppLogoIcon class="size-6 fill-current text-black dark:text-white" />
@@ -128,9 +128,9 @@ const rightNavItems: NavItem[] = [
 
                 <div class="ml-auto flex items-center space-x-2">
                     <div class="relative flex items-center space-x-1">
-                        <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
+                        <!-- <Button variant="ghost" size="icon" class="group h-9 w-9 cursor-pointer">
                             <Search class="size-5 opacity-80 group-hover:opacity-100" />
-                        </Button>
+                        </Button> -->
 
                         <div class="hidden space-x-1 lg:flex">
                             <template v-for="item in rightNavItems" :key="item.title">

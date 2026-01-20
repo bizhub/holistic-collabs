@@ -37,6 +37,11 @@ declare namespace Domain.Commission.Data {
     export type CreatePayoutData = {
         paid_until: string
     }
+    export type PayoutData = {
+        id: string
+        total_amount: number
+        paid_at: string
+    }
 }
 declare namespace Domain.Commission.Enums {
     export type CommissionStatus = 'paid' | 'pending'

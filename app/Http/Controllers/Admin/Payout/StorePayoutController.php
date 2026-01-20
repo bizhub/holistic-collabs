@@ -27,9 +27,7 @@ class StorePayoutController
             );
         }
 
-        $attachPayoutToCommissions->execute(
-            payout: $createPayout->execute($clinic, $data),
-        );
+        $attachPayoutToCommissions->execute($payout);
 
         Inertia::flash('success', 'Payout created for ' . $clinic->name);
 

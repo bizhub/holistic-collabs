@@ -65,6 +65,7 @@ declare module 'vue' {
     CardTitle: typeof import('./../components/ui/card/CardTitle.vue')['default']
     Checkbox: typeof import('./../components/ui/checkbox/Checkbox.vue')['default']
     ClinicBreadcrumbs: typeof import('./../components/ClinicBreadcrumbs.vue')['default']
+    ClinicLayout: typeof import('./../layouts/ClinicLayout.vue')['default']
     Collapsible: typeof import('./../components/ui/collapsible/Collapsible.vue')['default']
     CollapsibleContent: typeof import('./../components/ui/collapsible/CollapsibleContent.vue')['default']
     CollapsibleTrigger: typeof import('./../components/ui/collapsible/CollapsibleTrigger.vue')['default']
