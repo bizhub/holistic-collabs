@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClinicPayoutsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicPayoutsController'
+import DeletePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/DeletePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import { HandCoins, MoreHorizontal } from 'lucide-vue-next'
@@ -9,6 +10,14 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const deletePayout = (id: string) => {
+    if (!confirm('Are you sure you want to delete this payout?')) {
+        return
+    }
+
+    router.delete(DeletePayoutController(id))
+}
 </script>
 
 <template>
@@ -73,7 +82,7 @@ defineProps<Props>()
                                                         </Link> -->
                                                     </DropdownMenuGroup>
                                                     <!-- <DropdownMenuSeparator /> -->
-                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
+                                                    <DropdownMenuItem @click="deletePayout(payout.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>

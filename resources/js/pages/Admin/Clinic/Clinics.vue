@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import ClinicClientsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicClientsController'
 import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCommissionsController'
+import ClinicCouponsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCouponsController'
 import ClinicIndexController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicIndexController'
 import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
+import ClinicOrdersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicOrdersController'
+import ClinicPayoutsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicPayoutsController'
+import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
 import CreateClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/CreateClinicController'
 import DeleteClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/DeleteClinicController'
 import EditClinicController from '@/actions/App/Http/Controllers/Admin/Clinic/EditClinicController'
@@ -118,14 +123,24 @@ const deleteClinic = (id: string) => {
                                                         <Link :href="ClinicCommissionsController(clinic.id)">
                                                             <DropdownMenuItem>Commissions</DropdownMenuItem>
                                                         </Link>
-                                                        <DropdownMenuItem disabled>Payouts</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Users</DropdownMenuItem>
+                                                        <Link :href="ClinicPayoutsController(clinic.id)">
+                                                            <DropdownMenuItem>Payouts</DropdownMenuItem>
+                                                        </Link>
+                                                        <Link :href="ClinicUsersController(clinic.id)">
+                                                            <DropdownMenuItem>Users</DropdownMenuItem>
+                                                        </Link>
                                                         <Link :href="ClinicInvitesController(clinic.id)">
                                                             <DropdownMenuItem>Invites</DropdownMenuItem>
                                                         </Link>
-                                                        <DropdownMenuItem disabled>Clients</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Coupons</DropdownMenuItem>
-                                                        <DropdownMenuItem disabled>Orders</DropdownMenuItem>
+                                                        <Link :href="ClinicClientsController(clinic.id)">
+                                                            <DropdownMenuItem>Clients</DropdownMenuItem>
+                                                        </Link>
+                                                        <Link :href="ClinicCouponsController(clinic.id)">
+                                                            <DropdownMenuItem>Coupons</DropdownMenuItem>
+                                                        </Link>
+                                                        <Link :href="ClinicOrdersController(clinic.id)">
+                                                            <DropdownMenuItem>Orders</DropdownMenuItem>
+                                                        </Link>
                                                     </DropdownMenuGroup>
                                                     <DropdownMenuSeparator />
 
