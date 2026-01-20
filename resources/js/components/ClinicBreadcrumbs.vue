@@ -4,6 +4,7 @@ import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Cl
 import ClinicCouponsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicCouponsController'
 import ClinicInvitesController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicInvitesController'
 import ClinicOrdersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicOrdersController'
+import ClinicPayoutsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicPayoutsController'
 import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
 import { Link } from '@inertiajs/vue3'
 import { ChevronRight, ChevronsUpDown, Store } from 'lucide-vue-next'
@@ -23,7 +24,7 @@ const clinicSectionHref = (clinicId: string) => {
         case 'commissions':
             return ClinicCommissionsController(clinicId)
         case 'payouts':
-            return ClinicCommissionsController(clinicId)
+            return ClinicPayoutsController(clinicId)
         case 'users':
             return ClinicUsersController(clinicId)
         case 'invites':
@@ -93,7 +94,7 @@ const sectionLabel = computed(() => {
                             <Link :href="ClinicCommissionsController(clinic.id)">
                                 <DropdownMenuItem>Commissions</DropdownMenuItem>
                             </Link>
-                            <Link :href="ClinicCommissionsController(clinic.id)">
+                            <Link :href="ClinicPayoutsController(clinic.id)">
                                 <DropdownMenuItem>Payouts</DropdownMenuItem>
                             </Link>
                             <Link :href="ClinicUsersController(clinic.id)">

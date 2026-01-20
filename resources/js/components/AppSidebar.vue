@@ -6,6 +6,7 @@ import CouponIndexController from '@/actions/App/Http/Controllers/Admin/Coupon/C
 import DashboardIndexController from '@/actions/App/Http/Controllers/Admin/Dashboard/DashboardIndexController'
 import InviteIndexController from '@/actions/App/Http/Controllers/Admin/Invite/InviteIndexController'
 import OrderIndexController from '@/actions/App/Http/Controllers/Admin/Order/OrderIndexController'
+import PayoutIndexController from '@/actions/App/Http/Controllers/Admin/Payout/PayoutIndexController'
 import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
 import UserIndexController from '@/actions/App/Http/Controllers/Admin/User/UserIndexController'
 import ClinicDashboardIndexController from '@/actions/App/Http/Controllers/Clinic/Dashboard/DashboardIndexController'
@@ -15,7 +16,7 @@ import NavUser from '@/components/NavUser.vue'
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import { type NavItem } from '@/types'
 import { Link } from '@inertiajs/vue3'
-import { ChartNoAxesCombined, Handshake, LayoutGrid, Mails, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
+import { ChartNoAxesCombined, HandCoins, Handshake, LayoutGrid, Mails, Settings, Store, Tags, Truck, Users, Zap } from 'lucide-vue-next'
 import AppLogo from './AppLogo.vue'
 
 const page = usePage()
@@ -34,6 +35,11 @@ const mainNavItems: NavItem[] = user.value.is_admin
               title: 'Commissions',
               href: CommissionIndexController().url,
               icon: ChartNoAxesCombined,
+          },
+          {
+              title: 'Payouts',
+              href: PayoutIndexController().url,
+              icon: HandCoins,
           },
           {
               title: 'Clinics',

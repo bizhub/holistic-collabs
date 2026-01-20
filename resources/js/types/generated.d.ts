@@ -41,6 +41,7 @@ declare namespace Domain.Commission.Data {
         id: string
         total_amount: number
         paid_at: string
+        clinic: Domain.Clinic.Data.ClinicData | null
     }
 }
 declare namespace Domain.Commission.Enums {

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Clinic\ClinicCouponsController;
 use App\Http\Controllers\Admin\Clinic\ClinicIndexController;
 use App\Http\Controllers\Admin\Clinic\ClinicInvitesController;
 use App\Http\Controllers\Admin\Clinic\ClinicOrdersController;
+use App\Http\Controllers\Admin\Clinic\ClinicPayoutsController;
 use App\Http\Controllers\Admin\Clinic\ClinicUsersController;
 use App\Http\Controllers\Admin\Clinic\CreateClinicController;
 use App\Http\Controllers\Admin\Clinic\DeleteClinicController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Admin\Invite\ResendInviteController;
 use App\Http\Controllers\Admin\Invite\StoreInviteController;
 use App\Http\Controllers\Admin\Order\OrderIndexController;
 use App\Http\Controllers\Admin\Payout\CreatePayoutController;
+use App\Http\Controllers\Admin\Payout\PayoutIndexController;
 use App\Http\Controllers\Admin\Payout\StorePayoutController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
@@ -38,10 +40,13 @@ Route::get('dashboard', DashboardIndexController::class)->name('dashboard');
 
 Route::get('commissions', CommissionIndexController::class);
 
+Route::get('payouts', PayoutIndexController::class);
+
 Route::get('clinics/{clinic}/payouts/create', CreatePayoutController::class);
 Route::post('clinics/{clinic}/payouts', StorePayoutController::class);
 
 Route::get('clinics/{clinic}/commissions', ClinicCommissionsController::class);
+Route::get('clinics/{clinic}/payouts', ClinicPayoutsController::class);
 Route::get('clinics/{clinic}/users', ClinicUsersController::class);
 Route::get('clinics/{clinic}/invites', ClinicInvitesController::class);
 Route::get('clinics/{clinic}/clients', ClinicClientsController::class);

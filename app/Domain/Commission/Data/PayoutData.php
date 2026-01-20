@@ -2,6 +2,7 @@
 
 namespace Domain\Commission\Data;
 
+use Domain\Clinic\Data\ClinicData;
 use Spatie\LaravelData\Data;
 
 /** @typescript */
@@ -11,5 +12,7 @@ class PayoutData extends Data
         public string $id,
         public int $total_amount,
         public string $paid_at,
+
+        public ?ClinicData $clinic,
     ) {}
 }

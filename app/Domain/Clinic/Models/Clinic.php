@@ -6,6 +6,7 @@ use Database\Factories\ClinicFactory;
 use Domain\Client\Models\Client;
 use Domain\Commission\Casts\CommissionRateCast;
 use Domain\Commission\Models\Commission;
+use Domain\Commission\Models\Payout;
 use Domain\Coupon\Models\Coupon;
 use Domain\Invite\Models\Invite;
 use Domain\Order\Models\Order;
@@ -50,6 +51,11 @@ class Clinic extends Model
     public function commissions(): HasMany
     {
         return $this->hasMany(Commission::class);
+    }
+
+    public function payouts(): HasMany
+    {
+        return $this->hasMany(Payout::class);
     }
 
     public function users(): HasMany
