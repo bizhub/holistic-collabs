@@ -2,6 +2,9 @@
 import DeletePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/DeletePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { HandCoins, MoreHorizontal } from 'lucide-vue-next'
 
 interface Props {
@@ -11,6 +14,9 @@ interface Props {
 }
 
 defineProps<Props>()
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const deletePayout = (id: string) => {
     if (!confirm('Are you sure you want to delete this payout?')) {
@@ -41,7 +47,7 @@ const deletePayout = (id: string) => {
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
-                                <!-- <td class="pl-5">Clinic</td> -->
+                                <td class="pl-5">Date</td>
                                 <!-- <td class="pl-5">Contributions</td> -->
                                 <td class="pl-5 text-right">Amount</td>
                                 <td class="pl-5"></td>
@@ -50,16 +56,11 @@ const deletePayout = (id: string) => {
                         <tbody>
                             <template v-for="payout in payouts" :key="payout.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <!-- <td class="pl-5">
-                                        <Link :href="ClinicPayoutsController(payout.clinic?.id ?? 'unknown')" class="text-sm leading-none hover:underline">
-                                            {{ payout.clinic?.name }}
-                                        </Link>
-                                    </td> -->
-                                    <!-- <td class="pl-5">
-                                        <div class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium">
-                                            {{ payout.total_amount }}
-                                        </div>
-                                    </td> -->
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">
+                                            {{ dayjs.utc(payout.created_at).local().format('DD/MM/YYYY') }}
+                                        </p>
+                                    </td>
                                     <td class="pl-5">
                                         <div class="flex items-center justify-end">
                                             <p class="text-sm leading-none">

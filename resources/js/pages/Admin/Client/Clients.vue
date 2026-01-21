@@ -35,7 +35,7 @@ defineProps<Props>()
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
-                                <td class="pl-5">Contributions</td>
+                                <td class="pl-5">Commissions</td>
                                 <td class="pl-5"></td>
                             </tr>
                         </thead>

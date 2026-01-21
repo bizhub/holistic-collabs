@@ -14,5 +14,7 @@ class PayoutData extends Data
         public string $paid_at,
 
         public ?ClinicData $clinic,
+
+        public string $created_at,
     ) {}
 }

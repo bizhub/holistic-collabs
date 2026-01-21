@@ -3,6 +3,9 @@ import ClinicPayoutsController from '@/actions/App/Http/Controllers/Admin/Clinic
 import DeletePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/DeletePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { HandCoins, MoreHorizontal } from 'lucide-vue-next'
 
 interface Props {
@@ -10,6 +13,9 @@ interface Props {
 }
 
 defineProps<Props>()
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const deletePayout = (id: string) => {
     if (!confirm('Are you sure you want to delete this payout?')) {
@@ -27,7 +33,7 @@ const deletePayout = (id: string) => {
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
                 <h1 class="text-3xl font-bold tracking-tight">Payouts</h1>
-                <p class="pt-1 text-muted-foreground">View all clinic payouts and their statuses</p>
+                <p class="pt-1 text-muted-foreground">View all clinic payouts and their statuses.</p>
             </div>
 
             <div v-if="payouts.length > 0" class="w-full">
@@ -35,6 +41,7 @@ const deletePayout = (id: string) => {
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
+                                <td class="pl-5">Date</td>
                                 <td class="pl-5">Clinic</td>
                                 <!-- <td class="pl-5">Contributions</td> -->
                                 <td class="pl-5 text-right">Amount</td>
@@ -44,6 +51,11 @@ const deletePayout = (id: string) => {
                         <tbody>
                             <template v-for="payout in payouts" :key="payout.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">
+                                            {{ dayjs.utc(payout.created_at).local().format('DD/MM/YYYY') }}
+                                        </p>
+                                    </td>
                                     <td class="pl-5">
                                         <Link
                                             :href="ClinicPayoutsController(payout.clinic?.id ?? 'unknown')"

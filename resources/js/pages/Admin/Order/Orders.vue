@@ -42,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Clinic</td>
-                                <td class="pl-5">Coupon</td>
+                                <td class="pl-5">Coupon Used</td>
                                 <td class="pr-10 pl-5">
                                     <div class="flex justify-end">Subtotal</div>
                                 </td>
@@ -52,10 +52,8 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <tbody>
                             <template v-for="order in orders" :key="order.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none">{{ order.client?.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ order.client?.name }}</p>
                                     </td>
                                     <td class="pl-5">
                                         <div v-if="order.clinic" class="flex items-center">

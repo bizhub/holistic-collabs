@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { ChartNoAxesCombined, Handshake, Truck } from 'lucide-vue-next'
+import { ChartNoAxesCombined, Handshake, Tag, Truck } from 'lucide-vue-next'
+import { toast, type ToastOptions } from 'vue3-toastify'
 
 interface Props {
     auth: {
@@ -13,15 +14,27 @@ interface Props {
     client_count: number
     commission_count: number
     commission_earned: number
-    commissions: Domain.Commission.Data.CommissionData[]
 
     payouts: Domain.Commission.Data.PayoutData[]
     upcoming_payout_amount: number
 
     commission_percentage_change?: number
+    coupon_code: string | null
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const addCouponCodeToClipboard = () => {
+    if (!props.coupon_code) return
+
+    navigator.clipboard.writeText(props.coupon_code)
+
+    toast.success('Copied to clipboard', {
+        autoClose: 4000,
+        transition: toast.TRANSITIONS.SLIDE,
+        position: toast.POSITION.BOTTOM_RIGHT,
+    } as ToastOptions)
+}
 </script>
 
 <template>
@@ -36,7 +49,33 @@ defineProps<Props>()
                     </div>
                     <p class="pt-1 text-muted-foreground">Earn commissions through orders using your coupon codes</p>
                 </div>
-                <div></div>
+                <div>
+                    <Dialog v-if="coupon_code">
+                        <DialogTrigger>
+                            <Button variant="secondary">
+                                <Tag />
+                                Get Coupon Code
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent>
+                            <DialogHeader>
+                                <DialogTitle>Coupon Code</DialogTitle>
+                                <DialogDescription>
+                                    Share this coupon code with your clients to use on the Holistic Beauty store for $X off any purchase.
+                                </DialogDescription>
+                                <DialogDescription>
+                                    Once a client uses this code, they are linked to your clinic — all future orders they place will automatically
+                                    generate commissions for you.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div class="mt-4 flex items-center justify-between border bg-zinc-50 px-4 py-3">
+                                <code class="font-mono text-sm font-medium">{{ coupon_code }}</code>
+                                <Button size="sm" @click="addCouponCodeToClipboard">Copy</Button>
+                            </div>
+                            <p class="mt-1 text-sm text-muted-foreground">Clients only need to use this code once to be linked to your clinic.</p>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
 
             <div class="mb-6 grid grid-cols-3 gap-6">

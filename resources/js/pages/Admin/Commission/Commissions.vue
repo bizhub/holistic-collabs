@@ -28,7 +28,7 @@ defineProps<Props>()
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Clinic</td>
-                                <td class="pl-5">Contributions</td>
+                                <td class="pl-5">Unpaid Commissions</td>
                                 <td class="pl-5 text-right">Total unpaid</td>
                                 <td class="pl-5"></td>
                             </tr>

@@ -47,7 +47,7 @@ const deleteClinic = (id: string) => {
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight text-foreground">Clinics</h1>
                     </div>
-                    <p class="pt-1 text-muted-foreground">Manage and view all clinics in the system, including key details and linked coupons</p>
+                    <p class="pt-1 text-muted-foreground">Manage and view all clinics in the system, including key details and linked coupons.</p>
                 </div>
                 <div>
                     <Link :href="CreateClinicController()">

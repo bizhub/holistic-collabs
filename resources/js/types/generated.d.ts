@@ -30,9 +30,10 @@ declare namespace Domain.Clinic.Data {
 declare namespace Domain.Commission.Data {
     export type CommissionData = {
         id: string
-        status: Domain.Commission.Enums.CommissionStatus
         amount: number
         created_at: string
+        client: Domain.Client.Data.ClientData | null
+        payout: Domain.Commission.Data.PayoutData | null
     }
     export type CreatePayoutData = {
         paid_until: string
@@ -42,6 +43,7 @@ declare namespace Domain.Commission.Data {
         total_amount: number
         paid_at: string
         clinic: Domain.Clinic.Data.ClinicData | null
+        created_at: string
     }
 }
 declare namespace Domain.Commission.Enums {

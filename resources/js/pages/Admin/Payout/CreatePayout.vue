@@ -3,6 +3,8 @@ import StorePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/S
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { Handshake, Loader2 } from 'lucide-vue-next'
 
 interface Props {
@@ -13,6 +15,9 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 const total = computed(() => {
     return props.commissions.reduce((sum, commission) => {
@@ -60,7 +65,7 @@ const createPayout = () => {
                                 <thead>
                                     <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                         <td class="pl-5">Date</td>
-                                        <td class="pl-5"></td>
+                                        <td class="pl-5">Client</td>
                                         <td class="pr-10 pl-5">
                                             <div class="flex justify-end">Commission</div>
                                         </td>
@@ -72,11 +77,15 @@ const createPayout = () => {
                                             <td>
                                                 <div class="flex items-center pl-5">
                                                     <p class="text-sm leading-none">
-                                                        {{ dayjs(commission.created_at).format('DD/MM/YYYY h:mma') }}
+                                                        {{ dayjs.utc(commission.created_at).local().format('DD/MM/YYYY h:mma') }}
                                                     </p>
                                                 </div>
                                             </td>
-                                            <td class="pl-5"></td>
+                                            <td class="pl-5">
+                                                <p class="text-sm leading-none">
+                                                    {{ commission.client?.name }}
+                                                </p>
+                                            </td>
                                             <td class="pr-10 pl-5">
                                                 <div class="flex items-center justify-end">
                                                     <p class="text-sm leading-none">${{ commission.amount.toFixed(2) }}</p>
@@ -107,7 +116,7 @@ const createPayout = () => {
                                 <div>{{ clinic.name }}</div>
                             </div>
                             <div class="flex items-center pb-2">
-                                <div class="flex-1 text-muted-foreground">Paid until</div>
+                                <div class="flex-1 text-muted-foreground">Commissions until</div>
                                 <div>{{ dayjs(paid_until).format('DD/MM/YYYY hh:mma') }}</div>
                             </div>
                         </div>

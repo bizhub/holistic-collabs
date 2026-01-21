@@ -14,6 +14,10 @@ class ClinicCommissionsController
     {
         $commissions = $clinic
             ->commissions()
+            ->with([
+                'client',
+                'payout',
+            ])
             ->where('status', CommissionStatus::Pending)
             ->orderByDesc('created_at')
             ->get();

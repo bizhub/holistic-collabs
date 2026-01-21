@@ -8,6 +8,7 @@ use Domain\Commission\Data\CommissionData;
 use Domain\Commission\Data\PayoutData;
 use Domain\Commission\Models\Commission;
 use Domain\Commission\Models\Payout;
+use Domain\Coupon\Models\Coupon;
 use Inertia\Inertia;
 
 class DashboardIndexController
@@ -57,11 +58,6 @@ class DashboardIndexController
             ->where('clinic_id', $clinicId)
             ->sum('amount');
 
-        $commissions = Commission::query()
-            ->where('clinic_id', $clinicId)
-            ->orderByDesc('created_at')
-            ->get();
-
         $payouts = Payout::query()
             ->where('clinic_id', $clinicId)
             ->orderByDesc('paid_at')
@@ -84,6 +80,10 @@ class DashboardIndexController
             ? $upcomingSinceLast / max($upcomingPayoutAmount - $upcomingSinceLast, 1) * 100
             : null;
 
+        $coupon = Coupon::query()
+            ->where('clinic_id', $clinicId)
+            ->first();
+
         return Inertia::render('Clinic/Dashboard/Dashboard', [
             'client_count' => $clientCount,
             'client_percentage_change' => $clientPercentageChange,
@@ -93,11 +93,12 @@ class DashboardIndexController
 
             'commission_earned' => (int)$commissionEarned / 100,
 
-            'commissions' => CommissionData::collect($commissions),
             'payouts' => PayoutData::collect($payouts),
 
             'upcoming_payout_amount' => (int)$upcomingPayoutAmount / 100,
             'upcoming_payout_percentage_change' => $upcomingPayoutPercentageChange,
+
+            'coupon_code' => $coupon ? $coupon->code : null,
         ]);
     }
 }
