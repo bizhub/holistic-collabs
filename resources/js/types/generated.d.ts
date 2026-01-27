@@ -34,6 +34,7 @@ declare namespace Domain.Commission.Data {
         created_at: string
         client: Domain.Client.Data.ClientData | null
         payout: Domain.Commission.Data.PayoutData | null
+        order: Domain.Order.Data.OrderData | null
     }
     export type CreatePayoutData = {
         paid_until: string
@@ -82,10 +83,12 @@ declare namespace Domain.Invite.Data {
 declare namespace Domain.Order.Data {
     export type OrderData = {
         id: string
+        order_number: string
         coupon_code: string | null
         subtotal_price: number
         clinic: Domain.Clinic.Data.ClinicData | null
         client: Domain.Client.Data.ClientData | null
+        created_at: string
     }
 }
 declare namespace Domain.Shopify.Context {

@@ -9,6 +9,7 @@ class OrderCreatedWebhookData extends Data
     public function __construct(
         public int $id,
         public CustomerWebhookData $customer,
+        public int $order_number,
         public string $order_status_url,
         public ?array $discount_codes,
         public float $total_line_items_price,

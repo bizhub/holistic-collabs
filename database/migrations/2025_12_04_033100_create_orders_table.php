@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignUuid('client_id')->constrained()->cascadeOnDelete();
 
             $table->string('shopify_id')->unique();
+            $table->string('order_number');
             $table->string('coupon_code')->nullable();
             $table->unsignedInteger('subtotal_price');
 

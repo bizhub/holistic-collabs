@@ -17,6 +17,7 @@ class ClinicCommissionsController
             ->with([
                 'client',
                 'payout',
+                'order',
             ])
             ->where('status', CommissionStatus::Pending)
             ->orderByDesc('created_at')

@@ -22,7 +22,18 @@ class CreateCommissionFromOrderAction
         CouponContext $couponContext,
         float $subtotal,
         bool $firstOrder,
-    ): Commission {
+    ): Commission|null {
+        $amount = $this->calculateCommission->execute(
+            clinic: $clinic,
+            subtotal: $subtotal,
+            couponAmount: $couponContext->amount,
+            firstOrder: $firstOrder,
+        );
+
+        if ($amount == 0) {
+            return null;
+        }
+
         return Commission::create([
             'clinic_id' => $clinic->id,
             'client_id' => $client->id,
@@ -30,12 +41,7 @@ class CreateCommissionFromOrderAction
             'coupon_id' => $couponContext?->coupon?->id,
             'commission_rate' => $clinic->commission_rate,
             'coupon_amount' => $couponContext->amount,
-            'amount' => $this->calculateCommission->execute(
-                clinic: $clinic,
-                subtotal: $subtotal,
-                couponAmount: $couponContext->amount,
-                firstOrder: $firstOrder,
-            ),
+            'amount' => $amount,
         ]);
     }
 }

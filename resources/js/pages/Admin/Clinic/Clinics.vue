@@ -51,7 +51,7 @@ const deleteClinic = (id: string) => {
                 </div>
                 <div>
                     <Link :href="CreateClinicController()">
-                        <Button size="lg">
+                        <Button>
                             <Plus />
                             <span>Add Clinic</span>
                         </Button>

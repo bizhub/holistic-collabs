@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { Tag, Truck } from 'lucide-vue-next'
 
 interface Props {
@@ -10,6 +13,9 @@ interface Props {
 }
 
 defineProps<Props>()
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 </script>
 
 <template>
@@ -32,7 +38,9 @@ defineProps<Props>()
                     <table class="w-full whitespace-nowrap">
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
-                                <td class="pl-5">Name</td>
+                                <td class="pl-5">Order</td>
+                                <td class="pl-5">Date</td>
+                                <td class="pl-5">Client</td>
                                 <td class="pl-5">Coupon Used</td>
                                 <td class="pr-10 pl-5">
                                     <div class="flex justify-end">Subtotal</div>
@@ -42,6 +50,14 @@ defineProps<Props>()
                         <tbody>
                             <template v-for="order in orders" :key="order.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">#{{ order.order_number }}</p>
+                                    </td>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">
+                                            {{ dayjs.utc(order.created_at).local().format('DD/MM/YYYY h:mma') }}
+                                        </p>
+                                    </td>
                                     <td class="pl-5">
                                         <p class="text-sm leading-none">{{ order.client?.name }}</p>
                                     </td>

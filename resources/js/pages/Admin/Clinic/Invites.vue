@@ -37,7 +37,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                 </div>
                 <div>
                     <Link :href="CreateInviteController()">
-                        <Button size="sm">
+                        <Button>
                             <Plus />
                             <span>Send Invitation</span>
                         </Button>

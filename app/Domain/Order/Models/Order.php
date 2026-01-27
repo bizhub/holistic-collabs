@@ -21,6 +21,7 @@ class Order extends Model
         'clinic_id',
         'client_id',
         'shopify_id',
+        'order_number',
         'coupon_code',
         'subtotal_price',
     ];

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import CreateInviteController from '@/actions/App/Http/Controllers/Admin/Invite/CreateInviteController'
 import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
-import { Head, Link } from '@inertiajs/vue3'
-import { MoreHorizontal, Plus, UsersIcon } from 'lucide-vue-next'
+import { Head } from '@inertiajs/vue3'
+import { MoreHorizontal, UsersIcon } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -35,12 +34,12 @@ const deleteUser = (id: string) => {
                     <p class="pt-1 text-muted-foreground">Manage the login accounts for your clinics.</p>
                 </div>
                 <div>
-                    <Link :href="CreateInviteController()">
+                    <!-- <Link :href="CreateInviteController()">
                         <Button>
                             <Plus />
                             <span>Create user</span>
                         </Button>
-                    </Link>
+                    </Link> -->
                 </div>
             </div>
 
@@ -100,14 +99,6 @@ const deleteUser = (id: string) => {
                     <EmptyTitle>No user accounts</EmptyTitle>
                     <EmptyDescription>Create a login account so a clinic can access their referrals and commissions.</EmptyDescription>
                 </EmptyHeader>
-                <EmptyContent>
-                    <!-- <Link :href="CreateClinicController()"> -->
-                    <Button variant="outline" size="sm">
-                        <Plus />
-                        Add User
-                    </Button>
-                    <!-- </Link> -->
-                </EmptyContent>
             </Empty>
         </div>
     </AppLayout>

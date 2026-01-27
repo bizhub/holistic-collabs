@@ -47,6 +47,7 @@ dayjs.extend(timezone)
                         <thead>
                             <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                 <td class="pl-5">Date</td>
+                                <td class="pl-5">Order</td>
                                 <td class="pl-5">Client</td>
                                 <td class="pl-5"></td>
                                 <td class="pr-10 pl-5">
@@ -61,6 +62,9 @@ dayjs.extend(timezone)
                                         <p class="text-sm leading-none">
                                             {{ dayjs.utc(commission.created_at).local().format('DD/MM/YYYY h:mma') }}
                                         </p>
+                                    </td>
+                                    <td class="pl-5">
+                                        <p v-if="commission.order" class="text-sm leading-none">#{{ commission.order.order_number }}</p>
                                     </td>
                                     <td class="pl-5">
                                         <p class="text-sm leading-none">

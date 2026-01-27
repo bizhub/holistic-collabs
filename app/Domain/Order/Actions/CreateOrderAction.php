@@ -12,6 +12,7 @@ class CreateOrderAction
         Clinic $clinic,
         Client $client,
         string $shopifyId,
+        string $orderNumber,
         float $subtotal,
         ?string $couponCode,
     ): Order {
@@ -19,6 +20,7 @@ class CreateOrderAction
             'clinic_id' => $clinic->id,
             'client_id' => $client->id,
             'shopify_id' => $shopifyId,
+            'order_number' => $orderNumber,
             'coupon_code' => $couponCode,
             'subtotal_price' => $subtotal,
         ]);

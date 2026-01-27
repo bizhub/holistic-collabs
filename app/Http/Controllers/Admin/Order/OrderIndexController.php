@@ -15,6 +15,7 @@ class OrderIndexController
                 'clinic',
                 'client',
             ])
+            ->orderByDesc('created_at')
             ->get();
 
         return Inertia::render('Admin/Order/Orders', [

@@ -53,6 +53,7 @@ class HandleOrderCreatedWebhookAction
                 clinic: $clinic,
                 client: $client,
                 shopifyId: $data->id,
+                orderNumber: $data->order_number,
                 subtotal: $data->total_line_items_price,
                 couponCode: $couponContext->coupon?->code,
             );

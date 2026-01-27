@@ -14,6 +14,7 @@ class ClinicOrdersController
         $orders = $clinic
             ->orders()
             ->with('client')
+            ->orderByDesc('created_at')
             ->get();
 
         return Inertia::render('Admin/Clinic/Orders', [

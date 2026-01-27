@@ -23,7 +23,7 @@ class ResolveWebhookOrderClientAction
             return Client::create([
                 'shopify_id' => $data->customer->id,
                 'clinic_id' => $coupon->clinic->id,
-                'name' => $data->customer->first_name,
+                'name' => $data->customer->first_name . ' ' . $data->customer->last_name,
                 'email' => $data->customer->email,
             ]);
         }

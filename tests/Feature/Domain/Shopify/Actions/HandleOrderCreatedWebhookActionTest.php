@@ -28,6 +28,7 @@ it('handles first time customer with a known coupon', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
+        'order_number' => '::order_number::',
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [
@@ -98,6 +99,7 @@ it('handles existing client without coupon', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
+        'order_number' => '::order_number::',
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [],
         'total_line_items_price' => '1000.00',
@@ -161,6 +163,7 @@ it('handles existing client with known coupon attached a different clinic', func
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
+        'order_number' => '::order_number::',
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [
@@ -224,6 +227,7 @@ it('does not generate negative commission amount', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
+        'order_number' => '::order_number::',
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [

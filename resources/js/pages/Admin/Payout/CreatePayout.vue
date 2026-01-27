@@ -65,6 +65,7 @@ const createPayout = () => {
                                 <thead>
                                     <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
                                         <td class="pl-5">Date</td>
+                                        <td class="pl-5">Order</td>
                                         <td class="pl-5">Client</td>
                                         <td class="pr-10 pl-5">
                                             <div class="flex justify-end">Commission</div>
@@ -80,6 +81,9 @@ const createPayout = () => {
                                                         {{ dayjs.utc(commission.created_at).local().format('DD/MM/YYYY h:mma') }}
                                                     </p>
                                                 </div>
+                                            </td>
+                                            <td class="pl-5">
+                                                <p v-if="commission.order" class="text-sm leading-none">#{{ commission.order.order_number }}</p>
                                             </td>
                                             <td class="pl-5">
                                                 <p class="text-sm leading-none">

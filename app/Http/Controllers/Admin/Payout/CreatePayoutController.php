@@ -13,17 +13,15 @@ class CreatePayoutController
     public function __invoke(Clinic $clinic)
     {
         $commissions = Commission::query()
-            ->with('client')
+            ->with([
+                'client',
+                'order',
+            ])
             ->where('clinic_id', $clinic->id)
             ->whereNull('payout_id')
             ->where('created_at', '<=', now())
             ->orderByDesc('created_at')
             ->get();
-
-        // dd(
-        //     (string)$commissions->first()->created_at,
-        //     $commissions->first()->created_at,
-        // );
 
         return Inertia::render('Admin/Payout/CreatePayout', [
             'clinic' => ClinicData::from($clinic),
