@@ -3,7 +3,7 @@ import ClinicCommissionsController from '@/actions/App/Http/Controllers/Admin/Cl
 import CreatePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/CreatePayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { ChartNoAxesCombined, MoreHorizontal } from 'lucide-vue-next'
+import { ChartNoAxesCombined } from 'lucide-vue-next'
 
 interface Props {
     clinics: Domain.Clinic.Data.ClinicData[]
@@ -58,25 +58,9 @@ defineProps<Props>()
                                     </td>
                                     <td class="pl-4">
                                         <div class="flex justify-end pr-4">
-                                            <DropdownMenu>
-                                                <DropdownMenuTrigger as-child>
-                                                    <Button variant="secondary" size="sm" aria-label="Options">
-                                                        <MoreHorizontal />
-                                                    </Button>
-                                                </DropdownMenuTrigger>
-                                                <DropdownMenuContent class="w-56" align="end">
-                                                    <DropdownMenuGroup>
-                                                        <Link :href="CreatePayoutController(clinic.id)">
-                                                            <DropdownMenuItem>Create Payout</DropdownMenuItem>
-                                                        </Link>
-                                                        <Link :href="ClinicCommissionsController(clinic.id)">
-                                                            <DropdownMenuItem>View</DropdownMenuItem>
-                                                        </Link>
-                                                    </DropdownMenuGroup>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem disabled>Delete</DropdownMenuItem>
-                                                </DropdownMenuContent>
-                                            </DropdownMenu>
+                                            <Link :href="CreatePayoutController(clinic.id)">
+                                                <Button size="sm" variant="secondary">Create Payout</Button>
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>
