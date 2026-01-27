@@ -64,7 +64,7 @@ const addCouponCodeToClipboard = () => {
                                     Share this coupon code with your clients to use on the Holistic Beauty store for $X off any purchase.
                                 </DialogDescription>
                                 <DialogDescription>
-                                    Once a client uses this code, they are linked to your clinic — all future orders they place will automatically
+                                    Once a client uses this code, they are linked to your clinic - all future orders they place will automatically
                                     generate commissions for you.
                                 </DialogDescription>
                             </DialogHeader>

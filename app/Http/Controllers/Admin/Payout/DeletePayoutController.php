@@ -13,6 +13,6 @@ class DeletePayoutController
 
         Inertia::flash('success', 'Payout deleted');
 
-        return back();
+        return redirect('payouts');
     }
 }

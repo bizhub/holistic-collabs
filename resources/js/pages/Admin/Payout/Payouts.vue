@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ClinicPayoutsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicPayoutsController'
 import DeletePayoutController from '@/actions/App/Http/Controllers/Admin/Payout/DeletePayoutController'
+import ShowPayoutController from '@/actions/App/Http/Controllers/Admin/Payout/ShowPayoutController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
@@ -52,9 +53,9 @@ const deletePayout = (id: string) => {
                             <template v-for="payout in payouts" :key="payout.id">
                                 <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
                                     <td class="pl-5">
-                                        <p class="text-sm leading-none">
+                                        <Link :href="ShowPayoutController(payout.id)" class="text-sm leading-none hover:underline">
                                             {{ dayjs.utc(payout.created_at).local().format('DD/MM/YYYY') }}
-                                        </p>
+                                        </Link>
                                     </td>
                                     <td class="pl-5">
                                         <Link
@@ -86,14 +87,11 @@ const deletePayout = (id: string) => {
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
                                                     <DropdownMenuGroup>
-                                                        <!-- <Link :href="CreatePayoutController(clinic.id)">
-                                                            <DropdownMenuItem>Create Payout</DropdownMenuItem>
-                                                        </Link>
-                                                        <Link :href="ClinicCommissionsController(clinic.id)">
+                                                        <Link :href="ShowPayoutController(payout.id)">
                                                             <DropdownMenuItem>View</DropdownMenuItem>
-                                                        </Link> -->
+                                                        </Link>
                                                     </DropdownMenuGroup>
-                                                    <!-- <DropdownMenuSeparator /> -->
+                                                    <DropdownMenuSeparator />
                                                     <DropdownMenuItem @click="deletePayout(payout.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>

@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\Order\OrderIndexController;
 use App\Http\Controllers\Admin\Payout\CreatePayoutController;
 use App\Http\Controllers\Admin\Payout\DeletePayoutController;
 use App\Http\Controllers\Admin\Payout\PayoutIndexController;
+use App\Http\Controllers\Admin\Payout\ShowPayoutController;
 use App\Http\Controllers\Admin\Payout\StorePayoutController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
@@ -42,6 +43,7 @@ Route::get('dashboard', DashboardIndexController::class)->name('dashboard');
 Route::get('commissions', CommissionIndexController::class);
 
 Route::get('payouts', PayoutIndexController::class);
+Route::get('payouts/{payout}', ShowPayoutController::class);
 Route::delete('payouts/{payout}', DeletePayoutController::class);
 
 Route::get('clinics/{clinic}/payouts/create', CreatePayoutController::class);

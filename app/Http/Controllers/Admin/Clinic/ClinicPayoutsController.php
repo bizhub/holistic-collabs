@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Clinic;
 use Domain\Clinic\Data\ClinicData;
 use Domain\Clinic\Models\Clinic;
 use Domain\Commission\Data\PayoutData;
-use Domain\Order\Data\OrderData;
 use Inertia\Inertia;
 
 class ClinicPayoutsController
