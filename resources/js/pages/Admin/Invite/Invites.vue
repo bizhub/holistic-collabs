@@ -58,17 +58,13 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                         <tbody>
                             <template v-for="invite in invites" :key="invite.id">
                                 <tr class="h-16 border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td>
-                                        <div class="flex items-center pl-5">
-                                            <p class="text-sm leading-none text-zinc-600">{{ invite.name }}</p>
-                                        </div>
+                                    <td class="pl-5">
+                                        <p class="text-sm leading-none">{{ invite.name }}</p>
                                     </td>
                                     <td class="pl-5">
-                                        <div class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">
-                                                {{ invite.email }}
-                                            </p>
-                                        </div>
+                                        <p class="text-sm leading-none">
+                                            {{ invite.email }}
+                                        </p>
                                     </td>
                                     <td class="pl-5">
                                         <Link

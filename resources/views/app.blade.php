@@ -7,7 +7,7 @@
 
         {{-- Inline script to detect system dark mode preference and apply it immediately --}}
         <script>
-            (function() {
+            /**(function() {
                 const appearance = '{{ $appearance ?? "system" }}';
 
                 if (appearance === 'system') {
@@ -17,7 +17,7 @@
                         document.documentElement.classList.add('dark');
                     }
                 }
-            })();
+            })();*/
         </script>
 
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
