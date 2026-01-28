@@ -1,0 +1,83 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+
+jobs:
+  phpunit:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_USER: user
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: secretroot
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: NPM Clean Install
+        run: npm ci
+
+      - name: Vite Build
+        run: npm run build
+        env:
+          VITE_REVERB_APP_KEY: ${{ secrets.REVERB_APP_KEY }}
+          VITE_REVERB_HOST: reverb.testhub.co.nz
+          VITE_REVERB_PORT: 443
+          VITE_REVERB_SCHEME: https
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Run Testsuite
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: test
+          DB_USERNAME: user
+          DB_PASSWORD: secret
+          MAIL_FROM_ADDRESS: test@testhub.co.nz
+        run: php artisan test
+
+      - name: Upload frontend build to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          source: 'public/build'
+          target: '/home/ploi/testhub.co.nz/releases/${{ github.sha }}'
+
+      - name: Deploy
+        run: curl -X POST ${{ secrets.DEPLOY_WEBHOOK_URL }}
