@@ -15,5 +15,5 @@ test('registration screen can be rendered', function () {
 //     ]);
 
 //     $this->assertAuthenticated();
-//     $response->assertRedirect(route('dashboard', absolute: false));
+//     $response->assertRedirect(route('authed', absolute: false));
 // });

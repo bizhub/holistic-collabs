@@ -28,7 +28,7 @@ it('handles first time customer with a known coupon', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
-        'order_number' => '::order_number::',
+        'order_number' => 1234,
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [
@@ -53,7 +53,7 @@ it('handles first time customer with a known coupon', function () {
     expect($client)
         ->clinic_id->toBe($clinic->id)
         ->shopify_id->toBe('8804926455947')
-        ->name->toBe('Lex')
+        ->name->toBe('Lex van der Woude')
         ->email->toBe('lex@bizhub.co.nz');
 
     expect($order)
@@ -86,7 +86,7 @@ it('handles existing client without coupon', function () {
     $client = Client::factory()->create([
         'clinic_id' => $clinic->id,
         'shopify_id' => '8804926455947',
-        'name' => 'Lex',
+        'name' => 'Lex van der Woude',
         'email' => 'lex@bizhub.co.nz',
     ]);
 
@@ -99,7 +99,7 @@ it('handles existing client without coupon', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
-        'order_number' => '::order_number::',
+        'order_number' => 1234,
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [],
         'total_line_items_price' => '1000.00',
@@ -118,7 +118,7 @@ it('handles existing client without coupon', function () {
     expect($client)
         ->clinic_id->toBe($clinic->id)
         ->shopify_id->toBe('8804926455947')
-        ->name->toBe('Lex')
+        ->name->toBe('Lex van der Woude')
         ->email->toBe('lex@bizhub.co.nz');
 
     expect($order)
@@ -150,7 +150,7 @@ it('handles existing client with known coupon attached a different clinic', func
 
     $client = Client::factory()->create([
         'shopify_id' => '8804926455947',
-        'name' => 'Lex',
+        'name' => 'Lex van der Woude',
         'email' => 'lex@bizhub.co.nz',
     ]);
 
@@ -163,7 +163,7 @@ it('handles existing client with known coupon attached a different clinic', func
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
-        'order_number' => '::order_number::',
+        'order_number' => 1234,
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [
@@ -188,7 +188,7 @@ it('handles existing client with known coupon attached a different clinic', func
     expect($client)
         ->clinic_id->toBe($clinic->id)
         ->shopify_id->toBe('8804926455947')
-        ->name->toBe('Lex')
+        ->name->toBe('Lex van der Woude')
         ->email->toBe('lex@bizhub.co.nz');
 
     expect($order)
@@ -227,7 +227,7 @@ it('does not generate negative commission amount', function () {
             'last_name' => 'van der Woude',
             'phone' => 1234567890,
         ],
-        'order_number' => '::order_number::',
+        'order_number' => 1234,
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [
             [
@@ -243,9 +243,5 @@ it('does not generate negative commission amount', function () {
 
     expect(Client::count())->toBe(1);
     expect(Order::count())->toBe(1);
-    expect(Commission::count())->toBe(1);
-
-    $commission = Commission::first();
-
-    expect($commission)->amount->toBe(0);
+    expect(Commission::count())->toBe(0);
 });

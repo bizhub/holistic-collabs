@@ -37,14 +37,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $request->user()?->loadMissing('clinic');
+        $user = $request->user();
+        $user?->loadMissing('clinic');
 
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user() ? SharedUserData::from($request->user()) : SharedUserData::empty(),
-                'clinic' => $request->user()?->clinic ? SharedClinicData::from($request->user()->clinic) : SharedClinicData::empty(),
+                'user' => $user
+                    ? new SharedUserData(
+                        is_admin: (bool)$user->is_admin,
+                        name: $user->name,
+                        email: $user->email,
+                    ) : [
+                        'is_admin' => false,
+                        'name' => null,
+                        'email' => null,
+                    ],
+                'clinic' => $user?->clinic ? SharedClinicData::from($user->clinic) : SharedClinicData::empty(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
