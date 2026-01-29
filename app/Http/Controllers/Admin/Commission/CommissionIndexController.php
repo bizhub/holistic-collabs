@@ -12,10 +12,8 @@ class CommissionIndexController
     {
         $clinics = Clinic::query()
             ->whereHas('commissions', function ($query) {
-                $query->whereNull('payout_id'); // only unpaid commissions
+                $query->whereNull('payout_id');
             })
-            // ->withCount('commissions')
-            // ->withSum('commissions', 'amount')
             ->withCount(['commissions as commissions_count' => function ($query) {
                 $query->whereNull('payout_id');
             }])

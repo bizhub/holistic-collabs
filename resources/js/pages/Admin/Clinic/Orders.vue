@@ -71,7 +71,7 @@ dayjs.extend(timezone)
                                     </td>
                                     <td class="pr-10 pl-5">
                                         <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none text-zinc-600">
+                                            <p class="text-sm leading-none">
                                                 ${{
                                                     order.subtotal_price.toLocaleString(undefined, {
                                                         minimumFractionDigits: 2,

@@ -2,6 +2,7 @@
 
 namespace Domain\Commission\Models;
 
+use Database\Factories\PayoutFactory;
 use Domain\Clinic\Models\Clinic;
 use Domain\Shared\Casts\CentsCast;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -31,10 +32,10 @@ class Payout extends Model
         ];
     }
 
-    // protected static function newFactory(): CommissionFactory
-    // {
-    //     return CommissionFactory::new();
-    // }
+    protected static function newFactory(): PayoutFactory
+    {
+        return PayoutFactory::new();
+    }
 
     public function clinic(): BelongsTo
     {

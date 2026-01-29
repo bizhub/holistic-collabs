@@ -47,7 +47,7 @@ const connect = () => {
                     <div>
                         <div class="mb-5">
                             <h2 class="text-xl font-medium tracking-tight">Shopify Connection</h2>
-                            <p class="pt-1 text-sm text-zinc-600">Enter your Shopify store domain to connect your store</p>
+                            <p class="pt-1 text-sm text-muted-foreground">Enter your Shopify store domain to connect your store</p>
                         </div>
 
                         <div class="space-y-6">

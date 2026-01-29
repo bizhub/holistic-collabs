@@ -43,7 +43,7 @@ const submit = () => {
                         <div class="">
                             <div class="mb-5">
                                 <h2 class="text-xl font-medium tracking-tight">User details</h2>
-                                <p class="pt-1 text-sm text-zinc-600">Enter the details of the person you would like to invite.</p>
+                                <p class="pt-1 text-sm text-muted-foreground">Enter the details of the person you would like to invite.</p>
                             </div>
 
                             <div class="space-y-6">

@@ -70,7 +70,7 @@ const deleteInvite = (invite: Domain.Invite.Data.InviteData) => {
                                         <Link
                                             :href="ClinicInvitesController(invite.clinic.id)"
                                             v-if="invite.clinic"
-                                            class="text-sm leading-none text-zinc-600 hover:underline">
+                                            class="text-sm leading-none hover:underline">
                                             {{ invite.clinic.name }}
                                         </Link>
                                     </td>

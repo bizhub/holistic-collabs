@@ -16,6 +16,7 @@ class ClinicFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->company,
+            'commission_rate' => 10,
         ];
     }
 }

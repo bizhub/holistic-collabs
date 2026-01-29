@@ -11,6 +11,10 @@
 |
 */
 
+use Domain\User\Models\User;
+
+use function Pest\Laravel\actingAs;
+
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
@@ -41,7 +45,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function actingAsAdmin()
 {
-    // ..
+    actingAs(User::factory()->create([
+        'is_admin' => true,
+    ]));
 }

@@ -24,6 +24,8 @@ class CommissionFactory extends Factory
             'amount' => $this->faker->numberBetween(500, 5000),
 
             'status' => CommissionStatus::Pending,
+            'commission_rate' => 10,
+            'coupon_amount' => 0,
         ];
     }
 }
