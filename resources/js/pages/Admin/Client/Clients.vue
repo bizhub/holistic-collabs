@@ -2,7 +2,7 @@
 import ClinicClientsController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicClientsController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
-import { HandshakeIcon, MoreHorizontal } from 'lucide-vue-next'
+import { HandshakeIcon } from 'lucide-vue-next'
 
 interface Props {
     clients: Domain.Client.Data.ClientData[]
@@ -36,7 +36,7 @@ defineProps<Props>()
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Clinic</td>
                                 <td class="pl-5">Commissions</td>
-                                <td class="pl-5"></td>
+                                <!-- <td class="pl-5"></td> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -62,7 +62,7 @@ defineProps<Props>()
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="pl-4">
+                                    <!-- <td class="pl-4">
                                         <div class="flex justify-end pr-4">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger as-child>
@@ -80,7 +80,7 @@ defineProps<Props>()
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </template>
                         </tbody>

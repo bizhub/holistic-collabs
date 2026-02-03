@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\Payout\DeletePayoutController;
 use App\Http\Controllers\Admin\Payout\PayoutIndexController;
 use App\Http\Controllers\Admin\Payout\ShowPayoutController;
 use App\Http\Controllers\Admin\Payout\StorePayoutController;
+use App\Http\Controllers\Admin\Shopify\DisconnectShopifyController;
 use App\Http\Controllers\Admin\Shopify\ShopifyCallbackController;
 use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Admin\Shopify\ShopifyIndexController;
@@ -84,5 +85,6 @@ Route::get('shopify', ShopifyIndexController::class);
 Route::get('shopify/connect', ShopifyConnectController::class);
 Route::get('shopify/webhooks/subscribe', SubscribeToShopifyWebhooksController::class);
 Route::post('shopify', StartShopifyOAuthController::class);
+Route::delete('shopify', DisconnectShopifyController::class);
 
 Route::get('shopify/callback', ShopifyCallbackController::class);

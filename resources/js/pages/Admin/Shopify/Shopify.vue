@@ -1,11 +1,10 @@
 <script setup lang="ts">
+import DisconnectShopifyController from '@/actions/App/Http/Controllers/Admin/Shopify/DisconnectShopifyController'
 import ShopifyConnectController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyConnectController'
-import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
 import SubscribeToShopifyWebhooksController from '@/actions/App/Http/Controllers/Admin/Shopify/SubscribeToShopifyWebhooksController'
-import { type BreadcrumbItem } from '@/types'
 import { Head, Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { Plug, Webhook, Zap } from 'lucide-vue-next'
+import { Plug, Zap } from 'lucide-vue-next'
 
 interface Props {
     shopify: Domain.Shopify.Data.ShopifyData
@@ -15,24 +14,25 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Shopify',
-        href: ShopifyIndexController().url,
-    },
-]
-
 const lastActivityAt = computed(() => {
     if (!props.activity.length) return null
 
     return props.activity[0].created_at
 })
+
+const disconnectShopify = () => {
+    if (!confirm('Are you sure you want to disconnect from Shopify?')) {
+        return
+    }
+
+    router.delete(DisconnectShopifyController())
+}
 </script>
 
 <template>
     <Head title="Shopify" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout>
         <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6 flex items-center">
                 <div class="flex-1">
@@ -44,12 +44,9 @@ const lastActivityAt = computed(() => {
                 <div></div>
             </div>
 
-            <div class="mb-6 grid grid-cols-3 gap-6">
+            <div class="mb-6 grid grid-cols-2 gap-6">
                 <div v-if="shopify.status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
-                    <div class="flex items-center justify-center gap-2 py-2 font-medium text-green-800">
-                        <Zap class="size-5" />
-                        <div>Connected</div>
-                    </div>
+                    <div class="flex justify-center py-2 font-medium text-green-800">Shopify</div>
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Holistic Collabs is connected to Shopify</div>
@@ -57,13 +54,13 @@ const lastActivityAt = computed(() => {
                                 Last successful API call: {{ dayjs(lastActivityAt).format('DD/MM/YYYY h:mma') }}
                             </div>
                             <div class="mt-6">
-                                <Button variant="outline">Disconnect</Button>
+                                <Button variant="outline" @click="disconnectShopify">Disconnect</Button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div v-else class="flex flex-col border-red-200 bg-red-100/80 p-1">
-                    <div class="flex justify-center py-2 font-medium text-red-800">Disconnected</div>
+                    <div class="flex justify-center py-2 font-medium text-red-800">Shopify Disconnected</div>
                     <div class="flex flex-1 items-center justify-center border border-red-200 bg-white p-6 shadow-sm shadow-red-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Your Shopify connection is not active</div>
@@ -79,7 +76,7 @@ const lastActivityAt = computed(() => {
                     </div>
                 </div>
                 <div v-if="webhook_status == 'connected'" class="flex flex-col border-green-200 bg-green-100/80 p-1">
-                    <div class="flex items-center justify-center gap-2 py-2 font-medium text-green-800"><Webhook class="size-5" /> Connected</div>
+                    <div class="flex justify-center py-2 font-medium text-green-800">Webhooks</div>
                     <div class="flex flex-1 items-center justify-center border border-green-200 bg-white p-6 shadow-sm shadow-green-100">
                         <div class="flex flex-col items-center text-center">
                             <div>Shopify webhooks are active</div>
@@ -110,7 +107,7 @@ const lastActivityAt = computed(() => {
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col border-zinc-200 bg-zinc-100/80 p-1">
+                <!-- <div class="flex flex-col border-zinc-200 bg-zinc-100/80 p-1">
                     <div class="flex justify-center py-2 font-medium text-zinc-800">Health check</div>
                     <div class="flex flex-1 items-center justify-center border border-zinc-200 bg-white p-6 shadow-sm shadow-zinc-100">
                         <div class="flex flex-col items-center text-center">
@@ -123,7 +120,7 @@ const lastActivityAt = computed(() => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div v-if="activity.length > 0" class="w-full">

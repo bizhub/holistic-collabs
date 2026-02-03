@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head } from '@inertiajs/vue3'
-import { HandshakeIcon, MoreHorizontal } from 'lucide-vue-next'
+import { HandshakeIcon } from 'lucide-vue-next'
 
 interface Props {
     clinic: Domain.Clinic.Data.ClinicData
@@ -35,7 +35,7 @@ defineProps<Props>()
                                 <td class="pl-5">Name</td>
                                 <td class="pl-5">Email</td>
                                 <td class="pl-5">Contributions</td>
-                                <td class="pl-5"></td>
+                                <!-- <td class="pl-5"></td> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -53,7 +53,7 @@ defineProps<Props>()
                                             {{ client.commissions_count }}
                                         </div>
                                     </td>
-                                    <td class="pl-4">
+                                    <!-- <td class="pl-4">
                                         <div class="flex justify-end pr-4">
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger as-child>
@@ -71,7 +71,7 @@ defineProps<Props>()
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </template>
                         </tbody>

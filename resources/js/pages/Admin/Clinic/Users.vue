@@ -73,12 +73,12 @@ const deleteUser = (id: string) => {
                                                     </Button>
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent class="w-56" align="end">
-                                                    <DropdownMenuGroup>
+                                                    <!-- <DropdownMenuGroup>
                                                         <DropdownMenuItem disabled>View</DropdownMenuItem>
                                                         <DropdownMenuItem disabled>Edit</DropdownMenuItem>
                                                         <DropdownMenuItem disabled>Change Clinic</DropdownMenuItem>
                                                     </DropdownMenuGroup>
-                                                    <DropdownMenuSeparator />
+                                                    <DropdownMenuSeparator /> -->
                                                     <DropdownMenuItem @click="deleteUser(user.id)">Delete</DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
