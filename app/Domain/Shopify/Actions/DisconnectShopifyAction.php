@@ -21,7 +21,7 @@ class DisconnectShopifyAction
 
         $this->settings->status = ConnectionStatus::Disconnected;
         $this->settings->access_token = null;
-        $this->settings->url = null;
+        $this->settings->url = '';
 
         $this->settings->save();
 
