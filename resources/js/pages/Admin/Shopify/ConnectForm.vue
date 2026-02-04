@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import ShopifyIndexController from '@/actions/App/Http/Controllers/Admin/Shopify/ShopifyIndexController'
 import StartShopifyOAuthController from '@/actions/App/Http/Controllers/Admin/Shopify/StartShopifyOAuthController'
 import { Button } from '@/components/ui/button'
-import { type BreadcrumbItem } from '@/types'
 import { Head } from '@inertiajs/vue3'
 import { Loader2 } from 'lucide-vue-next'
 
@@ -12,14 +10,7 @@ interface Props {
 
 defineProps<Props>()
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Shopify',
-        href: ShopifyIndexController().url,
-    },
-]
-
-const shopifyUrl = ref('bizhub-dev-store.myshopify.com')
+const shopifyUrl = ref('')
 const loading = ref(false)
 const connect = () => {
     loading.value = true
@@ -33,7 +24,7 @@ const connect = () => {
 <template>
     <Head title="Shopify" />
 
-    <AppLayout :breadcrumbs="breadcrumbs">
+    <AppLayout>
         <div class="mx-auto flex h-full w-full max-w-4xl flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div class="mb-6">
                 <div class="flex items-center space-x-6">
