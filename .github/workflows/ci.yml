@@ -48,7 +48,7 @@ jobs:
         run: npm run build
         env:
           VITE_REVERB_APP_KEY: ${{ secrets.REVERB_APP_KEY }}
-          VITE_REVERB_HOST: reverb.testhub.co.nz
+          VITE_REVERB_HOST: reverb.janinetait.co.nz
           VITE_REVERB_PORT: 443
           VITE_REVERB_SCHEME: https
 
@@ -66,7 +66,7 @@ jobs:
           DB_DATABASE: test
           DB_USERNAME: user
           DB_PASSWORD: secret
-          MAIL_FROM_ADDRESS: test@testhub.co.nz
+          MAIL_FROM_ADDRESS: test@janinetait.co.nz
         run: php artisan test
 
       - name: Upload frontend build to server
@@ -77,7 +77,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           source: 'public/build'
-          target: '/home/ploi/testhub.co.nz/releases/${{ github.sha }}'
+          target: '/home/ploi/collabs.janinetait.co.nz/releases/${{ github.sha }}'
 
       - name: Deploy
         run: curl -X POST ${{ secrets.DEPLOY_WEBHOOK_URL }}
