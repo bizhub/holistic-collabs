@@ -18,13 +18,19 @@ class DatabaseSeeder extends Seeder
             'email' => 'lex@bizhub.co.nz',
         ]);
 
-        $clinic = Clinic::factory()->create();
-
         User::factory()->create([
-            'clinic_id' => $clinic->id,
-
-            'name' => 'Test Clinic',
-            'email' => 'clinic@bizhub.co.nz',
+            'is_admin' => true,
+            'name' => 'Janine Tait',
+            'email' => 'janine@janinetait.co.nz',
         ]);
+
+        // $clinic = Clinic::factory()->create();
+
+        // User::factory()->create([
+        //     'clinic_id' => $clinic->id,
+
+        //     'name' => 'Test Clinic',
+        //     'email' => 'clinic@bizhub.co.nz',
+        // ]);
     }
 }
