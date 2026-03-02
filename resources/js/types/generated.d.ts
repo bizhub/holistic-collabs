@@ -126,4 +126,12 @@ declare namespace Domain.User.Data {
         email: string
         clinic: Domain.Clinic.Data.ClinicData | null
     }
+    export type UserFormData = {
+        name: string
+        email: string
+        password: string
+        password_confirmation: string
+        clinic_id: string | null
+        is_admin: boolean | null
+    }
 }

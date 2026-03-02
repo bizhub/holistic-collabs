@@ -35,7 +35,9 @@ use App\Http\Controllers\Admin\Shopify\ShopifyConnectController;
 use App\Http\Controllers\Admin\Shopify\ShopifyIndexController;
 use App\Http\Controllers\Admin\Shopify\StartShopifyOAuthController;
 use App\Http\Controllers\Admin\Shopify\SubscribeToShopifyWebhooksController;
+use App\Http\Controllers\Admin\User\CreateUserController;
 use App\Http\Controllers\Admin\User\DeleteUserController;
+use App\Http\Controllers\Admin\User\StoreUserController;
 use App\Http\Controllers\Admin\User\UserIndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +73,8 @@ Route::delete('coupons/{coupon}', DeleteCouponController::class);
 Route::get('clients', ClientIndexController::class);
 
 Route::get('users', UserIndexController::class);
+Route::get('users/create', CreateUserController::class);
+Route::post('users', StoreUserController::class);
 Route::delete('users/{user}', DeleteUserController::class);
 
 Route::get('invites', InviteIndexController::class);

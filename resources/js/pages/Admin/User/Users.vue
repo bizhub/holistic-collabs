@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ClinicUsersController from '@/actions/App/Http/Controllers/Admin/Clinic/ClinicUsersController'
+import CreateUserController from '@/actions/App/Http/Controllers/Admin/User/CreateUserController'
 import DeleteUserController from '@/actions/App/Http/Controllers/Admin/User/DeleteUserController'
 import AppLayout from '@/layouts/AppLayout.vue'
 import { Head, Link } from '@inertiajs/vue3'
@@ -33,12 +34,12 @@ const deleteUser = (id: string) => {
                     <p class="pt-1 text-muted-foreground">Manage the login accounts for your clinics.</p>
                 </div>
                 <div>
-                    <!-- <Link :href="CreateClinicController()"> -->
-                    <!-- <Button size="lg">
-                        <Plus />
-                        <span>Add User</span>
-                    </Button> -->
-                    <!-- </Link> -->
+                    <Link :href="CreateUserController()">
+                        <Button>
+                            <Plus />
+                            <span>Add User</span>
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
@@ -69,7 +70,7 @@ const deleteUser = (id: string) => {
                                     <td class="pl-5">
                                         <div class="flex items-center">
                                             <p class="text-sm leading-none">
-                                                <span v-if="user.is_admin">Admin</span>
+                                                <Badge variant="outline" v-if="user.is_admin">Admin</Badge>
                                                 <Link :href="ClinicUsersController(user.clinic.id)" v-else-if="user.clinic" class="hover:underline">
                                                     {{ user.clinic.name }}
                                                 </Link>
@@ -115,12 +116,12 @@ const deleteUser = (id: string) => {
                     <EmptyDescription>Create a login account so a clinic can access their referrals and commissions.</EmptyDescription>
                 </EmptyHeader>
                 <EmptyContent>
-                    <!-- <Link :href="CreateClinicController()"> -->
-                    <Button variant="outline" size="sm">
-                        <Plus />
-                        Add User
-                    </Button>
-                    <!-- </Link> -->
+                    <Link :href="CreateUserController()">
+                        <Button variant="outline" size="sm">
+                            <Plus />
+                            Add User
+                        </Button>
+                    </Link>
                 </EmptyContent>
             </Empty>
         </div>
