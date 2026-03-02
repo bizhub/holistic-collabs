@@ -70,8 +70,7 @@ const submit = () => {
                                 <div class="flex space-x-6">
                                     <div class="flex-1 space-y-2">
                                         <Label for="role">Role</Label>
-                                        <!-- <Input id="role" v-model="role" placeholder="Enter a contact name" /> -->
-                                        <Select v-model="role" :disabled="clinics.length == 0">
+                                        <Select v-model="role">
                                             <SelectTrigger>
                                                 <SelectValue placeholder="Select a role" />
                                             </SelectTrigger>
