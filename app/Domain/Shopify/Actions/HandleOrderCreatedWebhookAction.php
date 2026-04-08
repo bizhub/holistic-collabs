@@ -47,6 +47,8 @@ class HandleOrderCreatedWebhookAction
                 return;
             }
 
+            $subtotal = $data->total_line_items_price - $couponContext->totalUnrelated;
+
             $clinic = $couponContext->coupon?->clinic ?? $client->clinic;
 
             $order = $this->createOrder->execute(
@@ -54,7 +56,7 @@ class HandleOrderCreatedWebhookAction
                 client: $client,
                 shopifyId: $data->id,
                 orderNumber: $data->order_number,
-                subtotal: $data->total_line_items_price,
+                subtotal: $subtotal,
                 couponCode: $couponContext->coupon?->code,
             );
 
@@ -63,7 +65,7 @@ class HandleOrderCreatedWebhookAction
                 client: $client,
                 clinic: $clinic,
                 couponContext: $couponContext,
-                subtotal: $data->total_line_items_price,
+                subtotal: $subtotal,
                 firstOrder: (bool) $couponContext->coupon,
             );
 

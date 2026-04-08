@@ -11,5 +11,6 @@ class CouponContext extends Data
     public function __construct(
         public ?Coupon $coupon,
         public float $amount,
+        public float $totalUnrelated,
     ) {}
 }

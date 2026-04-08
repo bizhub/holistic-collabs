@@ -95,6 +95,7 @@ declare namespace Domain.Shopify.Context {
     export type CouponContext = {
         coupon: any | null
         amount: number
+        totalUnrelated: number
     }
 }
 declare namespace Domain.Shopify.Data {

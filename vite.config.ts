@@ -1,11 +1,11 @@
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
-import tailwindcss from '@tailwindcss/vite';
-import vue from '@vitejs/plugin-vue';
-import laravel from 'laravel-vite-plugin';
-import { defineConfig } from 'vite';
-import Components from 'unplugin-vue-components/vite'
+import { wayfinder } from '@laravel/vite-plugin-wayfinder'
+import tailwindcss from '@tailwindcss/vite'
+import vue from '@vitejs/plugin-vue'
+import laravel from 'laravel-vite-plugin'
 import AutoImport from 'unplugin-auto-import/vite'
 import Icons from 'unplugin-icons/vite'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
 import { run } from 'vite-plugin-run'
 
 export default defineConfig({
@@ -56,4 +56,4 @@ export default defineConfig({
             },
         ]),
     ],
-});
+})
