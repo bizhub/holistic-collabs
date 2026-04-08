@@ -29,7 +29,9 @@ dayjs.extend(timezone)
                     </div>
                     <p class="pt-1 text-muted-foreground">View all orders placed through Shopify that include referral activity.</p>
                 </div>
-                <div></div>
+                <div>
+                    <ImportOrderButton />
+                </div>
             </div>
 
             <div v-if="orders.length > 0" class="w-full">

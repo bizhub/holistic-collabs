@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\Invite\DeleteInviteController;
 use App\Http\Controllers\Admin\Invite\InviteIndexController;
 use App\Http\Controllers\Admin\Invite\ResendInviteController;
 use App\Http\Controllers\Admin\Invite\StoreInviteController;
+use App\Http\Controllers\Admin\Order\ImportOrderFromShopifyController;
 use App\Http\Controllers\Admin\Order\OrderIndexController;
 use App\Http\Controllers\Admin\Payout\CreatePayoutController;
 use App\Http\Controllers\Admin\Payout\DeletePayoutController;
@@ -84,6 +85,7 @@ Route::post('invites', StoreInviteController::class);
 Route::delete('invites/{invite}', DeleteInviteController::class);
 
 Route::get('orders', OrderIndexController::class);
+Route::post('orders/import', ImportOrderFromShopifyController::class);
 
 Route::get('shopify', ShopifyIndexController::class);
 Route::get('shopify/connect', ShopifyConnectController::class);

@@ -50,7 +50,7 @@ const connect = () => {
                     </div>
                 </div>
 
-                <DialogFooter class="mt-10">
+                <div class="mt-10">
                     <Button type="submit" size="lg" :disabled="loading">
                         <div v-if="loading" class="flex items-center">
                             <Loader2 class="mr-2 h-4 w-4 animate-spin" />
@@ -58,7 +58,7 @@ const connect = () => {
                         </div>
                         <div v-else>Connect</div>
                     </Button>
-                </DialogFooter>
+                </div>
             </form>
         </div>
     </AppLayout>

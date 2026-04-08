@@ -25,7 +25,7 @@ class HandleOrderCreatedWebhookAction
 
         if ($orderExists) {
             $this->recordActivity->execute(
-                "Webhook (orders.created) {$data->id} - Duplicate",
+                "Webhook (orders.created) {$data->id} #{$data->order_number} - Duplicate",
             );
             return;
         }
@@ -42,7 +42,7 @@ class HandleOrderCreatedWebhookAction
 
             if (!$client) {
                 $this->recordActivity->execute(
-                    "Webhook (orders.created) {$data->id} - Skipped",
+                    "Webhook (orders.created) {$data->id} #{$data->order_number} - Skipped",
                 );
                 return;
             }
@@ -70,7 +70,7 @@ class HandleOrderCreatedWebhookAction
             );
 
             $this->recordActivity->execute(
-                "Webhook (orders.created) {$data->id} - Processed",
+                "Webhook (orders.created) {$data->id} #{$data->order_number} - Processed",
             );
         });
     }

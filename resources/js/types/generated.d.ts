@@ -99,6 +99,9 @@ declare namespace Domain.Shopify.Context {
     }
 }
 declare namespace Domain.Shopify.Data {
+    export type ImportOrderData = {
+        shopify_id: string
+    }
     export type ShopifyActivityData = {
         id: string
         description: string

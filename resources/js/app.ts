@@ -27,9 +27,15 @@ createInertiaApp({
             .mount(el)
 
         router.on('flash', event => {
-            if (event.detail.flash) {
+            if (event.detail.flash.success) {
                 toast.success(event.detail.flash.success, {
-                    // hideProgressBar: true,
+                    autoClose: 4000,
+                    transition: toast.TRANSITIONS.SLIDE,
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                } as ToastOptions)
+            }
+            if (event.detail.flash.error) {
+                toast.error(event.detail.flash.error, {
                     autoClose: 4000,
                     transition: toast.TRANSITIONS.SLIDE,
                     position: toast.POSITION.BOTTOM_RIGHT,

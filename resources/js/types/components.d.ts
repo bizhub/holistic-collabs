@@ -112,6 +112,7 @@ declare module 'vue' {
     Heading: typeof import('./../components/Heading.vue')['default']
     HeadingSmall: typeof import('./../components/HeadingSmall.vue')['default']
     Icon: typeof import('./../components/Icon.vue')['default']
+    ImportOrderButton: typeof import('./../components/Order/ImportOrderButton.vue')['default']
     Input: typeof import('./../components/ui/input/Input.vue')['default']
     InputError: typeof import('./../components/InputError.vue')['default']
     Label: typeof import('./../components/ui/label/Label.vue')['default']
