@@ -6,7 +6,9 @@ import utc from 'dayjs/plugin/utc'
 import { ChartNoAxesCombined, ChevronRight, Handshake, Tag, Truck } from 'lucide-vue-next'
 import { toast, type ToastOptions } from 'vue3-toastify'
 
-interface Props {
+type Tabs = 'orders' | 'clients' | 'payouts'
+
+const props = defineProps<{
     auth: {
         clinic: {
             name: string
@@ -18,21 +20,20 @@ interface Props {
     commission_earned: number
 
     orders: Domain.Order.Data.OrderData[]
+    clients: Domain.Client.Data.ClientData[]
     payouts: Domain.Commission.Data.PayoutData[]
     upcoming_payout_amount: number
 
     commission_percentage_change?: number
     coupon_code: string | null
-}
+}>()
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-const props = defineProps<Props>()
+const currentTab = ref<Tabs>('orders')
 
-const currentTab = ref('orders')
-
-const currentOrderExpanded = ref('')
+const currentOrderExpanded = ref<string>('')
 const toggleOrderExpanded = (id: string) => {
     currentOrderExpanded.value = currentOrderExpanded.value == id ? '' : id
 }
@@ -130,13 +131,19 @@ const addCouponCodeToClipboard = () => {
                 <button
                     @click="currentTab = 'orders'"
                     class="cursor-pointer border-b-4 text-3xl font-medium tracking-tight hover:text-black"
-                    :class="[currentTab == 'orders' ? 'border-slate-200' : 'border-transparent text-black/60']">
+                    :class="[currentTab == 'orders' ? 'border-slate-300' : 'border-transparent text-black/60']">
                     Orders
+                </button>
+                <button
+                    @click="currentTab = 'clients'"
+                    class="cursor-pointer border-b-4 text-3xl font-medium tracking-tight hover:text-black"
+                    :class="[currentTab == 'clients' ? 'border-slate-300' : 'border-transparent text-black/60']">
+                    Referrals
                 </button>
                 <button
                     @click="currentTab = 'payouts'"
                     class="cursor-pointer border-b-4 text-3xl font-medium tracking-tight hover:text-black"
-                    :class="[currentTab == 'payouts' ? 'border-slate-200' : 'border-transparent text-black/60']">
+                    :class="[currentTab == 'payouts' ? 'border-slate-300' : 'border-transparent text-black/60']">
                     Payouts
                 </button>
             </div>
@@ -239,10 +246,62 @@ const addCouponCodeToClipboard = () => {
                 </Empty>
             </div>
 
+            <div v-if="currentTab == 'clients'">
+                <div v-if="clients.length > 0" class="w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full whitespace-nowrap">
+                            <thead>
+                                <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
+                                    <td class="pl-5">Name</td>
+                                    <td class="pl-5">Email</td>
+                                    <td class="pl-5">Commissions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="client in clients" :key="client.id">
+                                    <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
+                                        <td class="pl-5">
+                                            <p class="text-sm leading-none">{{ client.name }}</p>
+                                        </td>
+                                        <td class="pl-5">
+                                            <p class="text-sm leading-none">{{ client.email }}</p>
+                                        </td>
+                                        <td class="pl-5">
+                                            <div class="flex items-center">
+                                                <div class="flex size-6 items-center justify-center bg-zinc-200 text-sm leading-none font-medium">
+                                                    {{ client.commissions_count }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <Empty v-else class="border">
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                            <Handshake />
+                        </EmptyMedia>
+                        <EmptyTitle>No clients yet</EmptyTitle>
+                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            </div>
+
             <div v-if="currentTab == 'payouts'">
                 <div v-if="payouts.length > 0" class="w-full">
                     <div class="overflow-x-auto">
                         <table class="w-full whitespace-nowrap">
+                            <thead>
+                                <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
+                                    <td class="pl-5">Date</td>
+                                    <td class="pr-5">
+                                        <div class="flex justify-end">Amount</div>
+                                    </td>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <template v-for="payout in payouts" :key="payout.id">
                                     <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
@@ -251,7 +310,7 @@ const addCouponCodeToClipboard = () => {
                                                 {{ dayjs(payout.paid_at).format('DD MMM YYYY') }}
                                             </p>
                                         </td>
-                                        <td class="pr-10 pl-5">
+                                        <td class="pr-5">
                                             <div class="flex items-center justify-end">
                                                 <p class="text-sm leading-none">${{ payout.total_amount.toFixed(2) }}</p>
                                             </div>

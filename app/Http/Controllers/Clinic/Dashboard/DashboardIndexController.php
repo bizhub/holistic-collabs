@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Clinic\Dashboard;
 
+use Domain\Client\Data\ClientData;
 use Domain\Client\Models\Client;
 use Domain\Clinic\Support\ClinicContext;
 use Domain\Commission\Data\PayoutData;
@@ -59,15 +60,20 @@ class DashboardIndexController
             ->where('clinic_id', $clinicId)
             ->sum('amount');
 
-        $payouts = Payout::query()
-            ->where('clinic_id', $clinicId)
-            ->orderByDesc('paid_at')
-            ->get();
-
         $orders = Order::query()
             ->with('client', 'items')
             ->where('clinic_id', $clinicId)
             ->orderByDesc('created_at')
+            ->get();
+
+        $clients = Client::query()
+            ->where('clinic_id', $clinicId)
+            ->withCount('commissions')
+            ->get();
+
+        $payouts = Payout::query()
+            ->where('clinic_id', $clinicId)
+            ->orderByDesc('paid_at')
             ->get();
 
         $upcomingPayoutAmount = Commission::query()
@@ -101,6 +107,7 @@ class DashboardIndexController
             'commission_earned' => (int)$commissionEarned / 100,
 
             'orders' => OrderData::collect($orders),
+            'clients' => ClientData::collect($clients),
             'payouts' => PayoutData::collect($payouts),
 
             'upcoming_payout_amount' => (int)$upcomingPayoutAmount / 100,
