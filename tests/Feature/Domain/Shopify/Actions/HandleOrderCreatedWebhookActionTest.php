@@ -6,6 +6,7 @@ use Domain\Commission\Enums\CommissionStatus;
 use Domain\Commission\Models\Commission;
 use Domain\Coupon\Models\Coupon;
 use Domain\Order\Models\Order;
+use Domain\Order\Models\OrderItem;
 use Domain\Shopify\Actions\HandleOrderCreatedWebhookAction;
 use Domain\Shopify\Data\OrderCreatedWebhookData;
 
@@ -37,6 +38,15 @@ it('handles first time customer with a known coupon', function () {
                 'amount' => '20.00',
             ],
         ],
+        'line_items' => [
+            [
+                'id' => 15924261191819,
+                'name' => 'Product Name',
+                'price' => '24.95',
+                'product_id' => 7980504219787,
+                'quantity' => 1,
+            ],
+        ],
         'total_line_items_price' => '1000.00',
     ]);
 
@@ -44,6 +54,7 @@ it('handles first time customer with a known coupon', function () {
 
     expect(Client::count())->toBe(1);
     expect(Order::count())->toBe(1);
+    expect(OrderItem::count())->toBe(1);
     expect(Commission::count())->toBe(1);
 
     $client = Client::first();
@@ -102,6 +113,15 @@ it('handles existing client without coupon', function () {
         'order_number' => 1234,
         'order_status_url' => '::order_status_url::',
         'discount_codes' => [],
+        'line_items' => [
+            [
+                'id' => 15924261191819,
+                'name' => 'Product Name',
+                'price' => '24.95',
+                'product_id' => 7980504219787,
+                'quantity' => 1,
+            ],
+        ],
         'total_line_items_price' => '1000.00',
     ]);
 
@@ -109,6 +129,7 @@ it('handles existing client without coupon', function () {
 
     expect(Client::count())->toBe(1);
     expect(Order::count())->toBe(1);
+    expect(OrderItem::count())->toBe(1);
     expect(Commission::count())->toBe(1);
 
     $client = Client::first();
@@ -172,6 +193,15 @@ it('handles existing client with known coupon attached a different clinic', func
                 'amount' => '20.00',
             ],
         ],
+        'line_items' => [
+            [
+                'id' => 15924261191819,
+                'name' => 'Product Name',
+                'price' => '24.95',
+                'product_id' => 7980504219787,
+                'quantity' => 1,
+            ],
+        ],
         'total_line_items_price' => '1000.00',
     ]);
 
@@ -179,6 +209,7 @@ it('handles existing client with known coupon attached a different clinic', func
 
     expect(Client::count())->toBe(1);
     expect(Order::count())->toBe(1);
+    expect(OrderItem::count())->toBe(1);
     expect(Commission::count())->toBe(1);
 
     $client = Client::first();
@@ -234,6 +265,15 @@ it('does not generate negative commission amount', function () {
                 'code' => 'REF123',
                 'type' => 'fixed_amount',
                 'amount' => '20.00',
+            ],
+        ],
+        'line_items' => [
+            [
+                'id' => 15924261191819,
+                'name' => 'Product Name',
+                'price' => '24.95',
+                'product_id' => 7980504219787,
+                'quantity' => 1,
             ],
         ],
         'total_line_items_price' => '50.00',

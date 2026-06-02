@@ -3,6 +3,7 @@
 namespace Domain\Shopify\Actions;
 
 use Domain\Order\Actions\CreateOrderAction;
+use Domain\Order\Actions\CreateOrderItemsAction;
 use Domain\Order\Models\Order;
 use Domain\Shopify\Data\OrderCreatedWebhookData;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ class HandleOrderCreatedWebhookAction
         protected ResolveWebhookOrderCouponAction $resolveCoupon,
         protected ResolveWebhookOrderClientAction $resolveClient,
         protected CreateOrderAction $createOrder,
+        protected CreateOrderItemsAction $createOrderItems,
         protected CreateCommissionFromOrderAction $createCommission,
         protected RecordShopifyActivityAction $recordActivity,
     ) {}
@@ -58,6 +60,11 @@ class HandleOrderCreatedWebhookAction
                 orderNumber: $data->order_number,
                 subtotal: $subtotal,
                 couponCode: $couponContext->coupon?->code,
+            );
+
+            $this->createOrderItems->execute(
+                order: $order,
+                lineItems: $data->line_items,
             );
 
             $this->createCommission->execute(
