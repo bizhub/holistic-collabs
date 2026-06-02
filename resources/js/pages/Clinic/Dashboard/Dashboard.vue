@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
-import { ChartNoAxesCombined, Handshake, Tag, Truck } from 'lucide-vue-next'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
+import { ChartNoAxesCombined, ChevronRight, Handshake, Tag, Truck } from 'lucide-vue-next'
 import { toast, type ToastOptions } from 'vue3-toastify'
 
 interface Props {
@@ -15,6 +17,7 @@ interface Props {
     commission_count: number
     commission_earned: number
 
+    orders: Domain.Order.Data.OrderData[]
     payouts: Domain.Commission.Data.PayoutData[]
     upcoming_payout_amount: number
 
@@ -22,7 +25,17 @@ interface Props {
     coupon_code: string | null
 }
 
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
 const props = defineProps<Props>()
+
+const currentTab = ref('orders')
+
+const currentOrderExpanded = ref('')
+const toggleOrderExpanded = (id: string) => {
+    currentOrderExpanded.value = currentOrderExpanded.value == id ? '' : id
+}
 
 const addCouponCodeToClipboard = () => {
     if (!props.coupon_code) return
@@ -113,71 +126,152 @@ const addCouponCodeToClipboard = () => {
                 </div>
             </div>
 
-            <div v-if="payouts.length > 0" class="w-full">
-                <div class="mb-4 flex items-center">
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-6">
-                            <h1 class="text-xl font-medium tracking-tight">Payouts</h1>
-                        </div>
-                        <!-- <p class="pt-1 text-muted-foreground">Earn commissions through orders using your coupon codes.</p> -->
-                    </div>
-                    <div></div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full whitespace-nowrap">
-                        <!-- <thead>
-                            <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
-                                <td class="pl-5">Paid On</td>
-                                <td class="pl-5"></td>
-                                <td class="pl-5"></td>
-                                <td class="pr-10 pl-5">
-                                    <div class="flex justify-end">Amount</div>
-                                </td>
-                            </tr>
-                        </thead> -->
-                        <tbody>
-                            <template v-for="payout in payouts" :key="payout.id">
-                                <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
-                                    <td class="pl-5">
-                                        <p class="text-sm leading-none">
-                                            {{ dayjs(payout.paid_at).format('DD MMM YYYY') }}
-                                        </p>
-                                    </td>
-                                    <td class="pl-5">
-                                        <!-- <div v-if="order.clinic" class="flex items-center">
-                                            <p class="text-sm leading-none text-zinc-600">{{ order.clinic.name }}</p>
-                                        </div> -->
-                                        <!-- <Badge variant="secondary">Paid</Badge> -->
-                                    </td>
-                                    <td class="pl-5">
-                                        <!-- <div v-if="order.coupon_code" class="inline-block bg-zinc-200 px-3 py-1.5">
-                                            <div class="flex items-center space-x-1">
-                                                <Tag class="size-4 text-zinc-600" />
-                                                <div class="text-sm font-medium text-zinc-600">{{ order.coupon_code }}</div>
-                                            </div>
-                                        </div> -->
-                                    </td>
-                                    <td class="pr-10 pl-5">
-                                        <div class="flex items-center justify-end">
-                                            <p class="text-sm leading-none">${{ payout.total_amount.toFixed(2) }}</p>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="mb-3 flex items-center gap-6">
+                <button
+                    @click="currentTab = 'orders'"
+                    class="cursor-pointer border-b-4 text-3xl font-medium tracking-tight hover:text-black"
+                    :class="[currentTab == 'orders' ? 'border-slate-200' : 'border-transparent text-black/60']">
+                    Orders
+                </button>
+                <button
+                    @click="currentTab = 'payouts'"
+                    class="cursor-pointer border-b-4 text-3xl font-medium tracking-tight hover:text-black"
+                    :class="[currentTab == 'payouts' ? 'border-slate-200' : 'border-transparent text-black/60']">
+                    Payouts
+                </button>
             </div>
 
-            <Empty v-else class="border">
-                <EmptyHeader>
-                    <EmptyMedia variant="icon">
-                        <Handshake />
-                    </EmptyMedia>
-                    <EmptyTitle>No payouts yet</EmptyTitle>
-                    <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
-                </EmptyHeader>
-            </Empty>
+            <div v-if="currentTab == 'orders'">
+                <div v-if="orders.length > 0" class="w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full whitespace-nowrap">
+                            <thead>
+                                <tr class="h-8 border border-zinc-200 bg-zinc-50 text-xs font-medium text-muted-foreground uppercase">
+                                    <td class="pl-5">Order</td>
+                                    <td class="pl-5">Date</td>
+                                    <td class="pl-5">Client</td>
+                                    <td class="pl-5">Coupon Used</td>
+                                    <td class="pr-10 pl-5">
+                                        <div class="flex justify-end">Subtotal</div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="order in orders" :key="order.id">
+                                    <tr
+                                        @click="toggleOrderExpanded(order.id)"
+                                        class="h-16 cursor-pointer rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
+                                        <td class="pl-5">
+                                            <p class="text-sm leading-none">#{{ order.order_number }}</p>
+                                        </td>
+                                        <td class="pl-5">
+                                            <p class="text-sm leading-none">
+                                                {{ dayjs.utc(order.created_at).local().format('DD/MM/YYYY h:mma') }}
+                                            </p>
+                                        </td>
+                                        <td class="space-y-1.5 pl-5">
+                                            <p class="text-sm leading-none">{{ order.client?.name }}</p>
+                                            <p class="text-sm leading-none text-slate-700">{{ order.client?.email }}</p>
+                                        </td>
+                                        <td class="pl-5">
+                                            <div v-if="order.coupon_code" class="inline-block bg-zinc-200 px-3 py-1.5">
+                                                <div class="flex items-center space-x-1">
+                                                    <Tag class="size-4 text-zinc-600" />
+                                                    <div class="text-sm font-medium text-zinc-600">{{ order.coupon_code }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="pr-10 pl-5">
+                                            <div class="flex items-center justify-end">
+                                                <p class="text-sm leading-none">
+                                                    ${{
+                                                        order.subtotal_price.toLocaleString(undefined, {
+                                                            minimumFractionDigits: 2,
+                                                            maximumFractionDigits: 2,
+                                                        })
+                                                    }}
+                                                </p>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <ChevronRight
+                                                class="size-5"
+                                                :class="{
+                                                    'rotate-90': currentOrderExpanded == order.id,
+                                                }" />
+                                        </td>
+                                    </tr>
+                                    <tr
+                                        v-if="currentOrderExpanded == order.id && order.items && order.items.length > 0"
+                                        class="border border-zinc-200 bg-zinc-100 focus:outline-none">
+                                        <td colspan="5" class="py-10 pr-10 pl-5">
+                                            <div v-for="item in order.items" :key="item.id" class="flex justify-between py-1">
+                                                <div>
+                                                    {{ item.name }}
+                                                    <span class="text-sm text-zinc-500"> × {{ item.quantity }} </span>
+                                                </div>
+                                                <div class="text-sm">
+                                                    ${{
+                                                        item.price.toLocaleString(undefined, {
+                                                            minimumFractionDigits: 2,
+                                                            maximumFractionDigits: 2,
+                                                        })
+                                                    }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <Empty v-else class="border">
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                            <Handshake />
+                        </EmptyMedia>
+                        <EmptyTitle>No orders yet</EmptyTitle>
+                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            </div>
+
+            <div v-if="currentTab == 'payouts'">
+                <div v-if="payouts.length > 0" class="w-full">
+                    <div class="overflow-x-auto">
+                        <table class="w-full whitespace-nowrap">
+                            <tbody>
+                                <template v-for="payout in payouts" :key="payout.id">
+                                    <tr class="h-16 rounded border border-zinc-200 hover:bg-zinc-50 focus:outline-none">
+                                        <td class="pl-5">
+                                            <p class="text-sm leading-none">
+                                                {{ dayjs(payout.paid_at).format('DD MMM YYYY') }}
+                                            </p>
+                                        </td>
+                                        <td class="pr-10 pl-5">
+                                            <div class="flex items-center justify-end">
+                                                <p class="text-sm leading-none">${{ payout.total_amount.toFixed(2) }}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <Empty v-else class="border">
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                            <Handshake />
+                        </EmptyMedia>
+                        <EmptyTitle>No payouts yet</EmptyTitle>
+                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            </div>
         </div>
     </ClinicLayout>
 </template>

@@ -88,7 +88,14 @@ declare namespace Domain.Order.Data {
         subtotal_price: number
         clinic: Domain.Clinic.Data.ClinicData | null
         client: Domain.Client.Data.ClientData | null
+        items: Array<Domain.Order.Data.OrderItemData> | null
         created_at: string
+    }
+    export type OrderItemData = {
+        id: string
+        name: string
+        quantity: number
+        price: number
     }
 }
 declare namespace Domain.Shopify.Context {

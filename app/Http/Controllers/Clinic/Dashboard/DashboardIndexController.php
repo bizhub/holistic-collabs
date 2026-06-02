@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Clinic\Dashboard;
 
 use Domain\Client\Models\Client;
 use Domain\Clinic\Support\ClinicContext;
-use Domain\Commission\Data\CommissionData;
 use Domain\Commission\Data\PayoutData;
 use Domain\Commission\Models\Commission;
 use Domain\Commission\Models\Payout;
 use Domain\Coupon\Models\Coupon;
+use Domain\Order\Data\OrderData;
+use Domain\Order\Models\Order;
 use Inertia\Inertia;
 
 class DashboardIndexController
@@ -63,6 +64,12 @@ class DashboardIndexController
             ->orderByDesc('paid_at')
             ->get();
 
+        $orders = Order::query()
+            ->with('client', 'items')
+            ->where('clinic_id', $clinicId)
+            ->orderByDesc('created_at')
+            ->get();
+
         $upcomingPayoutAmount = Commission::query()
             ->where('clinic_id', $clinicId)
             ->whereNull('payout_id')
@@ -93,6 +100,7 @@ class DashboardIndexController
 
             'commission_earned' => (int)$commissionEarned / 100,
 
+            'orders' => OrderData::collect($orders),
             'payouts' => PayoutData::collect($payouts),
 
             'upcoming_payout_amount' => (int)$upcomingPayoutAmount / 100,

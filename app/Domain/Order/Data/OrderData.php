@@ -18,6 +18,9 @@ class OrderData extends Data
         public ?ClinicData $clinic,
         public ?ClientData $client,
 
+        /** @var OrderItemData[] */
+        public ?array $items,
+
         public string $created_at,
     ) {}
 }
