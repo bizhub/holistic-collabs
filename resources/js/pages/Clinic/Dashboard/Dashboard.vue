@@ -49,6 +49,16 @@ const addCouponCodeToClipboard = () => {
         position: toast.POSITION.BOTTOM_RIGHT,
     } as ToastOptions)
 }
+
+const addCouponLinkToClipboard = () => {
+    navigator.clipboard.writeText(`https://holisticbeauty.co.nz/discount/${props.coupon_code}`)
+
+    toast.success('Copied to clipboard', {
+        autoClose: 4000,
+        transition: toast.TRANSITIONS.SLIDE,
+        position: toast.POSITION.BOTTOM_RIGHT,
+    } as ToastOptions)
+}
 </script>
 
 <template>
@@ -66,27 +76,37 @@ const addCouponCodeToClipboard = () => {
                 <div>
                     <Dialog v-if="coupon_code">
                         <DialogTrigger>
-                            <Button variant="secondary">
+                            <Button size="lg">
                                 <Tag />
-                                Get Coupon Code
+                                Clinic Code & Link
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>Coupon Code</DialogTitle>
-                                <DialogDescription>
-                                    Share this coupon code with your clients to use on the Holistic Beauty store for $X off any purchase.
-                                </DialogDescription>
-                                <DialogDescription>
-                                    Once a client uses this code, they are linked to your clinic - all future orders they place will automatically
-                                    generate commissions for you.
-                                </DialogDescription>
                             </DialogHeader>
-                            <div class="mt-4 flex items-center justify-between border bg-zinc-50 px-4 py-3">
-                                <code class="font-mono text-sm font-medium">{{ coupon_code }}</code>
+                            <div class="mt-2 text-sm text-slate-700">
+                                Share this code with your clients to enter at checkout for $X off their first purchase, and to link them to your
+                                clinic.
+                            </div>
+                            <div class="flex items-center justify-between border bg-zinc-50 px-4 py-3">
+                                <code class="min-w-0 flex-1 pr-6 font-mono text-sm font-medium break-all">{{ coupon_code }}</code>
                                 <Button size="sm" @click="addCouponCodeToClipboard">Copy</Button>
                             </div>
-                            <p class="mt-1 text-sm text-muted-foreground">Clients only need to use this code once to be linked to your clinic.</p>
+                            <div class="mt-4 text-sm text-slate-700">
+                                Share this link with your clients to automatically apply your clinic code at checkout - saves them having to manually
+                                enter it.
+                            </div>
+                            <div class="flex items-center border bg-zinc-50 px-4 py-3">
+                                <code class="min-w-0 flex-1 pr-6 font-mono text-sm font-medium break-all">
+                                    https://holisticbeauty.co.nz/discount/{{ coupon_code }}
+                                </code>
+                                <Button size="sm" @click="addCouponLinkToClipboard">Copy</Button>
+                            </div>
+                            <p class="mt-4 text-sm text-slate-700">
+                                Clients only need to use this code once to be linked to your clinic - all future orders they place under the same
+                                account (email address) will automatically generate commissions for you.
+                            </p>
                         </DialogContent>
                     </Dialog>
                 </div>
