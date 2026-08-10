@@ -71,7 +71,7 @@ const addCouponLinkToClipboard = () => {
                     <div class="flex items-center space-x-6">
                         <h1 class="text-3xl font-bold tracking-tight">Overview</h1>
                     </div>
-                    <p class="pt-1 text-muted-foreground">Earn commissions through orders using your coupon codes</p>
+                    <p class="pt-1 text-muted-foreground">Earn commissions through orders using your clinic code</p>
                 </div>
                 <div>
                     <Dialog v-if="coupon_code">
@@ -83,10 +83,10 @@ const addCouponLinkToClipboard = () => {
                         </DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>Coupon Code</DialogTitle>
+                                <DialogTitle>Clinic Code</DialogTitle>
                             </DialogHeader>
                             <div class="mt-2 text-sm text-slate-700">
-                                Share this code with your clients to enter at checkout for $X off their first purchase, and to link them to your
+                                Share this code with your clients to enter at checkout for $10 off their first purchase, and to link them to your
                                 clinic.
                             </div>
                             <div class="flex items-center justify-between border bg-zinc-50 px-4 py-3">
@@ -117,7 +117,6 @@ const addCouponLinkToClipboard = () => {
                     <div>
                         <h6 class="text-xs leading-none font-medium tracking-wider text-muted-foreground uppercase">referrals</h6>
                         <span class="text-3xl font-semibold">{{ client_count }}</span>
-                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
                     </div>
                     <div>
                         <Handshake class="size-12 text-zinc-200" />
@@ -139,7 +138,6 @@ const addCouponLinkToClipboard = () => {
                     <div>
                         <h6 class="text-xs leading-none font-medium tracking-wider text-muted-foreground uppercase">Upcoming payout</h6>
                         <span class="text-3xl font-semibold">${{ upcoming_payout_amount.toFixed(2) }}</span>
-                        <!-- <span class="ml-2 inline-block rounded-md bg-green-100 px-2 py-px text-xs text-green-500">+3.1%</span> -->
                     </div>
                     <div>
                         <Truck class="size-12 text-zinc-200" />
@@ -177,7 +175,7 @@ const addCouponLinkToClipboard = () => {
                                     <td class="pl-5">Order</td>
                                     <td class="pl-5">Date</td>
                                     <td class="pl-5">Client</td>
-                                    <td class="pl-5">Coupon Used</td>
+                                    <td class="pl-5">Clinic code used</td>
                                     <td class="pr-10 pl-5">
                                         <div class="flex justify-end">Subtotal</div>
                                     </td>
@@ -261,7 +259,7 @@ const addCouponLinkToClipboard = () => {
                             <Handshake />
                         </EmptyMedia>
                         <EmptyTitle>No orders yet</EmptyTitle>
-                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                        <EmptyDescription>Earn commissions through orders using your clinic code.</EmptyDescription>
                     </EmptyHeader>
                 </Empty>
             </div>
@@ -305,7 +303,7 @@ const addCouponLinkToClipboard = () => {
                             <Handshake />
                         </EmptyMedia>
                         <EmptyTitle>No clients yet</EmptyTitle>
-                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                        <EmptyDescription>Earn commissions through orders using your clinic code.</EmptyDescription>
                     </EmptyHeader>
                 </Empty>
             </div>
@@ -347,7 +345,7 @@ const addCouponLinkToClipboard = () => {
                             <Handshake />
                         </EmptyMedia>
                         <EmptyTitle>No payouts yet</EmptyTitle>
-                        <EmptyDescription>Earn commissions through orders using your coupon codes.</EmptyDescription>
+                        <EmptyDescription>Earn commissions through orders using your clinic code</EmptyDescription>
                     </EmptyHeader>
                 </Empty>
             </div>
